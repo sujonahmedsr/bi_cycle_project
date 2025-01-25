@@ -6,7 +6,7 @@ import validator from "validator";
 const orderShchema = new Schema<orderInterface>({
     email: {type: String, required: [true, 'email field is required'], validate: {
         validator: (value: string) => validator.isEmail(value),
-        message: '{VALUE} is no valid email'
+        message: '{VALUE} is no valid email '
     }},
     product: {type: mongoose.Types.ObjectId, required: [true, 'product field is required']},
     quantity: {type: Number, required: [true, 'quantity field is required'], min: [1, 'minimum 1 product select']},
