@@ -5,6 +5,7 @@ import authRouter from './app/module/User Model/authRouter';
 import globalErrorHandler from './app/middlewares/globalErrorHandling';
 import adminRouter from './app/module/admin/adminRouter';
 import router from './app/routes/routes';
+import authMid from './app/module/Authentication/authMid';
 const app = express();
 
 
@@ -19,7 +20,7 @@ app.use('/api', router)
 
 
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', authMid("admin", "customer"), (req: Request, res: Response) => {
   res.send({
     status: true,
     message: 'Server Live ⚡',

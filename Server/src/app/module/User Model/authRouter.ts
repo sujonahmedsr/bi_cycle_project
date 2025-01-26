@@ -7,5 +7,6 @@ const authRouter = Router()
 
 authRouter.post('/register', validateRequest(userValidation.userValidationSchema), userController.registerUser)
 authRouter.post('/login', validateRequest(userValidation.userLoginValidation), userController.loginUser)
+authRouter.post('/update-password', userController.loginUser)
 
 export default authRouter
