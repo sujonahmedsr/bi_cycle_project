@@ -18,6 +18,7 @@ const registerUser = asyncFunc(async (req: Request, res: Response) => {
 const loginUser = asyncFunc(async (req: Request, res: Response) => {
     const body = req.body
     const result = await userServices.loginUserDb(body)
+    res.cookie("token", result?.token, { httpOnly: true });
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         message: 'Login successful',
@@ -36,8 +37,18 @@ const resetPassword = asyncFunc(async (req: Request, res: Response) => {
         data: null
     })
 })
+
+const logOut = asyncFunc(async (req: Request, res: Response) => {
+    res.clearCookie("token");
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'User Logout...',
+        data: null
+    })
+})
 export const userController = {
     registerUser,
     loginUser,
-    resetPassword
+    resetPassword,
+    logOut
 }
