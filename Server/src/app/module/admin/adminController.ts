@@ -15,7 +15,7 @@ const userBlockedByAdmin = asyncFunc(async (req: Request, res: Response) => {
     })
 })
 const allGetuser = asyncFunc(async (req: Request, res: Response) => {
-    const result = await adminServices
+    const result = await adminServices.getAllUser()
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         message: 'All user reterive successfully',

@@ -22,6 +22,10 @@ const blockUserDb = async (id: string, payload: userInterface) => {
         throw new AppError(StatusCodes.FORBIDDEN,'This user already Blocked')
     }
 
+    if(user.role === "admin"){
+        throw new AppError(StatusCodes.FORBIDDEN,'You can not block this admin.')
+    }
+    
     const result = await userModel.findOneAndUpdate({ _id: id }, { ...payload, isBlocked: true }, { new: true })
 
     return result
