@@ -3,6 +3,11 @@ import AppError from "../../errors/AppError"
 import { userInterface } from "../User Model/user.Interface"
 import { userModel } from "../User Model/userSchema.model"
 
+const getAllUser = async () => {
+    const result = await userModel.find()
+    return result
+}
+
 const blockUserDb = async (id: string, payload: userInterface) => {
     const user = await userModel.findOne({ _id: id })
 
@@ -23,5 +28,6 @@ const blockUserDb = async (id: string, payload: userInterface) => {
 }
 
 export const adminServices = {
-    blockUserDb
+    blockUserDb,
+    getAllUser
 }

@@ -14,6 +14,17 @@ const userBlockedByAdmin = asyncFunc(async (req: Request, res: Response) => {
         message: 'User blocked successfully'
     })
 })
+const allGetuser = asyncFunc(async (req: Request, res: Response) => {
+    const result = await adminServices
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'All user reterive successfully',
+        data: result
+    })
+})
+
+
 export const adminController = {
-    userBlockedByAdmin
+    userBlockedByAdmin,
+    allGetuser
 }
