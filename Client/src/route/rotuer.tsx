@@ -1,5 +1,7 @@
 import App from "@/App";
+import Contact from "@/pages/Contact";
 import Login from "@/pages/Login";
+import Singup from "@/pages/Singup";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -10,6 +12,14 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />
+      },
+      {
+        path: '/singup',
+        element: <Singup />
+      },
+      {
+        path: '/contact',
+        element: <Contact />
       }
     ]
   },

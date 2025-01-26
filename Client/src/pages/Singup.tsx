@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const Login = () => {
+const Singup = () => {
   return (
     <section className="py-14">
       <div className="container mx-auto">
@@ -22,6 +22,7 @@ const Login = () => {
             </div>
             <div>
               <div className="grid gap-4">
+                <Input type="name" placeholder="Enter your name" required />
                 <Input type="email" placeholder="Enter your email" required />
                 <div>
                   <Input
@@ -48,4 +49,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Singup;
