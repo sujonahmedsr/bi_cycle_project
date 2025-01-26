@@ -16,9 +16,19 @@ const authMid = (...requiredRole: string[]) => {
             throw new AppError(StatusCodes.UNAUTHORIZED,"You are not authorized")
         }
 
-        const decoded = jwt.verify(token, process.env.SECRET_JWT as string) as JwtPayload
+        let decoded;
+
+        try {
+            decoded = jwt.verify(token, process.env.SECRET_JWT as string) as JwtPayload
+        } catch (error) {
+            
+            throw new AppError(StatusCodes.BAD_GATEWAY,"Expire Access Token.")
+        }
         
         const { email, role, id } = decoded
+
+        console.log(decoded);
+        
 
         const user = await userModel.findOne({ _id: id })
         
