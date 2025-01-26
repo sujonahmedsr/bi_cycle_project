@@ -17,9 +17,6 @@ const authMid = (...requiredRole: string[]) => {
         }
 
         const decoded = jwt.verify(token, process.env.SECRET_JWT as string) as JwtPayload
-
-        console.log("decoded data", decoded);
-        
         
         const { email, role, id } = decoded
 

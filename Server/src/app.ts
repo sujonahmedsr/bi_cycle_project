@@ -20,7 +20,7 @@ app.use('/api', router)
 
 
 
-app.get('/', authMid("admin", "customer"), (req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
   res.send({
     status: true,
     message: 'Server Live ⚡',
