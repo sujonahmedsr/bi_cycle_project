@@ -26,8 +26,6 @@ const authMid = (...requiredRole: string[]) => {
         }
         
         const { email, role, id } = decoded
-
-        console.log(decoded);
         
 
         const user = await userModel.findOne({ _id: id })
