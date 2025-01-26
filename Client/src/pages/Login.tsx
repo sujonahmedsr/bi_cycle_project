@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -36,9 +37,9 @@ const Login = () => {
               </div>
               <div className="mx-auto mt-8 flex justify-center gap-1 text-sm text-muted-foreground">
                 <p>Don&apos;t have an account?</p>
-                <a href="#" className="text-primary hover:underline">
+                <Link to={'/singup'} className="text-primary hover:underline">
                   Sign up
-                </a>
+                </Link>
               </div>
             </div>
           </div>

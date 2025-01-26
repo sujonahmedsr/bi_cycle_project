@@ -12,6 +12,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
+import { Link } from "react-router-dom";
 
 
 const Navbar = () => {
@@ -21,11 +22,13 @@ const Navbar = () => {
                 <nav className="hidden justify-between items-center lg:flex">
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-2">
-                        <span className="text-lg font-semibold">Bi_Cycle</span>
+                            <Link to={'/'}>
+                                <h1 className="text-2xl font-bold">Bi_Cycle</h1>
+                            </Link>
                         </div>
                     </div>
                     <div className="flex items-center">
-                        <a
+                        <Link
                             className={cn(
                                 "text-muted-foreground",
                                 navigationMenuTriggerStyle,
@@ -33,12 +36,12 @@ const Navbar = () => {
                                     variant: "ghost",
                                 }),
                             )}
-                            href="#"
+                            to={'/'}
                         >
                             Home
-                        </a>
+                        </Link>
 
-                        <a
+                        <Link
                             className={cn(
                                 "text-muted-foreground",
                                 navigationMenuTriggerStyle,
@@ -46,11 +49,11 @@ const Navbar = () => {
                                     variant: "ghost",
                                 }),
                             )}
-                            href="#"
+                            to={'/about'}
                         >
-                            Pricing
-                        </a>
-                        <a
+                            About Us
+                        </Link>
+                        <Link
                             className={cn(
                                 "text-muted-foreground",
                                 navigationMenuTriggerStyle,
@@ -58,15 +61,17 @@ const Navbar = () => {
                                     variant: "ghost",
                                 }),
                             )}
-                            href="#"
+                            to={'/contact'}
                         >
-                            Blog
-                        </a>
+                            Contact Us
+                        </Link>
                     </div>
                     <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
-                            Log in
-                        </Button>
+                        <Link to={'/login'}>
+                            <Button variant="outline" size="sm">
+                                Log in
+                            </Button>
+                        </Link>
                     </div>
                 </nav>
                 <div className="block lg:hidden">
@@ -84,7 +89,7 @@ const Navbar = () => {
                                 <SheetHeader>
                                     <SheetTitle>
                                         <div className="flex items-center gap-2">
-                                        <span className="text-lg font-semibold">Bi_Cycle</span>
+                                            <span className="text-lg font-semibold">Bi_Cycle</span>
                                         </div>
                                     </SheetTitle>
                                 </SheetHeader>
