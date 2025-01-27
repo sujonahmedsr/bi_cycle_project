@@ -13,12 +13,12 @@ import SmallDeviceFiltering from "./SmallDeviceFiltering";
 const RightSide = () => {
     return (
         <div>
-            <div className="flex md:flex-row flex-col gap-2 items-center justify-between">
-                <Input type="text" placeholder="Search your bi_cycle" className="md:w-2/5 w-full" />
-                <div className="flex items-center gap-5 w-full">
+            <div className="flex md:flex-row flex-col gap-5 items-center justify-between">
+                <Input type="text" placeholder="Search your bi_cycle" className="w-full" />
+                <div className="flex items-center justify-between gap-5 w-full">
                     <Select>
-                        <SelectTrigger className="md:w-[180px] w-full">
-                            <SelectValue placeholder="Sort By " />
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Sort By" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
