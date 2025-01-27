@@ -13,11 +13,14 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { Link } from "react-router-dom";
-
+import { LuShoppingCart } from "react-icons/lu";
+import { LuSearch } from "react-icons/lu";
+import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
+    const user = true
     return (
-        <section className="py-4 border-b bg-white">
+        <section className="p-4 border-b bg-white sticky top-0 z-10">
             <div className="container mx-auto">
                 <nav className="hidden justify-between items-center lg:flex">
                     <div className="flex items-center gap-6">
@@ -66,12 +69,19 @@ const Navbar = () => {
                             Contact Us
                         </Link>
                     </div>
-                    <div className="flex gap-2">
-                        <Link to={'/login'}>
-                            <Button variant="outline" size="sm">
-                                Log in
-                            </Button>
-                        </Link>
+                    <div className="flex items-center gap-4">
+                        <LuSearch className="text-xl" />
+                        <LuShoppingCart className="text-xl" />
+                        {
+                            user ? <FaUser className="text-xl" />
+                                :
+                                <Link to={'/login'}>
+                                    <Button variant="outline">
+                                        Log in
+                                    </Button>
+                                </Link>
+                        }
+
                     </div>
                 </nav>
                 <div className="block lg:hidden">
