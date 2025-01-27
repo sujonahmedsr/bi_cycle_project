@@ -32,7 +32,7 @@ const navItems = [
         link: '/about'
     },
     {
-        title: 'About Us',
+        title: 'Contact Us',
         link: '/contact'
     },
 ]
