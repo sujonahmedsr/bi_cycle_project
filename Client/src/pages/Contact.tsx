@@ -59,7 +59,7 @@ const Contact = () => {
               <Label htmlFor="message">Message</Label>
               <Textarea placeholder="Type your message here." id="message" />
             </div>
-            <Button className="w-full">Send Message</Button>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700">Send Message</Button>
           </div>
         </div>
       </div>

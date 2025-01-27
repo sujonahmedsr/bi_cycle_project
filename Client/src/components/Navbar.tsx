@@ -39,7 +39,7 @@ const navItems = [
 
 const Navbar = () => {
     const locatoin = useLocation()
-    const user = true
+    const user = false
 
     return (
         <section className="p-4 border-b bg-white sticky top-0 z-10 transition-all">
@@ -78,7 +78,7 @@ const Navbar = () => {
                             user ? <FaUser className="text-xl hover:text-blue-600 duration-300" />
                                 :
                                 <Link to={'/login'}>
-                                    <Button variant="outline">
+                                    <Button className="bg-blue-600 hover:bg-blue-700 rounded">
                                         Log in
                                     </Button>
                                 </Link>
@@ -130,7 +130,7 @@ const Navbar = () => {
                                     }
                                 </div>
                                 <div className="flex flex-col gap-3">
-                                    <Button variant="outline">Log in</Button>
+                                    <Button className="bg-blue-600 hover:bg-blue-700 rounded">Log in</Button>
                                 </div>
                             </SheetContent>
                         </Sheet>

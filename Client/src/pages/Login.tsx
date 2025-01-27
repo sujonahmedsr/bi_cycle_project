@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { IoMdBicycle } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -9,14 +10,10 @@ const Login = () => {
         <div className="flex flex-col gap-4">
           <div className="mx-auto max-w-sm w-full rounded-md shadow py-14 border p-5">
             <div className="mb-6 flex flex-col items-center">
-              <a href="https://shadcnblocks.com">
-                <img
-                  src="https://shadcnblocks.com/images/block/block-1.svg"
-                  alt="logo"
-                  className="mb-7 h-10 w-auto"
-                />
-              </a>
-              <p className="mb-2 text-2xl font-bold">Shadcnblocks.com</p>
+              <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
+                <IoMdBicycle className="text-3xl text-blue-600" />
+                <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
+              </Link>
               <p className="text-muted-foreground">
                 Please enter your details.
               </p>
@@ -31,13 +28,13 @@ const Login = () => {
                     required
                   />
                 </div>
-                <Button type="submit" className="mt-2 w-full">
+                <Button type="submit" className="mt-2 w-full bg-blue-600 hover:bg-blue-700 rounded">
                   Create an account
                 </Button>
               </div>
               <div className="mx-auto mt-8 flex justify-center gap-1 text-sm text-muted-foreground">
                 <p>Don&apos;t have an account?</p>
-                <Link to={'/singup'} className="text-primary hover:underline">
+                <Link to={'/singup'} className="text-blue-600 hover:underline">
                   Sign up
                 </Link>
               </div>
