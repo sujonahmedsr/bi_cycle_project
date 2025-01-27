@@ -11,7 +11,6 @@ const NewsLetter = () => {
                 </Link>
             </div>
         </div>
-
     );
 };
 

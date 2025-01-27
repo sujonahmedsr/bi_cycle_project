@@ -4,6 +4,7 @@ import Contact from "@/pages/Contact";
 import Error from "@/pages/Error";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
+import Shop from "@/pages/Shop";
 import Singup from "@/pages/Singup";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: '/Shop',
+        element: <Shop />
       },
       {
         path: '/login',

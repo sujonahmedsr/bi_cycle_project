@@ -39,7 +39,9 @@ const navItems = [
 
 const Navbar = () => {
     const locatoin = useLocation()
+    
     const user = false
+    
 
     return (
         <section className="p-4 border-b bg-white sticky top-0 z-10 transition-all">

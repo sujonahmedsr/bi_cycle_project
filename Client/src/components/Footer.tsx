@@ -34,7 +34,7 @@ const sections = [
 
 const Footer = () => {
     return (
-        <section className="py-10 border-t mt-10 bg-blue-50">
+        <section className="py-10 border-t mt-10 bg-blue-50 p-4">
             <div className="container mx-auto">
                 <footer>
                     <div className="flex flex-col items-center text-center lg:flex-row">
