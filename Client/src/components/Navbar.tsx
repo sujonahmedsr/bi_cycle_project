@@ -12,68 +12,70 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
 import { LuSearch } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
+import { IoMdBicycle } from "react-icons/io";
+
+const navItems = [
+    {
+        title: 'Home',
+        link: '/'
+    },
+    {
+        title: 'Shop Now',
+        link: '/shop'
+    },
+    {
+        title: 'About Us',
+        link: '/about'
+    },
+    {
+        title: 'About Us',
+        link: '/contact'
+    },
+]
 
 const Navbar = () => {
+    const locatoin = useLocation()
     const user = true
+
     return (
-        <section className="p-4 border-b bg-white sticky top-0 z-10">
+        <section className="p-4 border-b bg-white sticky top-0 z-10 transition-all">
             <div className="container mx-auto">
                 <nav className="hidden justify-between items-center lg:flex">
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-2">
-                            <Link to={'/'}>
-                                <h1 className="text-2xl font-bold">Bi_Cycle</h1>
+                            <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
+                                <IoMdBicycle className="text-3xl text-blue-600" />
+                                <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
                             </Link>
                         </div>
                     </div>
                     <div className="flex items-center">
-                        <Link
-                            className={cn(
-                                "text-muted-foreground",
-                                navigationMenuTriggerStyle,
-                                buttonVariants({
-                                    variant: "ghost",
-                                }),
-                            )}
-                            to={'/'}
-                        >
-                            Home
-                        </Link>
-
-                        <Link
-                            className={cn(
-                                "text-muted-foreground",
-                                navigationMenuTriggerStyle,
-                                buttonVariants({
-                                    variant: "ghost",
-                                }),
-                            )}
-                            to={'/about'}
-                        >
-                            About Us
-                        </Link>
-                        <Link
-                            className={cn(
-                                "text-muted-foreground",
-                                navigationMenuTriggerStyle,
-                                buttonVariants({
-                                    variant: "ghost",
-                                }),
-                            )}
-                            to={'/contact'}
-                        >
-                            Contact Us
-                        </Link>
+                        {
+                            navItems.map((item, index) => <Link
+                                key={index + 1}
+                                className={cn(
+                                    "text-muted-foreground",
+                                    navigationMenuTriggerStyle,
+                                    buttonVariants({
+                                        variant: "ghost",
+                                    }),
+                                    `hover:text-blue-600 ${locatoin.pathname === item?.link ? "text-blue-600" : ""}`
+                                )}
+                                to={item?.link}
+                            >
+                                {item?.title}
+                            </Link>)
+                        }
                     </div>
                     <div className="flex items-center gap-4">
                         <LuSearch className="text-xl" />
                         <LuShoppingCart className="text-xl" />
                         {
-                            user ? <FaUser className="text-xl" />
+                            user ? <FaUser className="text-xl hover:text-blue-600 duration-300" />
                                 :
                                 <Link to={'/login'}>
                                     <Button variant="outline">
@@ -87,7 +89,10 @@ const Navbar = () => {
                 <div className="block lg:hidden">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <span className="text-lg font-semibold">Bi_Cycle</span>
+                            <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
+                                <IoMdBicycle className="text-3xl text-blue-600" />
+                                <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
+                            </Link>
                         </div>
                         <Sheet>
                             <SheetTrigger asChild>
@@ -99,20 +104,30 @@ const Navbar = () => {
                                 <SheetHeader>
                                     <SheetTitle>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-lg font-semibold">Bi_Cycle</span>
+                                            <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
+                                                <IoMdBicycle className="text-3xl text-blue-600" />
+                                                <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
+                                            </Link>
                                         </div>
                                     </SheetTitle>
                                 </SheetHeader>
                                 <div className="mb-6 mt-6 flex flex-col gap-4">
-                                    <a href="#" className="font-semibold">
-                                        Home
-                                    </a>
-                                    <a href="#" className="font-semibold">
-                                        Pricing
-                                    </a>
-                                    <a href="#" className="font-semibold">
-                                        Blog
-                                    </a>
+                                    {
+                                        navItems.map((item, index) => <Link
+                                            key={index + 1}
+                                            className={cn(
+                                                "text-muted-foreground",
+                                                navigationMenuTriggerStyle,
+                                                buttonVariants({
+                                                    variant: "ghost",
+                                                }),
+                                                `hover:text-blue-600 ${locatoin.pathname === item?.link ? "text-blue-600" : ""}`
+                                            )}
+                                            to={item?.link}
+                                        >
+                                            {item?.title}
+                                        </Link>)
+                                    }
                                 </div>
                                 <div className="flex flex-col gap-3">
                                     <Button variant="outline">Log in</Button>

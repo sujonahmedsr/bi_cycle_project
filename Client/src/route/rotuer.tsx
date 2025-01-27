@@ -1,6 +1,7 @@
 import App from "@/App";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import Error from "@/pages/Error";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Singup from "@/pages/Singup";
@@ -10,6 +11,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         path: '/',

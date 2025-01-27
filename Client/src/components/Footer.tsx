@@ -1,4 +1,6 @@
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { IoMdBicycle } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const sections = [
     {
@@ -32,21 +34,17 @@ const sections = [
 
 const Footer = () => {
     return (
-        <section className="py-32">
+        <section className="py-10 border-t mt-10 bg-blue-50">
             <div className="container mx-auto">
                 <footer>
                     <div className="flex flex-col items-center text-center lg:flex-row">
                         <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
                             <div>
-                                <span className="flex items-center justify-center gap-4 lg:justify-start">
-                                    <img
-                                        src="https://shadcnblocks.com/images/block/block-1.svg"
-                                        alt="logo"
-                                        className="h-11"
-                                    />
-                                    <p className="text-3xl font-semibold">Shadcnblocks</p>
-                                </span>
-                                <p className="mt-6 text-sm text-muted-foreground">
+                                <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
+                                    <IoMdBicycle className="text-3xl text-blue-600" />
+                                    <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
+                                </Link>
+                                <p className="mt-6 text-sm text-muted-foreground text-start">
                                     A collection of 100+ responsive HTML templates for your
                                     startup business or side project.
                                 </p>
