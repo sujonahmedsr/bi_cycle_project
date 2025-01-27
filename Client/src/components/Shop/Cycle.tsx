@@ -13,16 +13,16 @@ import cycle1 from "../../assets/cycle/bike.png"
 
 const Cycle = () => {
   return (
-    <Card>
+    <Card className="hover:border-blue-300">
       <CardHeader>
         <img src={cycle1} alt="testing image" />
       </CardHeader>
-      <CardContent>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+      <CardContent className="space-y-3">
+        <CardTitle>Create project Cycle</CardTitle>
+        <CardDescription>Price: $120</CardDescription>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button>Deploy</Button>
+      <CardFooter>
+        <Button className="w-full rounded bg-blue-600 hover:bg-blue-700">View Details</Button>
       </CardFooter>
     </Card>
   )

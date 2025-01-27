@@ -26,9 +26,11 @@ const RightSide = () => {
                             <SelectItem value="high_to_low">High To Low Price</SelectItem>
                         </SelectGroup>
                     </SelectContent>
+
+                    
                 </Select>
             </div>
-            <div className="grid lg:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5 py-5">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 py-5">
                 <Cycle />
                 <Cycle />
                 <Cycle />
