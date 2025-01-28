@@ -66,7 +66,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/userDashboard",
-    element: <UserDashBoard />,
+    element: <ProtectedRoute>
+      <UserDashBoard />
+    </ProtectedRoute>,
     children: [
       {
         index: true,

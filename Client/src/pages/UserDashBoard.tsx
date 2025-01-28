@@ -1,16 +1,27 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { IoMdBicycle } from "react-icons/io";
+import { useAppDispatch } from "@/Redux/hooks";
+import { useLogoutMutation } from "@/Redux/Features/Auth/AuthApi";
+import { logout } from "@/Redux/Features/Auth/AuthSlice";
+import { toast } from "sonner";
 
 export default function UserDashBoard() {
+    const dispatch = useAppDispatch()
+    const [logoutDb] = useLogoutMutation()
+    const handleLogout = async () => {
+        await dispatch(logout())
+        await logoutDb(undefined)
+        toast.success("Log Out Ok...")
+    }
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+    // const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
 
     const location = useLocation();
 
-    const toggleSubMenu = (menu: string) => {
-        setExpandedMenu((prev) => (prev === menu ? null : menu));
-    };
+    // const toggleSubMenu = (menu: string) => {
+    //     setExpandedMenu((prev) => (prev === menu ? null : menu));
+    // };
 
     const isActive = (path: string) => location.pathname === path;
     // const isSubmenuActive = (paths: string[]) => paths.includes(location.pathname);
@@ -71,7 +82,7 @@ export default function UserDashBoard() {
                             Update Password
                         </Link>
                     </li>
-                    <li>
+                    <li onClick={handleLogout}>
                         <Link
                             to="updatePassword"
                             className={`block p-2 rounded-md ${isActive("/settings") ? "bg-gray-700" : "hover:bg-gray-700"
