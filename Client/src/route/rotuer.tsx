@@ -1,5 +1,6 @@
 import App from "@/App";
-import DashboardLayout from "@/components/Layouts/DashBoard/DashboardLayout";
+import MyProfile from "@/components/userDashBoard/MyProfile";
+// import DashboardLayout from "@/components/Layouts/DashBoard/DashboardLayout";
 import About from "@/pages/About";
 import Cart from "@/pages/Cart";
 import CheckOut from "@/pages/CheckOut";
@@ -9,9 +10,13 @@ import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Shop from "@/pages/Shop";
 import Singup from "@/pages/Singup";
+import UpdatePass from "@/components/userDashBoard/UpdatePass";
+import UserDashBoard from "@/pages/UserDashBoard";
 import ViewDetails from "@/pages/ViewDetails";
 import ProtectedRoute from "@/utils/ProtectedRoute";
 import { createBrowserRouter } from "react-router-dom";
+import ProfileSetting from "@/components/userDashBoard/ProfileSetting";
+import ViewOrders from "@/components/userDashBoard/ViewOrders";
 
 const router = createBrowserRouter([
   {
@@ -60,17 +65,39 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "/dashboard",
-    element: <DashboardLayout />,
+    path: "/userDashboard",
+    element: <UserDashBoard />,
     children: [
       {
         index: true,
-        element: <div>
-          Okay now
-        </div>
+        element: <MyProfile />
+      },
+      {
+        path: "viewOrders",
+        element: <ViewOrders />
+      },
+      {
+        path: "updatePassword",
+        element: <UpdatePass />
+      },
+      {
+        path: "profileSetting",
+        element: <ProfileSetting />
       }
     ]
-  }
+  },
+  // {
+  //   path: "/dashboard",
+  //   element: <DashboardLayout />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <div>
+  //         Okay now
+  //       </div>
+  //     }
+  //   ]
+  // }
 ]);
 
 export default router;

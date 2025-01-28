@@ -155,18 +155,6 @@ export default function DashboardLayout() {
                     Add New Product
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to="/products/categories"
-                    className={`block p-2 rounded-md ${
-                      isActive("/products/categories")
-                        ? "bg-gray-700"
-                        : "hover:bg-gray-700"
-                    }`}
-                  >
-                    Categories
-                  </Link>
-                </li>
               </ul>
             )}
           </li>
@@ -183,17 +171,6 @@ export default function DashboardLayout() {
             </Link>
           </li>
 
-          {/* Reports */}
-          <li>
-            <Link
-              to="/reports"
-              className={`block p-2 rounded-md ${
-                isActive("/reports") ? "bg-gray-700" : "hover:bg-gray-700"
-              }`}
-            >
-              Reports
-            </Link>
-          </li>
 
           {/* Settings */}
           <li>

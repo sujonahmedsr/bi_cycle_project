@@ -91,7 +91,7 @@ const Navbar = () => {
                             user ? <ProfileDropDown />
                                 :
                                 <Link to={'/login'}>
-                                    <Button className="bg-blue-600 hover:bg-blue-700 rounded">
+                                    <Button variant={"outline"} className="text-blue-700 hover:text-white hover:bg-blue-600 rounded duration-300">
                                         Log in
                                     </Button>
                                 </Link>
