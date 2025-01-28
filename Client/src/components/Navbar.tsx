@@ -135,8 +135,20 @@ const Navbar = () => {
                                         </Link>)
                                     }
                                 </div>
-                                <div className="flex flex-col gap-3">
-                                    <Button className="bg-blue-600 hover:bg-blue-700 rounded">Log in</Button>
+                                <div className="flex flex-col items-center gap-5">
+                                    <Link to={'/cart'}>
+                                        <LuShoppingCart className="text-xl" />
+                                    </Link>
+                                    {
+                                        user ? <FaUser className="text-xl hover:text-blue-600 duration-300" />
+                                            :
+                                            <Link to={'/login'} className="w-full">
+                                                <Button className="bg-blue-600 hover:bg-blue-700 rounded w-full">
+                                                    Log in
+                                                </Button>
+                                            </Link>
+                                    }
+
                                 </div>
                             </SheetContent>
                         </Sheet>

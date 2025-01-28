@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import cycle1 from "../../assets/cycle/bike.png"
+import cycle1 from "@/assets/cycle/bike.png"
 
 const Cycle = () => {
   return (
