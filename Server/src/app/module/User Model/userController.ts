@@ -38,6 +38,16 @@ const resetPassword = asyncFunc(async (req: Request, res: Response) => {
     })
 })
 
+const getSingleUser = asyncFunc(async (req: Request, res: Response) => {
+    const {id} = req.params
+    const result = await userServices.singleUser(id)
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'Password Change Successfull.',
+        data: result
+    })
+})
+
 const logOut = asyncFunc(async (req: Request, res: Response) => {
     res.clearCookie("token");
     sendResponse(res, {
@@ -50,5 +60,6 @@ export const userController = {
     registerUser,
     loginUser,
     resetPassword,
+    getSingleUser,
     logOut
 }

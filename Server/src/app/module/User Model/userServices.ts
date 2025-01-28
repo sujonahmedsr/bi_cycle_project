@@ -39,7 +39,7 @@ const loginUserDb = async (paylod: loginInterface) => {
 }
 
 
-const resetPassword = async (payload: {oldPassword: string, newPassword: string}, userData: JwtPayload) => {
+const resetPassword = async (payload: { oldPassword: string, newPassword: string }, userData: JwtPayload) => {
     const user = await userModel.findOne({ _id: userData.id }).select("+password")
 
     const isPassMatched = await bcrypt.compare(payload?.oldPassword, user?.password as string)
@@ -50,14 +50,23 @@ const resetPassword = async (payload: {oldPassword: string, newPassword: string}
 
     const newPass = await bcrypt.hash(payload?.newPassword, 10)
 
-    const result = await userModel.findByIdAndUpdate({_id: user?.id }, {password: newPass}, {new: true})
+    const result = await userModel.findByIdAndUpdate({ _id: user?.id }, { password: newPass }, { new: true })
 
-    return result   
+    return result
+}
+
+const singleUser = async (id: string) => {
+    const user = await userModel.findOne({ _id: id })
+    if (!user) {
+        throw new AppError(StatusCodes.NOT_FOUND, 'This user is not found !')
+    }
+    return user
 }
 
 
 export const userServices = {
     resgisterUserIntoDb,
     loginUserDb,
-    resetPassword
+    resetPassword,
+    singleUser
 }
