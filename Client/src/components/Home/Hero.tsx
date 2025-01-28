@@ -7,10 +7,10 @@ import 'swiper/css';
 // Import required Swiper modules
 import { Autoplay, Pagination } from 'swiper/modules';
 
-import img1 from '../assets/heroImage/heroImg1.jpg'
-import img2 from '../assets/heroImage/heroImg2.jpg'
-import img3 from '../assets/heroImage/heroImg3.jpg'
-import img4 from '../assets/heroImage/heroImg4.jpg'
+import img1 from '@/assets/heroImage/heroImg1.jpg'
+import img2 from '@/assets/heroImage/heroImg2.jpg'
+import img3 from '@/assets/heroImage/heroImg3.jpg'
+import img4 from '@/assets/heroImage/heroImg4.jpg'
 
 const Hero = () => {
     return (

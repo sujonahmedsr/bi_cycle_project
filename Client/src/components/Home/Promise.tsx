@@ -1,9 +1,9 @@
-import icon1 from '../assets/icons/1.png'
-import icon2 from '../assets/icons/2.png'
-import icon3 from '../assets/icons/3.png'
-import icon4 from '../assets/icons/4.png'
-import icon5 from '../assets/icons/5.png'
-import icon6 from '../assets/icons/6.png'
+import icon1 from '@/assets/icons/1.png'
+import icon2 from '@/assets/icons/2.png'
+import icon3 from '@/assets/icons/3.png'
+import icon4 from '@/assets/icons/4.png'
+import icon5 from '@/assets/icons/5.png'
+import icon6 from '@/assets/icons/6.png'
 const Promise = () => {
     return (
         <div className='flex flex-wrap items-center md:justify-evenly gap-5 bg-blue-50 p-5 text-sm'>

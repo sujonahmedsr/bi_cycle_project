@@ -39,7 +39,7 @@ const navItems = [
 
 const Navbar = () => {
     const locatoin = useLocation()
-    
+
     const user = false
 
 
@@ -73,9 +73,13 @@ const Navbar = () => {
                             </Link>)
                         }
                     </div>
-                    <div className="flex items-center gap-4">
-                        <LuSearch className="text-xl" />
-                        <LuShoppingCart className="text-xl" />
+                    <div className="flex items-center gap-5">
+                        <Link to={'/products'}>
+                            <LuSearch className="text-xl" />
+                        </Link>
+                        <Link to={'/cart'}>
+                            <LuShoppingCart className="text-xl" />
+                        </Link>
                         {
                             user ? <FaUser className="text-xl hover:text-blue-600 duration-300" />
                                 :

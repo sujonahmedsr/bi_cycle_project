@@ -22,7 +22,7 @@ const Cycle = () => {
         <CardDescription>Price: $120</CardDescription>
       </CardContent>
       <CardFooter>
-        <Button className="w-full rounded bg-blue-600 hover:bg-blue-700">View Details</Button>
+        <Button variant={"outline"} className="w-full rounded hover:bg-blue-600 hover:text-white duration-200">View Details</Button>
       </CardFooter>
     </Card>
   )
