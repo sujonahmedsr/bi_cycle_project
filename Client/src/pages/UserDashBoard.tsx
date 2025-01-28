@@ -6,6 +6,29 @@ import { useLogoutMutation } from "@/Redux/Features/Auth/AuthApi";
 import { logout } from "@/Redux/Features/Auth/AuthSlice";
 import { toast } from "sonner";
 
+const userNavItems = [
+    {
+        title: 'Home',
+        link: '/userDashboard',
+        path: '/userDashboard'
+    },
+    {
+        title: 'View Orders',
+        link: 'viewOrders',
+        path: '/userDashboard/viewOrders'
+    },
+    {
+        title: 'Profile Settings',
+        link: 'profileSetting',
+        path: '/userDashboard/profileSetting'
+    },
+    {
+        title: 'Update Password',
+        link: 'updatePassword',
+        path: '/userDashboard/updatePassword'
+    },
+]
+
 export default function UserDashBoard() {
     const dispatch = useAppDispatch()
     const [logoutDb] = useLogoutMutation()
@@ -15,16 +38,10 @@ export default function UserDashBoard() {
         toast.success("Log Out Ok...")
     }
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    // const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
 
     const location = useLocation();
-
-    // const toggleSubMenu = (menu: string) => {
-    //     setExpandedMenu((prev) => (prev === menu ? null : menu));
-    // };
-
-    const isActive = (path: string) => location.pathname === path;
-    // const isSubmenuActive = (paths: string[]) => paths.includes(location.pathname);
+    console.log(location);
+    
 
     return (
         <div className="flex h-screen">
@@ -34,62 +51,35 @@ export default function UserDashBoard() {
                     } transition-all duration-300 overflow-y-auto`}
             >
                 <div className="p-4 text-lg font-semibold border-b border-gray-700">
-                    <Link to={'/userDashboard'} className="text-2xl font-bold flex items-center gap-2">
+                    <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
                         <IoMdBicycle className="text-3xl text-blue-600" />
                         <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
                     </Link>
                 </div>
 
-                <ul className="mt-4 space-y-2 px-2">
+                <ul className="mt-4 space-y-3 px-4">
 
-                    <li>
-                        <Link
-                            to="/"
-                            className={`block p-2 rounded-md ${isActive("/customers") ? "bg-gray-700" : "hover:bg-gray-700"
-                                }`}
-                        >
-                            Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to="viewOrders"
-                            className={`block p-2 rounded-md ${isActive("/customers") ? "bg-gray-700" : "hover:bg-gray-700"
-                                }`}
-                        >
-                            View Orders
-                        </Link>
-                    </li>
+                    {
+                        userNavItems.map((item, index) =>
+                            <li key={index + 1}>
+                                <Link
+                                    to={item?.link}
+                                    className={`w-full`}
+                                >
+                                    <button className={`w-full ${location.pathname === item.path ? "text-blue-600" : ""} text-start px-4 py-2 bg-white rounded`}>
+                                        {item?.title}
+                                    </button>
+                                </Link>
+                            </li>)
+                    }
 
-
-                    {/* Settings */}
-                    <li>
-                        <Link
-                            to="profileSetting"
-                            className={`block p-2 rounded-md ${isActive("/settings") ? "bg-gray-700" : "hover:bg-gray-700"
-                                }`}
-                        >
-                            Profile Settings
-                        </Link>
-                    </li>
-                    {/* Settings */}
-                    <li>
-                        <Link
-                            to="updatePassword"
-                            className={`block p-2 rounded-md ${isActive("/settings") ? "bg-gray-700" : "hover:bg-gray-700"
-                                }`}
-                        >
-                            Update Password
-                        </Link>
-                    </li>
-                    <li onClick={handleLogout}>
-                        <Link
-                            to="updatePassword"
-                            className={`block p-2 rounded-md ${isActive("/settings") ? "bg-gray-700" : "hover:bg-gray-700"
-                                }`}
+                    <li >
+                        <button
+                            onClick={handleLogout}
+                            className={"w-full px-4 py-2 bg-white rounded font-semibold text-center mt-10"}
                         >
                             Log out
-                        </Link>
+                        </button>
                     </li>
                 </ul>
             </div>
