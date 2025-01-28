@@ -5,25 +5,34 @@ import { useAppDispatch } from "@/Redux/hooks";
 import { useLogoutMutation } from "@/Redux/Features/Auth/AuthApi";
 import { logout } from "@/Redux/Features/Auth/AuthSlice";
 import { toast } from "sonner";
+import { FaHome } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
+import { FaUser } from "react-icons/fa";
+import { MdGridView } from "react-icons/md";
+import { IoLogOut } from "react-icons/io5";
 
 const userNavItems = [
     {
         title: 'Home',
+        icons: <FaHome className="text-xl"/>,
         link: '/userDashboard',
         path: '/userDashboard'
     },
     {
         title: 'View Orders',
+        icons: <MdGridView className="text-xl"/>,
         link: 'viewOrders',
         path: '/userDashboard/viewOrders'
     },
     {
         title: 'Profile Settings',
+        icons: <FaUser className="text-xl"/>,
         link: 'profileSetting',
         path: '/userDashboard/profileSetting'
     },
     {
         title: 'Update Password',
+        icons: <IoMdSettings className="text-xl"/>,
         link: 'updatePassword',
         path: '/userDashboard/updatePassword'
     },
@@ -38,10 +47,7 @@ export default function UserDashBoard() {
         toast.success("Log Out Ok...")
     }
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
     const location = useLocation();
-    console.log(location);
-    
 
     return (
         <div className="flex h-screen">
@@ -66,7 +72,10 @@ export default function UserDashBoard() {
                                     to={item?.link}
                                     className={`w-full`}
                                 >
-                                    <button className={`w-full ${location.pathname === item.path ? "text-blue-600" : ""} text-start px-4 py-2 bg-white rounded`}>
+                                    <button className={`w-full ${location.pathname === item.path ? "text-blue-600" : ""} text-start px-4 py-2 bg-white rounded flex items-center gap-2`}>
+                                        {
+                                            item.icons
+                                        }
                                         {item?.title}
                                     </button>
                                 </Link>
@@ -76,8 +85,9 @@ export default function UserDashBoard() {
                     <li >
                         <button
                             onClick={handleLogout}
-                            className={"w-full px-4 py-2 bg-white rounded font-semibold text-center mt-10"}
+                            className={"w-full px-4 py-2 bg-white rounded font-semibold text-center mt-10 flex items-center gap-2 hover:text-blue-600 "}
                         >
+                            <IoLogOut className="text-xl"/>
                             Log out
                         </button>
                     </li>
