@@ -1,4 +1,5 @@
 import App from "@/App";
+import DashboardLayout from "@/components/Layouts/DashBoard/DashboardLayout";
 import About from "@/pages/About";
 import Cart from "@/pages/Cart";
 import CheckOut from "@/pages/CheckOut";
@@ -9,6 +10,8 @@ import Login from "@/pages/Login";
 import Shop from "@/pages/Shop";
 import Singup from "@/pages/Singup";
 import ViewDetails from "@/pages/ViewDetails";
+import ProtectedRoute from "@/utils/ProtectedRoute";
+import ProtectorSingInOrUp from "@/utils/ProtectorSingInOrUp";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -35,15 +38,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/checkOut',
-        element: <CheckOut />
-      },
-      {
-        path: '/login',
-        element: <Login />
-      },
-      {
-        path: '/singup',
-        element: <Singup />
+        element: <ProtectedRoute>
+          <CheckOut />
+        </ProtectedRoute>
       },
       {
         path: '/contact',
@@ -52,9 +49,33 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: <About />
-      }
+      },
+      {
+        path: '/login',
+        element: <ProtectorSingInOrUp>
+          <Login />
+        </ProtectorSingInOrUp>
+      },
+      {
+        path: '/singup',
+        element: <ProtectorSingInOrUp>
+          <Singup />
+        </ProtectorSingInOrUp>
+      },
     ]
   },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <div>
+          Okay now
+        </div>
+      }
+    ]
+  }
 ]);
 
 export default router;

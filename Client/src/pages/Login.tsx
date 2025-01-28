@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IoMdBicycle } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -16,6 +18,10 @@ import {
 } from '@/components/ui/form'
 
 import { PasswordInput } from "@/components/ui/password-input";
+import { useLoginMutation } from "@/Redux/Features/Auth/AuthApi";
+import { jwtDecode } from "jwt-decode";
+import { setUser } from "@/Redux/Features/Auth/AuthSlice";
+import { useAppDispatch } from "@/Redux/hooks";
 
 // Improved schema with additional validation rules
 const formSchema = z.object({
@@ -27,21 +33,38 @@ const formSchema = z.object({
 })
 
 const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const [login] = useLoginMutation()
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    }
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       // Assuming an async login function
-      console.log(values)
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>,
-      )
+      const toastId = toast.loading("Loading...")
+      const loginData = {
+        email: values?.email,
+        password: values?.password
+      }
+
+      const res = await login(loginData)
+      
+      if (res?.error) {
+        toast.error("Invalid password or email", { id: toastId })
+      } else {
+        const user = jwtDecode(res?.data?.data?.token);
+        dispatch(setUser({ user, token: res?.data?.data?.token }))
+        navigate('/')
+        toast.success("Login Successfull...", { id: toastId })
+      }
+
     } catch (error) {
-      console.error('Form submission error', error)
       toast.error('Failed to submit the form. Please try again.')
     }
   }

@@ -10,7 +10,7 @@ import { persistStore, persistReducer,FLUSH,
     REGISTER, } from 'redux-persist'
 
 const persistConfig = {
-    key: 'authTask',
+    key: 'CycleAuth',
     storage,
   };
 

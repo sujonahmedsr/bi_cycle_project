@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IoMdBicycle } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -16,10 +18,11 @@ import {
 } from '@/components/ui/form'
 
 import { PasswordInput } from "@/components/ui/password-input";
+import { useRegistrationMutation } from "@/Redux/Features/Auth/AuthApi";
 
 // Improved schema with additional validation rules
 const formSchema = z.object({
-  name: z.string({ required_error: 'Invalid name address' }),
+  name: z.string().min(1, { message: 'Invalid name address' }),
   email: z.string().email({ message: 'Invalid email address' }),
   password: z
     .string()
@@ -28,21 +31,37 @@ const formSchema = z.object({
 })
 
 const Singup = () => {
+  const [signUp] = useRegistrationMutation()
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    }
   })
+  const navigate = useNavigate()
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       // Assuming an async login function
-      console.log(values)
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>,
-      )
+
+      const toastId = toast.loading("Loading...")
+      const signUpData = {
+        name: values?.name,
+        email: values?.email,
+        password: values?.password
+      }
+
+      const res = await signUp(signUpData)
+      if (res?.error) {
+        toast.error((res?.error as any)?.error, { id: toastId })
+      } else {
+        navigate('/login')
+        toast.success("Registration Successfull...", { id: toastId })
+      }
+
     } catch (error) {
-      console.error('Form submission error', error)
       toast.error('Failed to submit the form. Please try again.')
     }
   }
@@ -61,7 +80,7 @@ const Singup = () => {
               </p>
             </div>
             <div>
-            <Form {...form}>
+              <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                   <div className="grid gap-4">
                     <FormField

@@ -10,21 +10,21 @@ const authApi = baseApi.injectEndpoints({
         }),
         registration: builder.mutation({
             query: (info) => ({
-                url: '/auth/user-registraion',
+                url: '/auth/register',
                 method: "POST",
                 body: info
             })
         }),
         login: builder.mutation({
             query: (info) => ({
-                url: '/auth/user-login',
+                url: '/auth/login',
                 method: "POST",
                 body: info
             }),
         }),
         logout: builder.mutation({
             query: () => ({
-                url: '/auth/user-logout',
+                url: '/auth/logout',
                 method: "POST",
             }),
             invalidatesTags: ['task']

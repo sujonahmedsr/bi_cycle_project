@@ -17,6 +17,10 @@ import { LuShoppingCart } from "react-icons/lu";
 import { LuSearch } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
 import { IoMdBicycle } from "react-icons/io";
+import { useCurrentToken } from "@/Redux/Features/Auth/AuthSlice";
+import { useAppSelector } from "@/Redux/hooks";
+import { jwtDecode } from "jwt-decode";
+import ProfileDropDown from "@/pages/ProfileDropDown";
 
 const navItems = [
     {
@@ -40,8 +44,11 @@ const navItems = [
 const Navbar = () => {
     const locatoin = useLocation()
 
-    const user = false
-
+    const token = useAppSelector(useCurrentToken)
+    let user;
+    if (token) {
+        user = jwtDecode(token)
+    }
 
     return (
         <section className="p-4 border-b bg-white sticky top-0 z-10 transition-all">
@@ -81,7 +88,7 @@ const Navbar = () => {
                             <LuShoppingCart className="text-xl" />
                         </Link>
                         {
-                            user ? <FaUser className="text-xl hover:text-blue-600 duration-300" />
+                            user ? <ProfileDropDown />
                                 :
                                 <Link to={'/login'}>
                                     <Button className="bg-blue-600 hover:bg-blue-700 rounded">

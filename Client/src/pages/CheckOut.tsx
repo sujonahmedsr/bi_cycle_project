@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Link } from "react-router-dom";
 const CheckOut = () => {
     return (
         <div className="container mx-auto py-5 grid lg:grid-cols-12 gap-10">
@@ -29,7 +28,7 @@ const CheckOut = () => {
                     <Label htmlFor="message">Message</Label>
                     <Textarea placeholder="Type your message here." id="message" />
                 </div>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">Send Message</Button>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700">Order Now</Button>
             </div>
             <div className="lg:col-span-5">
                 <div className="border bg-white p-4 rounded sticky top-24">
@@ -46,9 +45,6 @@ const CheckOut = () => {
                         <span>Total</span>
                         <span>R 2,599.99</span>
                     </div>
-                    <Link to={"/checkOut"} className="w-full">
-                        <Button variant={"outline"} className="w-full mt-4 p-2 rounded  hover:bg-blue-700 hover:text-white duration-200">Order Now</Button>
-                    </Link>
                 </div>
             </div>
         </div>
