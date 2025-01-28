@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Shop from "@/pages/Shop";
 import Singup from "@/pages/Singup";
+import ViewDetails from "@/pages/ViewDetails";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: '/products',
         element: <Shop />
+      },
+      {
+        path: '/viewDetails',
+        element: <ViewDetails />
       },
       {
         path: '/cart',
