@@ -11,7 +11,6 @@ import Shop from "@/pages/Shop";
 import Singup from "@/pages/Singup";
 import ViewDetails from "@/pages/ViewDetails";
 import ProtectedRoute from "@/utils/ProtectedRoute";
-import ProtectorSingInOrUp from "@/utils/ProtectorSingInOrUp";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -52,15 +51,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <ProtectorSingInOrUp>
-          <Login />
-        </ProtectorSingInOrUp>
+        element: <Login />
       },
       {
         path: '/singup',
-        element: <ProtectorSingInOrUp>
-          <Singup />
-        </ProtectorSingInOrUp>
+        element: <Singup />
       },
     ]
   },

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IoMdBicycle } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -20,8 +20,9 @@ import {
 import { PasswordInput } from "@/components/ui/password-input";
 import { useLoginMutation } from "@/Redux/Features/Auth/AuthApi";
 import { jwtDecode } from "jwt-decode";
-import { setUser } from "@/Redux/Features/Auth/AuthSlice";
-import { useAppDispatch } from "@/Redux/hooks";
+import { setUser, useCurrentToken } from "@/Redux/Features/Auth/AuthSlice";
+import { useAppDispatch, useAppSelector } from "@/Redux/hooks";
+import { useEffect, useState } from "react";
 
 // Improved schema with additional validation rules
 const formSchema = z.object({
@@ -36,6 +37,20 @@ const Login = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [login] = useLoginMutation()
+  const token = useAppSelector(useCurrentToken)
+  const [loading, setLoading] = useState(true)
+   useEffect(() => {
+    setLoading(true)
+    if (token) {
+      navigate("/", { replace: true });
+    }
+    else{
+      setLoading(false)
+    }
+  }, [token, navigate])
+
+  const location = useLocation()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,20 +69,24 @@ const Login = () => {
       }
 
       const res = await login(loginData)
-      
+
       if (res?.error) {
         toast.error("Invalid password or email", { id: toastId })
       } else {
-        const user = jwtDecode(res?.data?.data?.token);
+        const user = await jwtDecode(res?.data?.data?.token);
         dispatch(setUser({ user, token: res?.data?.data?.token }))
-        navigate('/')
+        navigate(location.state || '/', { replace: true })
         toast.success("Login Successfull...", { id: toastId })
       }
-
     } catch (error) {
-      toast.error('Failed to submit the form. Please try again.')
+      toast.error('Failed to login. Please try again.')
     }
   }
+
+  if(loading) {
+    return <div className="h-[60vh] grid place-items-center"><h1>loading...</h1></div>
+  }
+
   return (
     <section className="py-14">
       <div className="container mx-auto">

@@ -19,6 +19,9 @@ import {
 
 import { PasswordInput } from "@/components/ui/password-input";
 import { useRegistrationMutation } from "@/Redux/Features/Auth/AuthApi";
+import { useAppSelector } from "@/Redux/hooks";
+import { useCurrentToken } from "@/Redux/Features/Auth/AuthSlice";
+import { useEffect, useState } from "react";
 
 // Improved schema with additional validation rules
 const formSchema = z.object({
@@ -41,6 +44,18 @@ const Singup = () => {
     }
   })
   const navigate = useNavigate()
+
+  const token = useAppSelector(useCurrentToken)
+    const [loading, setLoading] = useState(true)
+     useEffect(() => {
+      setLoading(true)
+      if (token) {
+        navigate("/", { replace: true });
+      }
+      else{
+        setLoading(false)
+      }
+    }, [token, navigate])
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -65,6 +80,11 @@ const Singup = () => {
       toast.error('Failed to submit the form. Please try again.')
     }
   }
+
+  if(loading) {
+    return <div className="h-[60vh] grid place-items-center"><h1>loading...</h1></div>
+  }
+  
   return (
     <section className="py-14">
       <div className="container mx-auto">
