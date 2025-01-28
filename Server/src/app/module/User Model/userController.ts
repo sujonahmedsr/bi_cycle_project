@@ -43,7 +43,7 @@ const getSingleUser = asyncFunc(async (req: Request, res: Response) => {
     const result = await userServices.singleUser(id)
     sendResponse(res, {
         statusCode: StatusCodes.OK,
-        message: 'Password Change Successfull.',
+        message: 'Get single user Successfull.',
         data: result
     })
 })
