@@ -3,7 +3,7 @@ import { useAppSelector } from "@/Redux/hooks";
 import { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
-const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+const ProtectedRoutes = ({ children }: { children: ReactNode }) => {
   const token = useAppSelector(useCurrentToken);
   const location = useLocation();
 
@@ -13,4 +13,4 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   return children;
 };
 
-export default ProtectedRoute;
+export default ProtectedRoutes;

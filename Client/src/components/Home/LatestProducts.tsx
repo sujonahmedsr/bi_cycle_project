@@ -20,7 +20,7 @@ const LatestProducts = () => {
             </div>
             <div className="mt-5 mx-auto text-center">
                 <Link to={'/products'}>
-                    <Button variant={"outline"}>Show All</Button>
+                    <Button variant={"outline"}>View All</Button>
                 </Link>
             </div>
         </div>

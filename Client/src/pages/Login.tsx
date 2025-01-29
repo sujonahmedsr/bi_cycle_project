@@ -21,7 +21,6 @@ import { useLoginMutation } from "@/Redux/Features/Auth/AuthApi";
 import { jwtDecode } from "jwt-decode";
 import { setUser, useCurrentToken } from "@/Redux/Features/Auth/AuthSlice";
 import { useAppDispatch, useAppSelector } from "@/Redux/hooks";
-import { useEffect, useState } from "react";
 
 // Improved schema with additional validation rules
 const formSchema = z.object({
@@ -37,16 +36,6 @@ const Login = () => {
   const dispatch = useAppDispatch()
   const [login] = useLoginMutation()
   const token = useAppSelector(useCurrentToken)
-  const [loading, setLoading] = useState(true)
-   useEffect(() => {
-    setLoading(true)
-    if (token) {
-      navigate("/", { replace: true });
-    }
-    else{
-      setLoading(false)
-    }
-  }, [token, navigate])
 
   const location = useLocation()
 
@@ -82,8 +71,15 @@ const Login = () => {
     }
   }
 
-  if(loading) {
-    return <div className="h-[60vh] grid place-items-center"><h1>loading...</h1></div>
+  if (token) {
+    return <div className="h-[60vh] grid place-items-center">
+      <div className="mt-5 mx-auto text-center">
+        <h1>You are already You are logged in..</h1>
+        <Link to={'/products'} >
+          <Button variant={"outline"} className="mt-5 hover:text-blue-600">View All Product</Button>
+        </Link>
+      </div>
+    </div>
   }
 
   return (

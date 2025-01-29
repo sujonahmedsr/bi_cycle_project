@@ -21,7 +21,6 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useRegistrationMutation } from "@/Redux/Features/Auth/AuthApi";
 import { useAppSelector } from "@/Redux/hooks";
 import { useCurrentToken } from "@/Redux/Features/Auth/AuthSlice";
-import { useEffect, useState } from "react";
 
 // Improved schema with additional validation rules
 const formSchema = z.object({
@@ -46,16 +45,6 @@ const Singup = () => {
   const navigate = useNavigate()
 
   const token = useAppSelector(useCurrentToken)
-    const [loading, setLoading] = useState(true)
-     useEffect(() => {
-      setLoading(true)
-      if (token) {
-        navigate("/", { replace: true });
-      }
-      else{
-        setLoading(false)
-      }
-    }, [token, navigate])
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -70,10 +59,10 @@ const Singup = () => {
 
       const res = await signUp(signUpData)
       if (res?.error) {
-        toast.error((res?.error as any)?.error, { id: toastId })
+        toast.error((res?.error as any)?.error || "Something went wrong", { id: toastId })
       } else {
         navigate('/login')
-        toast.success("Registration Successfull...", { id: toastId })
+        toast.success("Registration Successfull..., Please login now", { id: toastId })
       }
 
     } catch (error) {
@@ -81,10 +70,17 @@ const Singup = () => {
     }
   }
 
-  if(loading) {
-    return <div className="h-[60vh] grid place-items-center"><h1>loading...</h1></div>
+  if (token) {
+    return <div className="h-[60vh] grid place-items-center">
+      <div className="mt-5 mx-auto text-center">
+        <h1>You are already You are logged in..</h1>
+        <Link to={'/products'} >
+          <Button variant={"outline"} className="mt-5 hover:text-blue-600">View All Product</Button>
+        </Link>
+      </div>
+    </div>
   }
-  
+
   return (
     <section className="py-14">
       <div className="container mx-auto">

@@ -3,7 +3,7 @@ import { useCurrentToken } from "@/Redux/Features/Auth/AuthSlice";
 import { useAppSelector } from "@/Redux/hooks";
 import { jwtDecode } from "jwt-decode";
 
-type Tuser = {
+export type Tuser = {
     email: string,
     role: string,
     id: string

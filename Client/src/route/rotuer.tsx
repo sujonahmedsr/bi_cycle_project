@@ -13,10 +13,12 @@ import Singup from "@/pages/Singup";
 import UpdatePass from "@/components/userDashBoard/UpdatePass";
 import UserDashBoard from "@/pages/UserDashBoard";
 import ViewDetails from "@/pages/ViewDetails";
-import ProtectedRoute from "@/utils/ProtectedRoute";
 import { createBrowserRouter } from "react-router-dom";
 import ProfileSetting from "@/components/userDashBoard/ProfileSetting";
 import ViewOrders from "@/components/userDashBoard/ViewOrders";
+import DashboardLayout from "@/components/Layouts/DashBoard/AdminDashboard";
+import DashboardProtected from "@/utils/DashboardProtected";
+import ProtectedRoutes from "@/utils/ProtectedRoutes";
 
 const router = createBrowserRouter([
   {
@@ -42,9 +44,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/checkOut',
-        element: <ProtectedRoute>
+        element: <ProtectedRoutes>
           <CheckOut />
-        </ProtectedRoute>
+        </ProtectedRoutes>
       },
       {
         path: '/contact',
@@ -66,9 +68,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/userDashboard",
-    element: <ProtectedRoute>
+    element: <DashboardProtected role="customer">
       <UserDashBoard />
-    </ProtectedRoute>,
+    </DashboardProtected>,
     children: [
       {
         index: true,
@@ -88,18 +90,20 @@ const router = createBrowserRouter([
       }
     ]
   },
-  // {
-  //   path: "/dashboard",
-  //   element: <DashboardLayout />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <div>
-  //         Okay now
-  //       </div>
-  //     }
-  //   ]
-  // }
+  {
+    path: "/AdminDashboard",
+    element: <DashboardProtected role="admin">
+      <DashboardLayout />
+    </DashboardProtected>,
+    children: [
+      {
+        index: true,
+        element: <div>
+          Okay now
+        </div>
+      }
+    ]
+  }
 ]);
 
 export default router;
