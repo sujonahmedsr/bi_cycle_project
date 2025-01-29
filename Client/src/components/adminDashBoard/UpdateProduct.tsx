@@ -21,43 +21,68 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {
-    zodResolver
-} from "@hookform/resolvers/zod"
-import * as z from "zod"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
-import { useState } from "react"
-import { useAddProductMutation } from "@/Redux/Features/Product/ProductApi"
+import { useEffect, useState } from "react"
+import { useSingleProductQuery, useUpdateProductMutation } from "@/Redux/Features/Product/ProductApi"
 import { toast } from "sonner"
-const formSchema = z.object({
-    name: z.string({ required_error: "name is required." }),
-    description: z.string({ required_error: "description is required." }),
-    brand: z.string({ required_error: "brand is required." }),
-    price: z.string({ required_error: "price is required." }),
-    quantity: z.string({ required_error: "quantity is required." }),
-    type: z.string({ required_error: "type is required." }),
-    inStock: z.boolean({ required_error: "inStock is required." }),
-});
-const AddProduct = () => {
-    const [addProducts] = useAddProductMutation()
+import { FaEdit } from "react-icons/fa"
+
+const UpdateProduct = ({ id }: { id: string }) => {
+
+    const { data: singleProduct, isLoading } = useSingleProductQuery(id, {skip: !id})
+
+    if (isLoading) {
+        <div>
+            <p>Loading... Please Wait</p>
+        </div>
+    }
+
+    const [updateProduct] = useUpdateProductMutation()
     const [open, setOpen] = useState(false)
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm({
+        defaultValues: {
+            name: singleProduct?.data?.name,
+            description: singleProduct?.data?.description,
+            brand: singleProduct?.data?.brand,
+            price: singleProduct?.data?.price,
+            quantity: singleProduct?.data?.quantity,
+            type: singleProduct?.data?.type,
+            inStock: singleProduct?.data?.inStock
+        }
     })
 
     const { reset } = form
 
+    useEffect(() => {
+        if (singleProduct?.data) {
+            reset({
+                name: singleProduct.data.name || "",
+                description: singleProduct.data.description || "",
+                brand: singleProduct.data.brand || "",
+                price: singleProduct.data.price || 0,
+                quantity: singleProduct.data.quantity || 0,
+                type: singleProduct.data.type || "",
+                inStock: singleProduct.data.inStock ?? false
+            });
+        }
+    }, [singleProduct, reset]);
+    
+
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const toastId = toast.loading("Loading...")
         try {
-            const res = await addProducts(data)
+            const res = await updateProduct({
+                id,
+                data: {...data}
+            })
+            
             if (res?.error) {
                 toast.error((res?.error as any)?.error || "Something went wrong", { id: toastId })
             } else {
-                toast.success("Product Added Successfull...", { id: toastId })
+                toast.success("Product Updated Successfull...", { id: toastId })
                 reset()
                 setOpen(!open)
             }
@@ -70,11 +95,11 @@ const AddProduct = () => {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <div onClick={() => setOpen(!open)}>
-                    <Button className="bg-blue-600 hover:bg-blue-700 rounded">Add Product</Button>
+                    <FaEdit className="text-blue-600 cursor-pointer mx-auto" />
                 </div>
             </DialogTrigger>
             <DialogContent aria-describedby={undefined} className="sm:max-w-[425px]">
-                <DialogTitle className="sr-only">Add Products</DialogTitle>
+                <DialogTitle className="sr-only">Update Product</DialogTitle>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-md mx-auto w-full">
                         <FormField
@@ -232,4 +257,4 @@ const AddProduct = () => {
     );
 };
 
-export default AddProduct;
+export default UpdateProduct;

@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import AddProduct from "./AddProduct";
 import { useAllProductsQuery, useProductDeleteMutation } from "@/Redux/Features/Product/ProductApi";
 import { Skeleton } from "../ui/skeleton";
 import { Tproduct } from "../Shop/RightSide";
 import { toast } from "sonner";
+import UpdateProduct from "./UpdateProduct";
 
 const AllProducts = () => {
     const [productDelete] = useProductDeleteMutation()
@@ -47,7 +48,7 @@ const AllProducts = () => {
                     {item.quantity}
                 </td>
                 <td className="p-3 flex items-center text-xl">
-                    <FaEdit className="text-blue-600 cursor-pointer mx-auto" />
+                    <UpdateProduct id={item?._id}/>
                     <FaTrash onClick={()=> handleDeleteProduct(item._id)} className="text-red-600 cursor-pointer mx-auto" />
                 </td>
             </tr>
