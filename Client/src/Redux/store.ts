@@ -1,29 +1,35 @@
-import {configureStore} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { baseApi } from './Api/baseApi'
 import authSlice from './Features/Auth/AuthSlice'
+import productSlice from './Features/Product/ProductSlice'
 import storage from 'redux-persist/lib/storage'
-import { persistStore, persistReducer,FLUSH,
+import {
+    persistStore, persistReducer, FLUSH,
     REHYDRATE,
     PAUSE,
     PERSIST,
     PURGE,
-    REGISTER, } from 'redux-persist'
+    REGISTER,
+} from 'redux-persist'
 
 const persistConfig = {
     key: 'CycleAuth',
     storage,
-  };
+};
 
-  const persistedAuthReducer = persistReducer(persistConfig, authSlice);
+const persistedAuthReducer = persistReducer(persistConfig, authSlice);
 
 export const store = configureStore({
     reducer: {
         [baseApi.reducerPath]: baseApi.reducer,
-        auth: persistedAuthReducer
+        auth: persistedAuthReducer,
+        product: productSlice
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },}).concat(baseApi.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+    }).concat(baseApi.middleware)
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

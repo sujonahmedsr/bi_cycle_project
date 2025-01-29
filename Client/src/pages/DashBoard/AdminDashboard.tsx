@@ -12,6 +12,7 @@ import { MdGridView } from "react-icons/md";
 import { IoLogOut } from "react-icons/io5";
 import { HiOutlineBars3BottomRight } from "react-icons/hi2";
 import { IoClose } from "react-icons/io5";
+import { FaUsers } from "react-icons/fa";
 
 const userNavItems = [
   {
@@ -21,16 +22,16 @@ const userNavItems = [
     path: '/adminDashboard'
   },
   {
-    title: 'Add Product',
-    icons: <MdGridView className="text-xl" />,
-    link: 'addProduct',
-    path: '/adminDashboard/addProduct'
-  },
-  {
     title: 'All Products',
     icons: <MdGridView className="text-xl" />,
     link: 'allProducts',
     path: '/adminDashboard/allProducts'
+  },
+  {
+    title: 'All User',
+    icons: <FaUsers className="text-xl" />,
+    link: 'allUsers',
+    path: '/adminDashboard/allUsers'
   },
   {
     title: 'All Order',
@@ -114,7 +115,7 @@ export default function AdminDashBoard() {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
         <div className="flex items-center justify-between bg-gray-200 p-4">
-          <button
+        <button
             className="text-gray-700 p-2 focus:outline-none md:hidden block"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
@@ -124,7 +125,7 @@ export default function AdminDashBoard() {
           </button>
         </div>
         {/* Content */}
-        <div className="flex-1 bg-gray-50 overflow-y-auto p-4">
+        <div className="flex-1 bg-gray-50 overflow-y-auto p-6">
           <Outlet />
         </div>
       </div>

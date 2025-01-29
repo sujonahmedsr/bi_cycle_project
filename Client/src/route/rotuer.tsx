@@ -19,9 +19,9 @@ import DashboardProtected from "@/utils/DashboardProtected";
 import UserDashBoard from "@/pages/DashBoard/UserDashBoard";
 import AdminDashBoard from "@/pages/DashBoard/AdminDashboard";
 import Overview from "@/components/adminDashBoard/Overview";
-import AddProduct from "@/components/adminDashBoard/AddProduct";
 import AllProducts from "@/components/adminDashBoard/AllProducts";
 import AllOrders from "@/components/adminDashBoard/AllOrders";
+import AllUsers from "@/components/adminDashBoard/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -104,12 +104,12 @@ const router = createBrowserRouter([
         element: <Overview />
       },
       {
-        path: "addProduct",
-        element: <AddProduct />
-      },
-      {
         path: "allProducts",
         element: <AllProducts />
+      },
+      {
+        path: "allUsers",
+        element: <AllUsers />
       },
       {
         path: "allOrders",

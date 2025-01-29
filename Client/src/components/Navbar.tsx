@@ -85,7 +85,12 @@ const Navbar = () => {
                             <LuSearch className="text-xl" />
                         </Link>
                         <Link to={'/cart'}>
-                            <LuShoppingCart className="text-xl" />
+                            <div className="relative">
+                                <LuShoppingCart className="text-xl" />
+                                <div className="absolute -top-3 -right-2 text-blue-700">
+                                    <p></p>
+                                </div>
+                            </div>
                         </Link>
                         {
                             user ? <ProfileDropDown />
