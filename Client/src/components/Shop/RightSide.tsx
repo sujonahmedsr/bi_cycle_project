@@ -9,8 +9,49 @@ import {
 } from "@/components/ui/select"
 import Cycle from "./Cycle";
 import SmallDeviceFiltering from "./SmallDeviceFiltering";
+import { useAllProductsQuery } from "@/Redux/Features/Product/ProductApi";
+import { Skeleton } from "@/components/ui/skeleton"
+
+export type Tproduct = {
+    brand: string
+    createdAt: string
+    description: string
+    inStock: boolean
+    name: string
+    price: number
+    quantity: number
+    type: string
+    updatedAt: string
+    _id: string
+}
 
 const RightSide = () => {
+    const { data: allProducts, isLoading, isError } = useAllProductsQuery(undefined)
+    let content;
+
+    if (isLoading && !isError) {
+        content = <div className="flex flex-col space-y-3">
+            <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+            <div className="space-y-2">
+                <Skeleton className="h-4 w-[250px]" />
+                <Skeleton className="h-4 w-[200px]" />
+            </div>
+        </div>
+    }
+    if (!isLoading && isError) {
+        content = <div>
+            <h1 className="text-red-600 font-semibold">Something went wrong...</h1>
+        </div>
+    }
+    if (!isLoading && !isError && allProducts?.data?.length === 0) {
+        content = <div>
+            <h1 className="text-red-600 font-semibold">No product found...</h1>
+        </div>
+    }
+    if (!isLoading && !isError && allProducts?.data?.length > 0) {
+        content = allProducts?.data?.map((item: Tproduct, index: number) => <Cycle key={index} item={item} />)
+    }
+
     return (
         <div>
             <div className="flex md:flex-row flex-col gap-5 items-center justify-between">
@@ -33,16 +74,10 @@ const RightSide = () => {
                 </div>
             </div>
             <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 py-5">
-                <Cycle />
-                <Cycle />
-                <Cycle />
-                <Cycle />
-                <Cycle />
-                <Cycle />
-                <Cycle />
-                <Cycle />
-                <Cycle />
-                <Cycle />
+                {/* {content} */}
+                {
+                    content
+                }
             </div>
         </div>
     );
