@@ -18,6 +18,7 @@ import ProtectedRoutes from "@/utils/ProtectedRoutes";
 import DashboardProtected from "@/utils/DashboardProtected";
 import UserDashBoard from "@/pages/DashBoard/UserDashBoard";
 import AdminDashBoard from "@/pages/DashBoard/AdminDashboard";
+import Overview from "@/components/adminDashBoard/Overview";
 
 const router = createBrowserRouter([
   {
@@ -90,14 +91,14 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "/AdminDashboard",
+    path: "/adminDashboard",
     element: <DashboardProtected role="admin">
       <AdminDashBoard />
     </DashboardProtected>,
     children: [
       {
         index: true,
-        element: <MyProfile />
+        element: <Overview />
       },
       {
         path: "viewOrders",

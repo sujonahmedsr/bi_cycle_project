@@ -2,15 +2,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import img from '@/assets/heroImage/innerbanner.jpg'
 
 const Contact = () => {
   return (
-    <section className="py-32">
-      <div className="container">
-        <div className="mx-auto flex max-w-screen-xl flex-col justify-between gap-10 lg:flex-row lg:gap-20">
+    <section className="pt-2">
+      <div className="relative">
+        <img
+          src={img}
+          alt="Cycling Adventure"
+          className="w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <h2 className="text-4xl font-bold text-white">Contact Us</h2>
+        </div>
+      </div>
+      <div className="container mx-auto p-4 mt-8">
+        <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-20">
           <div className="mx-auto flex max-w-sm flex-col items-start gap-10">
-            <div className="text-center lg:text-left">
-              <h1 className="mb-2 text-5xl font-semibold lg:mb-1 lg:text-6xl">
+            <div className="text-center lg:text-left space-y-3">
+              <h1 className="mb-2 text-3xl font-semibold lg:mb-1 lg:text-4xl">
                 Contact Us
               </h1>
               <p className="text-muted-foreground">

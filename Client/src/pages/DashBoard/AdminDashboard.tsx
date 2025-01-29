@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { IoMdBicycle } from "react-icons/io";
 import { useAppDispatch } from "@/Redux/hooks";
@@ -17,35 +17,37 @@ const userNavItems = [
   {
     title: 'Home',
     icons: <FaHome className="text-xl" />,
-    link: '/userDashboard',
-    path: '/userDashboard'
+    link: '/adminDashboard',
+    path: '/adminDashboard'
   },
   {
     title: 'View Orders',
     icons: <MdGridView className="text-xl" />,
-    link: 'viewOrders',
-    path: '/userDashboard/viewOrders'
+    link: 'addProduct',
+    path: '/adminDashboard/addProduct'
   },
   {
     title: 'Profile Settings',
     icons: <FaUser className="text-xl" />,
-    link: 'profileSetting',
-    path: '/userDashboard/profileSetting'
+    link: 'allProducts',
+    path: '/adminDashboard/allProducts'
   },
   {
     title: 'Update Password',
     icons: <IoMdSettings className="text-xl" />,
     link: 'updatePassword',
-    path: '/userDashboard/updatePassword'
+    path: '/adminDashboard/updatePassword'
   },
 ]
 
 export default function AdminDashBoard() {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [logoutDb] = useLogoutMutation()
   const handleLogout = async () => {
     await dispatch(logout())
     await logoutDb(undefined)
+    navigate("/login")
     toast.success("Log Out Ok...")
   }
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

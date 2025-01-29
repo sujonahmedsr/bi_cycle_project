@@ -1,109 +1,109 @@
-import { CircleArrowRight, Files, Settings } from "lucide-react";
-
+import img from '@/assets/heroImage/innerbanner.jpg'
+import cycle from '@/assets/cycle/bike.png'
+import cycle1 from '@/assets/cycle/bike2.png'
+import cycle2 from '@/assets/cycle/cycle1.png'
+import cycle3 from '@/assets/cycle/cycle2.png'
+import cycle4 from '@/assets/cycle/cycle3.png'
+import about from '@/assets/cycle/new.png'
 const About = () => {
   return (
-    <section className="py-32">
-      <div className="container mx-auto flex flex-col gap-28">
-        <div className="flex flex-col gap-7">
-          <h1 className="text-4xl font-semibold lg:text-7xl">
-            Bringing the power of software to everyone
-          </h1>
-          <p className="max-w-xl text-lg">
-            Stacker makes it easy to build customer portals, CRMs, internal
-            tools, and other business applications for your team. In minutes,
-            not months.
-          </p>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          <img
-            src="https://shadcnblocks.com/images/block/placeholder-1.svg"
-            alt="placeholder"
-            className="size-full max-h-96 rounded-2xl object-cover"
-          />
-          <div className="flex flex-col justify-between gap-10 rounded-2xl bg-muted p-10">
-            <p className="text-sm text-muted-foreground">OUR MISSION</p>
-            <p className="text-lg font-medium">
-              We believe that building software should be insanely easy. That
-              everyone should have the freedom to create the tools they need,
-              without any developers, designers or drama.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-6 md:gap-20">
-          <div className="max-w-xl">
-            <h2 className="mb-2.5 text-3xl font-semibold md:text-5xl">
-              We make creating software ridiculously easy
-            </h2>
-            <p className="text-muted-foreground">
-              We aim to help empower 1,000,000 teams to create their own
-              software. Here is how we plan on doing it.
-            </p>
-          </div>
-          <div className="grid gap-10 md:grid-cols-3">
-            <div className="flex flex-col">
-              <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent">
-                <Files className="size-5" />
-              </div>
-              <h3 className="mb-3 mt-2 text-lg font-semibold">
-                Being radically open
-              </h3>
-              <p className="text-muted-foreground">
-                We believe there’s no room for big egos and there’s always time
-                to help each other. We strive to give and receive feedback,
-                ideas, perspectives
-              </p>
-            </div>
-            <div className="flex flex-col">
-              <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent">
-                <CircleArrowRight className="size-5" />
-              </div>
-              <h3 className="mb-3 mt-2 text-lg font-semibold">
-                Moving the needle
-              </h3>
-              <p className="text-muted-foreground">
-                Boldly, bravely and with clear aims. We seek out the big
-                opportunities and double down on the most important things to
-                work on.
-              </p>
-            </div>
-            <div className="flex flex-col">
-              <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-accent">
-                <Settings className="size-5" />
-              </div>
-              <h3 className="mb-3 mt-2 text-lg font-semibold">
-                Optimizing for empowerment
-              </h3>
-              <p className="text-muted-foreground">
-                We believe that everyone should be empowered to do whatever they
-                think is in the company&apos;s best interests.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="grid gap-10 md:grid-cols-2">
-          <div>
-            <p className="mb-10 text-sm font-medium text-muted-foreground">
-              JOIN OUR TEAM
-            </p>
-            <h2 className="mb-2.5 text-3xl font-semibold md:text-5xl">
-              We&apos;re changing how software is made
-            </h2>
-          </div>
-          <div>
-            <img
-              src="https://shadcnblocks.com/images/block/placeholder.svg"
-              alt="placeholder"
-              className="mb-6 max-h-36 w-full rounded-xl object-cover"
-            />
-            <p className="text-muted-foreground">
-              And we&apos;re looking for the right people to help us do it. If
-              you&apos;re passionate about making change in the world, this
-              might be the place for you
-            </p>
-          </div>
+    <div className="min-h-screen pt-2">
+
+      {/* Hero Section */}
+      <div className="relative">
+        <img
+          src={img}
+          alt="Cycling Adventure"
+          className="w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <h2 className="text-4xl font-bold text-white">About Cycle_Labs</h2>
         </div>
       </div>
-    </section>
+
+      <div className='container mx-auto p-4'>
+        {/* About Section */}
+
+        <section className=" bg-white rounded-xl shadow-md mt-8 flex flex-col md:flex-row items-center">
+          <div className="md:ml-6 mt-4 md:mt-0">
+            <h3 className="text-2xl font-semibold text-gray-800">Who We Are</h3>
+            <p className="text-gray-700 text-lg mt-2">
+              Cycle_Labs is dedicated to providing high-quality bicycles and professional services for all types of riders.
+              Whether you are a daily commuter, a mountain biker, or just someone who enjoys casual rides, we have the perfect bike for you.
+            </p>
+          </div>
+          <img
+            src={about}
+            alt="Bicycle Workshop"
+            className="w-full md:w-1/2 rounded-lg"
+          />
+        </section>
+
+        {/* Our Story Section */}
+        <section className="bg-white rounded-xl shadow-md mt-8 flex flex-col md:flex-row items-center">
+          <img
+            src={cycle}
+            alt="Bicycle Workshop"
+            className="w-full md:w-1/2 rounded-lg"
+          />
+          <div className="md:ml-6 mt-4 md:mt-0">
+            <h3 className="text-2xl font-semibold text-gray-800">Our Story</h3>
+            <p className="text-gray-700 text-lg mt-2">
+              Founded by passionate cyclists, Cycle_Labs started as a small shop with a big dream: to make cycling accessible for everyone.
+              Today, we serve countless happy customers with our top-quality bicycles, expert repairs, and outstanding customer service.
+            </p>
+          </div>
+        </section>
+
+        {/* Our Services Section */}
+        <section className="bg-white rounded-xl p-6 mt-8">
+          <h3 className="text-2xl font-semibold text-gray-800">Our Services</h3>
+          <div className="grid lg:grid-cols-4 md:grid-cols-12 grid-cols-1 gap-4 mt-4">
+            {/* Service 1 */}
+            <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+              <img
+                src={cycle1}
+                alt="Bicycle Sales"
+                className="w-full h-40 object-cover rounded-md"
+              />
+              <h4 className="text-xl font-semibold mt-3">Bicycle Sales</h4>
+              <p className="text-gray-700 mt-2">Find the perfect bicycle for any purpose—city riding, mountain trails, and beyond.</p>
+            </div>
+
+            {/* Service 2 */}
+            <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+              <img
+                src={cycle3}
+                alt="Bicycle Repair"
+                className="w-full h-40 object-cover rounded-md"
+              />
+              <h4 className="text-xl font-semibold mt-3">Bicycle Repairs</h4>
+              <p className="text-gray-700 mt-2">Professional repair and maintenance to keep your ride smooth and safe.</p>
+            </div>
+
+            {/* Service 3 */}
+            <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+              <img
+                src={cycle4}
+                alt="Accessories"
+                className="w-full h-40 object-cover rounded-md"
+              />
+              <h4 className="text-xl font-semibold mt-3">Accessories</h4>
+              <p className="text-gray-700 mt-2">Helmets, locks, lights, and more—everything you need for a great ride.</p>
+            </div>
+            <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+              <img
+                src={cycle2}
+                alt="Accessories"
+                className="w-full h-40 object-cover rounded-md"
+              />
+              <h4 className="text-xl font-semibold mt-3">Accessories</h4>
+              <p className="text-gray-700 mt-2">Helmets, locks, lights, and more—everything you need for a great ride.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
   );
 };
 

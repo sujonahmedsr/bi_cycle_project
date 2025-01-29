@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { IoMdBicycle } from "react-icons/io";
 import { useAppDispatch } from "@/Redux/hooks";
@@ -42,11 +42,13 @@ const userNavItems = [
 ]
 
 export default function UserDashBoard() {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [logoutDb] = useLogoutMutation()
   const handleLogout = async () => {
     await dispatch(logout())
     await logoutDb(undefined)
+    navigate("/login")
     toast.success("Log Out Ok...")
   }
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

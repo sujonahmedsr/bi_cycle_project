@@ -19,7 +19,7 @@ const DashboardProtected = ({ children, role }: { children: ReactNode, role: str
   }
 
   if (user?.role !== role) {
-    return <Navigate to={user?.role === "admin" ? "/AdminDashboard" : "/userDashboard"} />;
+    return <Navigate to={user?.role === "admin" ? "/adminDashboard" : "/userDashboard"} />;
   }
   return children;
 };
