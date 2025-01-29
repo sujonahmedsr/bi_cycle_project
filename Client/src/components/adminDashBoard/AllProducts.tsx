@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FaEdit, FaTrash } from "react-icons/fa";
 import AddProduct from "./AddProduct";
-import { useAllProductsQuery } from "@/Redux/Features/Product/ProductApi";
+import { useAllProductsQuery, useProductDeleteMutation } from "@/Redux/Features/Product/ProductApi";
 import { Skeleton } from "../ui/skeleton";
 import { Tproduct } from "../Shop/RightSide";
+import { toast } from "sonner";
 
 const AllProducts = () => {
+    const [productDelete] = useProductDeleteMutation()
     const { data: allProducts, isLoading, isError } = useAllProductsQuery(undefined)
     let content;
 
@@ -45,10 +48,25 @@ const AllProducts = () => {
                 </td>
                 <td className="p-3 flex items-center text-xl">
                     <FaEdit className="text-blue-600 cursor-pointer mx-auto" />
-                    <FaTrash className="text-red-600 cursor-pointer mx-auto" />
+                    <FaTrash onClick={()=> handleDeleteProduct(item._id)} className="text-red-600 cursor-pointer mx-auto" />
                 </td>
             </tr>
         )
+    }
+
+    const handleDeleteProduct = async (id: string) => {
+        const toastId = toast.loading("Loading...")
+        try {
+            const res = await productDelete(id)
+            if(res?.error){
+                toast.error("Something went wrong...", {id: toastId})
+            }else{
+                toast.success("Deleted Product...", {id: toastId})
+            }
+
+        } catch (error) {
+            toast.error("Delete Failed...", {id: toastId})
+        }
     }
     return (
         <div className="space-y-5">

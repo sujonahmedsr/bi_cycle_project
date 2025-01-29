@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
     Dialog,
     DialogContent,
@@ -28,6 +30,8 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { useState } from "react"
+import { useAddProductMutation } from "@/Redux/Features/Product/ProductApi"
+import { toast } from "sonner"
 const formSchema = z.object({
     name: z.string({ required_error: "name is required." }),
     description: z.string({ required_error: "description is required." }),
@@ -35,18 +39,32 @@ const formSchema = z.object({
     price: z.string({ required_error: "price is required." }),
     quantity: z.string({ required_error: "quantity is required." }),
     type: z.string({ required_error: "type is required." }),
+    inStock: z.boolean({ required_error: "inStock is required." }),
 });
 const AddProduct = () => {
+    const [addProducts] = useAddProductMutation()
     const [open, setOpen] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
     })
 
-    const {reset} = form
+    const { reset } = form
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log(data);
-        reset()
+        const toastId = toast.loading("Loading...")
+        try {
+            const res = await addProducts(data)
+            if (res?.error) {
+                toast.error((res?.error as any)?.error || "Something went wrong", { id: toastId })
+            } else {
+                toast.success("Product Added Successfull...", { id: toastId })
+                reset()
+                setOpen(!open)
+            }
+
+        } catch (error) {
+            toast.error('Failed to Add Product. Please try again.')
+        }
     }
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -101,12 +119,13 @@ const AddProduct = () => {
                             render={({ field, fieldState: { error } }) => (
                                 <FormItem>
                                     <FormLabel>Product Type</FormLabel>
-                                    <FormControl>
+                                    <FormControl className="w-full">
                                         <Select
+
                                             value={field.value || ''} // Use field.value for controlled behavior
                                             onValueChange={field.onChange} // Update form state
                                         >
-                                            <SelectTrigger className="w-full">
+                                            <SelectTrigger>
                                                 <SelectValue placeholder="Select a Type" />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -116,6 +135,35 @@ const AddProduct = () => {
                                                     <SelectItem value="Hybrid">Hybrid</SelectItem>
                                                     <SelectItem value="BMX">BMX</SelectItem>
                                                     <SelectItem value="Electric">Electric</SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </FormControl>
+                                    {
+                                        error && <p className="text-red-500">{error.message}</p>
+                                    }
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="inStock"
+                            render={({ field, fieldState: { error } }) => (
+                                <FormItem>
+                                    <FormLabel>In Stock</FormLabel>
+                                    <FormControl className="w-full">
+                                        <Select
+                                            value={field.value !== null ? String(field.value) : undefined} // Use field.value for controlled behavior
+                                            onValueChange={(value) => field.onChange(value === "true")} // Update form state
+                                        >
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Select a In Stock" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectItem value={"true"}>Yes</SelectItem>
+                                                    <SelectItem value={"false"}>No</SelectItem>
                                                 </SelectGroup>
                                             </SelectContent>
                                         </Select>
@@ -176,9 +224,7 @@ const AddProduct = () => {
                             />
                         </div>
 
-                        <Button onClick={() => setTimeout(() => {
-                            setOpen(!open)
-                        }, 500)} className="w-full bg-blue-600 hover:bg-blue-700 rounded">Add Product</Button>
+                        <Button className="w-full bg-blue-600 hover:bg-blue-700 rounded">Add Product</Button>
                     </form>
                 </Form>
             </DialogContent>
