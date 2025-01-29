@@ -4,9 +4,9 @@ import { useAppSelector } from "@/Redux/hooks";
 import { jwtDecode } from "jwt-decode";
 
 export type Tuser = {
-    email: string,
-    role: string,
-    id: string
+    email: string | undefined,
+    role: string | undefined,
+    id: string | undefined
 }
 
 const ProfileSetting = () => {

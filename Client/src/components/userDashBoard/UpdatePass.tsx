@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import {
@@ -12,22 +13,21 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-
 import { PasswordInput } from "@/components/ui/password-input";
+import { useUpdatePasswordMutation } from "@/Redux/Features/Auth/AuthApi";
 
 // Improved schema with additional validation rules
 const formSchema = z.object({
     oldPassword: z
     .string()
-    .min(6, { message: 'Password must be at least 6 characters long' })
     .regex(/[a-zA-Z0-9]/, { message: 'Password must be alphanumeric' }),
     newPassword: z
         .string()
-        .min(6, { message: 'Password must be at least 6 characters long' })
         .regex(/[a-zA-Z0-9]/, { message: 'Password must be alphanumeric' }),
 })
 
 const UpdatePass = () => {
+    const [updatePassword] = useUpdatePasswordMutation()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -35,19 +35,27 @@ const UpdatePass = () => {
             newPassword: "",
         }
     })
+    const {reset} = form
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
+            const toastId = toast.loading("Loading...")
             // Assuming an async login function
             const loginData = {
                 oldPassword: values?.oldPassword,
                 newPassword: values?.newPassword
             }
-            console.log(loginData);
-
+            const res = await updatePassword(loginData)
+            
+            if (res?.error) {
+                toast.error((res?.error as any)?.error || (res?.error?.data as any)?.message, { id: toastId })
+              } else {
+                reset()
+                toast.success("Updare Your Password...", { id: toastId })
+              }
 
         } catch (error) {
-            toast.error('Failed to login. Please try again.')
+            toast.error('Failed to Update Password. Please try again.')
         }
     }
     return (

@@ -1,6 +1,5 @@
 import App from "@/App";
 import MyProfile from "@/components/userDashBoard/MyProfile";
-// import DashboardLayout from "@/components/Layouts/DashBoard/DashboardLayout";
 import About from "@/pages/About";
 import Cart from "@/pages/Cart";
 import CheckOut from "@/pages/CheckOut";
@@ -11,14 +10,14 @@ import Login from "@/pages/Login";
 import Shop from "@/pages/Shop";
 import Singup from "@/pages/Singup";
 import UpdatePass from "@/components/userDashBoard/UpdatePass";
-import UserDashBoard from "@/pages/UserDashBoard";
 import ViewDetails from "@/pages/ViewDetails";
 import { createBrowserRouter } from "react-router-dom";
 import ProfileSetting from "@/components/userDashBoard/ProfileSetting";
 import ViewOrders from "@/components/userDashBoard/ViewOrders";
-import DashboardLayout from "@/components/Layouts/DashBoard/AdminDashboard";
-import DashboardProtected from "@/utils/DashboardProtected";
 import ProtectedRoutes from "@/utils/ProtectedRoutes";
+import DashboardProtected from "@/utils/DashboardProtected";
+import UserDashBoard from "@/pages/DashBoard/UserDashBoard";
+import AdminDashBoard from "@/pages/DashBoard/AdminDashboard";
 
 const router = createBrowserRouter([
   {
@@ -93,14 +92,24 @@ const router = createBrowserRouter([
   {
     path: "/AdminDashboard",
     element: <DashboardProtected role="admin">
-      <DashboardLayout />
+      <AdminDashBoard />
     </DashboardProtected>,
     children: [
       {
         index: true,
-        element: <div>
-          Okay now
-        </div>
+        element: <MyProfile />
+      },
+      {
+        path: "viewOrders",
+        element: <ViewOrders />
+      },
+      {
+        path: "updatePassword",
+        element: <UpdatePass />
+      },
+      {
+        path: "profileSetting",
+        element: <ProfileSetting />
       }
     ]
   }

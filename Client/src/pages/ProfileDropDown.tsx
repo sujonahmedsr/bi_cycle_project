@@ -5,14 +5,22 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useAppDispatch } from "@/Redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/Redux/hooks";
 import { FaUser } from "react-icons/fa";
-import { logout } from "@/Redux/Features/Auth/AuthSlice";
+import { logout, useCurrentToken } from "@/Redux/Features/Auth/AuthSlice";
 import { toast } from "sonner";
 import { useLogoutMutation } from "@/Redux/Features/Auth/AuthApi";
 import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { Tuser } from "@/components/userDashBoard/ProfileSetting";
 
 const ProfileDropDown = () => {
+    const token = useAppSelector(useCurrentToken);
+
+    let user;
+    if (token) {
+        user = jwtDecode(token) as Tuser
+    }
     const dispatch = useAppDispatch()
     const [logoutDb] = useLogoutMutation()
     const handleLogout = async () => {
@@ -34,7 +42,9 @@ const ProfileDropDown = () => {
                 <DropdownMenuItem>
                     <Link to={'/userDashboard'} className="w-full">
                         <Button variant={"ghost"} className="w-full ">
-                            User Dashboard
+                            {
+                                user?.role === "admin" ? "Admin Dashboard" : "User Dashboard"
+                            }
                         </Button>
                     </Link>
                 </DropdownMenuItem>
