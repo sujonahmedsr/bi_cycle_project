@@ -15,22 +15,34 @@ import { IoClose } from "react-icons/io5";
 
 const userNavItems = [
   {
-    title: 'Home',
+    title: 'Admin Dashboard',
     icons: <FaHome className="text-xl" />,
     link: '/adminDashboard',
     path: '/adminDashboard'
   },
   {
-    title: 'View Orders',
+    title: 'Add Product',
     icons: <MdGridView className="text-xl" />,
     link: 'addProduct',
     path: '/adminDashboard/addProduct'
   },
   {
-    title: 'Profile Settings',
-    icons: <FaUser className="text-xl" />,
+    title: 'All Products',
+    icons: <MdGridView className="text-xl" />,
     link: 'allProducts',
     path: '/adminDashboard/allProducts'
+  },
+  {
+    title: 'All Order',
+    icons: <MdGridView className="text-xl" />,
+    link: 'allOrders',
+    path: '/adminDashboard/allOrders'
+  },
+  {
+    title: 'Profile Settings',
+    icons: <FaUser className="text-xl" />,
+    link: 'profileSetting',
+    path: '/adminDashboard/profileSetting'
   },
   {
     title: 'Update Password',
@@ -102,14 +114,6 @@ export default function AdminDashBoard() {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
         <div className="flex items-center justify-between bg-gray-200 p-4">
-          {/* Toggle Button for Mobile
-          <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          >
-            {
-              isSidebarOpen ? <HiOutlineBars3BottomRight className="text-2xl" /> : <IoClose className="text-2xl" />
-            }
-          </button> */}
           <button
             className="text-gray-700 p-2 focus:outline-none md:hidden block"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}

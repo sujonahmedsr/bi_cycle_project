@@ -53,12 +53,11 @@ const ProfileDropDown = () => {
                                 </Button>
                             </Link> :
                             <Link to={'/userDashboard'} className="w-full">
-                                <Button variant={"outline"} className="w-full ">
+                                <Button variant={"outline"} className="w-full hover:text-blue-600">
                                     User Dashboard
                                 </Button>
                             </Link>
                     }
-
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                     <Button onClick={handleLogout} variant={"outline"} className="w-full hover:bg-blue-600 hover:text-white">

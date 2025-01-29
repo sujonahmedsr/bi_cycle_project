@@ -16,7 +16,7 @@ import { IoClose } from "react-icons/io5";
 
 const userNavItems = [
   {
-    title: 'Home',
+    title: 'User Dashboard',
     icons: <FaHome className="text-xl" />,
     link: '/userDashboard',
     path: '/userDashboard'
