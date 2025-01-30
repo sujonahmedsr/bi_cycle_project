@@ -1,11 +1,16 @@
 import { Trash } from "lucide-react";
-import { useState } from "react";
 import cycle1 from "@/assets/cycle/bike.png"
 import { Button } from "../ui/button";
+import { useAppDispatch } from "@/Redux/hooks";
+import { updateCart } from "@/Redux/Features/Product/ProductSlice";
+import { Tproduct } from "../Shop/RightSide";
 
-const CartItem = () => {
-    const [quantity, setQuantity] = useState(1);
-    const price = 2599.99;
+const CartItem = ({cart}:{cart: Tproduct}) => {
+    const dispatch = useAppDispatch()
+
+    const handleCartQuantity = (type: string, id: string) => {
+        dispatch(updateCart({ type, id }))
+    }
     return (
         <div className="p-4 border rounded">
             <div className="flex md:flex-row flex-col items-center justify-between gap-4">
@@ -15,24 +20,24 @@ const CartItem = () => {
                     className="w-32 object-cover border rounded"
                 />
                 <div>
-                    <h3 className="text-lg font-semibold">Ciovita Apex</h3>
-                    <p className="text-sm text-gray-500">Size: XL</p>
+                    <h3 className="text-lg font-semibold">{cart?.name}</h3>
+                    <p className="text-sm text-gray-500">{cart?.brand}</p>
                 </div>
                 <div className="flex items-center border rounded-md">
                     <button
                         className="px-3 py-1 border-r text-gray-600"
-                        onClick={() => setQuantity(Math.max(1, quantity - 1))}>
+                        onClick={() => handleCartQuantity("decrement", cart?._id)}>
                         -
                     </button>
-                    <span className="px-4">{quantity}</span>
+                    <span className="px-4">{cart?.quantity}</span>
                     <button
                         className="px-3 py-1 border-l text-gray-600"
-                        onClick={() => setQuantity(quantity + 1)}>
+                        onClick={() => handleCartQuantity("increment", cart?._id)}>
                         +
                     </button>
                 </div>
                 <div>
-                    <span className="font-semibold text-lg">R {price.toFixed(2)}</span>
+                    <span className="font-semibold text-lg">R {(cart?.price * cart?.quantity).toFixed(2)}</span>
                 </div>
                 <div>
                     <Button variant={"link"} className="text-blue-500 flex items-center gap-2">

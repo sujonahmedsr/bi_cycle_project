@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import CartItem from "./CartItem";
+import { useAppSelector } from "@/Redux/hooks";
+import { Tproduct } from "../Shop/RightSide";
 
 const AllCart = () => {
+    const carts = useAppSelector(state => state.product.carts)
+    console.log(carts);
+    
     return (
         <div className="grid lg:grid-cols-12 gap-10 py-5">
             <div className="lg:col-span-8 flex flex-col gap-5">
-                <CartItem />
-                <CartItem />
-                <CartItem />
+                {
+                    carts?.map((cart: Tproduct, index: number) => <CartItem key={index} cart={cart} />)
+                }
+                
             </div>
             <div className="lg:col-span-4">
                 <div className="border bg-white p-4 rounded sticky top-24">

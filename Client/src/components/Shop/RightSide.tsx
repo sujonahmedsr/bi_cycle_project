@@ -23,7 +23,7 @@ export type Tproduct = {
     quantity: number
     type: string
     updatedAt: string
-    _id: string
+    _id: string,
 }
 
 const RightSide = () => {
