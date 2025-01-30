@@ -2,7 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useAppSelector } from "@/Redux/hooks";
 const CheckOut = () => {
+    const { selectedItems, totalPrice } = useAppSelector(state => state.product)
     return (
         <div className="container mx-auto py-5 grid lg:grid-cols-12 gap-10">
             <div className="lg:col-span-7 flex flex-col gap-5 rounded border p-5">
@@ -32,18 +34,21 @@ const CheckOut = () => {
             </div>
             <div className="lg:col-span-5">
                 <div className="border bg-white p-4 rounded sticky top-24">
-                    <h2 className="font-semibold">Your Order</h2>
+                    <h2 className="text-lg font-semibold text-center">Order Summary</h2>
+                    <div className="flex justify-between mt-1">
+                        <span>Total Item</span>
+                        <span>{selectedItems}</span>
+                    </div>
+
                     <div className="flex justify-between mt-2">
                         <span>Subtotal</span>
-                        <span>R 2,599.99</span>
+                        <span>Price: ${totalPrice}</span>
                     </div>
-                    <div className="flex justify-between mt-1">
-                        <span>Shipping</span>
-                        <span>TBC</span>
+                    <div className='border my-3'>
                     </div>
-                    <div className="flex justify-between mt-1 font-semibold">
+                    <div className="flex justify-between font-semibold">
                         <span>Total</span>
-                        <span>R 2,599.99</span>
+                        <span>Price: ${totalPrice}</span>
                     </div>
                 </div>
             </div>
