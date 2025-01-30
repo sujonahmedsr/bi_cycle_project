@@ -58,9 +58,7 @@ export default function UserDashBoard() {
     <div className="flex h-screen">
       {/* Sidebar */}
       <div
-        className={`bg-gray-200 md:w-64 w-full
-          md:block ${isSidebarOpen ? "block" : "hidden"} 
-          transition-all duration-300 overflow-y-auto`}
+        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10`}
       >
         <div className="p-4 text-lg font-semibold border-gray-700">
           <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
@@ -116,7 +114,7 @@ export default function UserDashBoard() {
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
             {
-              isSidebarOpen ? <HiOutlineBars3BottomRight className="text-2xl" /> : <IoClose className="text-2xl" />
+              isSidebarOpen ? <IoClose className="text-2xl" /> : <HiOutlineBars3BottomRight className="text-2xl"/>
             }
           </button>
         </div>

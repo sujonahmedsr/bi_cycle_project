@@ -29,8 +29,8 @@ const AllUsers = () => {
             const res = await deactiveUser(id)
             console.log(res);
 
-            if (res?.error || res?.data) {
-                toast.error((res?.error as any)?.message || (res?.error?.data as any)?.message, { id: toastId })
+            if (res?.error) {
+                toast.error((res?.error as any)?.message || (res?.error?.data as any)?.message || "Something went wrong", { id: toastId })
             } else {
                 toast.success("User deactivated by Admin...", { id: toastId })
             }

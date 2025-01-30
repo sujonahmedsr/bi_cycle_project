@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const MyProfile = () => {
-    return (
-        <section className="py-32">
-      <div className="container">
+  return (
+    <section className="py-32">
+      <div className="container mx-auto">
         <div className="flex flex-col items-center text-center">
           <p className="mb-16 max-w-4xl px-8 font-medium lg:text-3xl">
             &ldquo;Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig
@@ -22,7 +22,7 @@ const MyProfile = () => {
         </div>
       </div>
     </section>
-    );
+  );
 };
 
 export default MyProfile;

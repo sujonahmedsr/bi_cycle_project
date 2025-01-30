@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,7 +60,7 @@ const Login = () => {
       const res = await login(loginData)
 
       if (res?.error) {
-        toast.error("Invalid password or email", { id: toastId })
+        toast.error((res?.error as any)?.message || (res?.error?.data as any)?.message || "Something went wrong", { id: toastId })
       } else {
         const user = await jwtDecode(res?.data?.data?.token);
         dispatch(setUser({ user, token: res?.data?.data?.token }))

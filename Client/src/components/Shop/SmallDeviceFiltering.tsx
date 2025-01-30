@@ -4,7 +4,6 @@ import {
     SheetContent,
     SheetTrigger,
 } from "@/components/ui/sheet"
-import LeftSide from "./LeftSide"
 
 const SmallDeviceFiltering = () => {
     return (
@@ -14,7 +13,7 @@ const SmallDeviceFiltering = () => {
                     <Button variant="outline">Filtering</Button>
                 </SheetTrigger>
                 <SheetContent>
-                    <LeftSide />
+                    {/* <LeftSide /> */}
                 </SheetContent>
             </Sheet>
         </div>

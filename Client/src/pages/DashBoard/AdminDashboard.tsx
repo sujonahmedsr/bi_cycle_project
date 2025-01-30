@@ -67,18 +67,22 @@ export default function AdminDashBoard() {
   const location = useLocation();
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-full">
       {/* Sidebar */}
       <div
-        className={`bg-gray-200 md:w-64 w-full
-          md:block ${isSidebarOpen ? "block" : "hidden"} 
-          transition-all duration-300 overflow-y-auto`}
+        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10`}
       >
-        <div className="p-4 text-lg font-semibold border-gray-700">
+        <div className="p-4 text-lg font-semibold border-gray-700 flex items-center justify-between gap-5">
           <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
             <IoMdBicycle className="text-3xl text-blue-600" />
             <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
           </Link>
+          {/* <button
+            className="text-gray-700 p-2"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            <IoClose className="text-2xl" />
+          </button> */}
         </div>
 
         <ul className="mt-4 space-y-3 px-4">
@@ -114,18 +118,19 @@ export default function AdminDashBoard() {
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
-        <div className="flex items-center justify-between bg-gray-200 p-4">
-        <button
-            className="text-gray-700 p-2 focus:outline-none md:hidden block"
+        <div className="flex items-center justify-between bg-gray-200 p-4 ">
+          <button
+            className="text-gray-700 p-2 md:hidden"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
             {
-              isSidebarOpen ? <HiOutlineBars3BottomRight className="text-2xl" /> : <IoClose className="text-2xl" />
+              isSidebarOpen ? <IoClose className="text-2xl" /> : <HiOutlineBars3BottomRight className="text-2xl"/>
             }
+            
           </button>
         </div>
         {/* Content */}
-        <div className="flex-1 bg-gray-50 overflow-y-auto p-6">
+        <div className="container mx-auto flex-1 bg-gray-50 p-6">
           <Outlet />
         </div>
       </div>

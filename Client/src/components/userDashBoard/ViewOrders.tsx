@@ -10,13 +10,13 @@ const productList = [
 ];
 const ViewOrders = () => {
     return (
-        <div className="space-y-5">
+        <div className="space-y-5 container mx-auto">
             <div className="flex items-center justify-between">
                 <h1 className="text-xl font-bold">All Customers</h1>
             </div>
             <div className=" bg-gray-100 min-h-screen">
 
-                <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className="bg-white shadow-lg rounded-lg overflow-x-scroll">
                     <table className="w-full text-left border-collapse">
                         <thead className="bg-gray-200">
                             <tr>

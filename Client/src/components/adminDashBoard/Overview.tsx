@@ -27,11 +27,11 @@ const Overview = () => {
         ],
     };
     return (
-        <div className="py-14">
+        <div className="p-4">
             <h2 className="text-3xl font-bold text-blue-600 text-center">Sales Dashboard</h2>
 
             {/* Key Metrics */}
-            <div>
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7">
                 <div className="bg-white p-6 rounded-lg shadow-lg text-center">
                     <h3 className="text-lg font-semibold text-gray-600">Total Sales Revenue</h3>
                     <p className="text-2xl font-bold text-blue-600">${salesData.totalSalesRevenue.toLocaleString()}</p>
@@ -45,7 +45,7 @@ const Overview = () => {
             {/* Bar Chart Section */}
             <div className="bg-white p-6 rounded-lg shadow-lg mt-6">
                 <h3 className="text-xl font-semibold text-gray-800 mb-4">Top-Selling Bicycles</h3>
-                <Bar data={chartData} options={{ responsive: true, plugins: { legend: { display: false } } }} />
+                <Bar className="lg:max-w-xl md:max-w-sm" data={chartData} options={{ responsive: true, plugins: { legend: { display: false } } }} />
             </div>
         </div>
     );
