@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "../ui/input";
 import {
     Select,
@@ -8,9 +9,9 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import Cycle from "./Cycle";
-import SmallDeviceFiltering from "./SmallDeviceFiltering";
 import { useAllProductsQuery } from "@/Redux/Features/Product/ProductApi";
 import { Skeleton } from "@/components/ui/skeleton"
+import { useState } from "react";
 
 export type Tproduct = {
     brand: string
@@ -26,9 +27,29 @@ export type Tproduct = {
 }
 
 const RightSide = () => {
+    const [sortOption, setSortOption] = useState('');
+    const [search, setSearch] = useState('')
+    // const [selectedBrand, setSelectedBrand] = useState('');
+    const [selectedType, setSelectedType] = useState('');
     const { data: allProducts, isLoading, isError } = useAllProductsQuery(undefined)
-    let content;
 
+    const searchFunc = (item: any) => {
+        return search.toLowerCase() === '' ? item : item?.name?.toLowerCase()?.includes(search) || item?.brand?.toLowerCase()?.includes(search) || item?.description?.toLowerCase()?.includes(search) || item?.type?.toLowerCase()?.includes(search)
+    }
+
+    const sortProducts = (a: Tproduct, b: Tproduct) => {
+        if (sortOption === "low_to_high") {
+            return a.price - b.price; // Sort by price (ascending)
+        } else if (sortOption === "high_to_low") {
+            return b.price - a.price; // Sort by price (descending)
+        } else if (sortOption === "old_product") {
+            return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(); // Sort by oldest product
+        } else if (sortOption === "latest_product") {
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); // Sort by newest product
+        }
+    }
+
+    let content;
     if (isLoading && !isError) {
         content = <div className="flex flex-col space-y-3">
             <Skeleton className="h-[125px] w-[250px] rounded-xl" />
@@ -49,32 +70,61 @@ const RightSide = () => {
         </div>
     }
     if (!isLoading && !isError && allProducts?.data?.length > 0) {
-        content = allProducts?.data?.map((item: Tproduct, index: number) => <Cycle key={index} item={item} />)
+        content = allProducts?.data?.
+            filter(searchFunc).
+            sort(sortProducts)
+            // filter((item) => (selectedBrand ? item.brand === selectedBrand : true)) 
+            ?.filter((item: Tproduct) => (selectedType ? item.type === selectedType : true))?.
+            map((item: Tproduct, index: number) => <Cycle key={index} item={item} />)
     }
+
+    // const brands = Array.from(new Set(allProducts?.data?.map((item: Tproduct) => item?.brand)));
+
+    const types: string[] = Array.from(new Set(allProducts?.data?.map((item: Tproduct) => item?.type)));
 
     return (
         <div>
-            <div className="flex md:flex-row flex-col gap-5 items-center justify-between">
-                <Input type="text" placeholder="Search your bi_cycle" className="md:w-1/2 w-full" />
-                <div className="flex items-center justify-between gap-5">
-                    <Select>
-                        <SelectTrigger className="w-[190px]">
-                            <SelectValue placeholder="Sort By" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectItem value="latest_product">Latest Product</SelectItem>
-                                <SelectItem value="old_product">Old Product</SelectItem>
-                                <SelectItem value="low_to_high">Low To High Price</SelectItem>
-                                <SelectItem value="high_to_low">High To Low Price</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                    <SmallDeviceFiltering />
-                </div>
+            <div className="flex md:flex-row flex-col md:gap-5 gap-3 items-center justify-between">
+                <Input onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search your bi_cycle" className="md:w-1/2 w-full" />
+                <Select onValueChange={(value) => setSortOption(value)}>
+                    <SelectTrigger className="md:w-[360px] w-full">
+                        <SelectValue placeholder="Sort By" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectItem value="latest_product">Latest Product</SelectItem>
+                            <SelectItem value="old_product">Old Product</SelectItem>
+                            <SelectItem value="low_to_high">Low To High Price</SelectItem>
+                            <SelectItem value="high_to_low">High To Low Price</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+                {/* <Select onValueChange={(value) => setSelectedBrand(value)}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Sort By Brand" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            {
+                                brands?.map(brand => <SelectItem value={brand}>{brand}</SelectItem>)
+                            }
+                        </SelectGroup>
+                    </SelectContent>
+                </Select> */}
+                <Select onValueChange={(value) => setSelectedType(value)}>
+                    <SelectTrigger className="md:w-[360px] w-full">
+                        <SelectValue placeholder="Sort By Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            {
+                                types?.map((brand, index) => <SelectItem key={index} value={brand}>{brand}</SelectItem>)
+                            }
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
             </div>
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 py-5">
-                {/* {content} */}
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 py-5">
                 {
                     content
                 }

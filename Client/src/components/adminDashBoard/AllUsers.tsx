@@ -28,16 +28,15 @@ const AllUsers = () => {
         try {
             const res = await deactiveUser(id)
             console.log(res);
-            
-            if(res?.error || res?.data){
-                toast.error((res?.error as any)?.message || (res?.error?.data as any)?.message, {id: toastId})
-            }else{
-                toast.success("User deactivated by Admin...", {id: toastId})
+
+            if (res?.error || res?.data) {
+                toast.error((res?.error as any)?.message || (res?.error?.data as any)?.message, { id: toastId })
+            } else {
+                toast.success("User deactivated by Admin...", { id: toastId })
             }
         } catch (error) {
-            toast.error("Failed to deactive this user...", {id: toastId})
+            toast.error("Failed to deactive this user...", { id: toastId })
         }
-
     }
 
     let content;
