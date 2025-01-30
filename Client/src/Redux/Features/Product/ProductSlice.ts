@@ -63,5 +63,7 @@ export const setTotalPrice = (state: TinitialState) =>
         return Number(total + cart.quantity * cart.price)
     }, 0)
 
-export const { addCard, updateCart } = productSlice.actions;
+export const { addCard, updateCart,
+    removeCart
+ } = productSlice.actions;
 export default productSlice.reducer;

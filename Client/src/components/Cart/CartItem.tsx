@@ -2,11 +2,15 @@ import { Trash } from "lucide-react";
 import cycle1 from "@/assets/cycle/bike.png"
 import { Button } from "../ui/button";
 import { useAppDispatch } from "@/Redux/hooks";
-import { updateCart } from "@/Redux/Features/Product/ProductSlice";
+import { removeCart, updateCart } from "@/Redux/Features/Product/ProductSlice";
 import { Tproduct } from "../Shop/RightSide";
 
 const CartItem = ({cart}:{cart: Tproduct}) => {
     const dispatch = useAppDispatch()
+
+    const handleRemove = () => {
+        dispatch(removeCart(cart?._id))
+    }
 
     const handleCartQuantity = (type: string, id: string) => {
         dispatch(updateCart({ type, id }))
@@ -40,7 +44,7 @@ const CartItem = ({cart}:{cart: Tproduct}) => {
                     <span className="font-semibold text-lg">R {(cart?.price * cart?.quantity).toFixed(2)}</span>
                 </div>
                 <div>
-                    <Button variant={"link"} className="text-blue-500 flex items-center gap-2">
+                    <Button onClick={handleRemove} variant={"link"} className="text-blue-500 flex items-center gap-2">
                         <Trash className="w-5 h-5 mr-1" /> Remove
                     </Button>
                 </div>

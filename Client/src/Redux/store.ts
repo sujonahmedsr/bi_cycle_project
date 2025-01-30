@@ -12,18 +12,23 @@ import {
     REGISTER,
 } from 'redux-persist'
 
-const persistConfig = {
+const AuthPersistConfig = {
     key: 'CycleAuth',
     storage,
 };
+const ProductPersistConfig = {
+    key: 'CycleProduct',
+    storage,
+};
 
-const persistedAuthReducer = persistReducer(persistConfig, authSlice);
+const persistedAuthReducer = persistReducer(AuthPersistConfig, authSlice);
+const persistedProductReducer = persistReducer(ProductPersistConfig, productSlice);
 
 export const store = configureStore({
     reducer: {
         [baseApi.reducerPath]: baseApi.reducer,
         auth: persistedAuthReducer,
-        product: productSlice
+        product: persistedProductReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: {
