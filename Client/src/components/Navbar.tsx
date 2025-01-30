@@ -50,6 +50,8 @@ const Navbar = () => {
         user = jwtDecode(token)
     }
 
+    const { selectedItems } = useAppSelector(state => state.product)
+
     return (
         <section className="p-4 border-b bg-white sticky top-0 z-10 transition-all">
             <div className="container mx-auto">
@@ -88,7 +90,7 @@ const Navbar = () => {
                             <div className="relative">
                                 <LuShoppingCart className="text-xl" />
                                 <div className="absolute -top-3 -right-2 text-blue-700">
-                                    <p></p>
+                                    <p className="font-semibold">{selectedItems > 0 ? selectedItems : null}</p>
                                 </div>
                             </div>
                         </Link>

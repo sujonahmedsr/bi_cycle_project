@@ -48,6 +48,8 @@ const productSlice = createSlice({
         removeCart: (state, action) => {
             state.carts = state.carts.filter(cart => cart._id !== action.payload)
             toast("Remove Cart")
+            state.selectedItems = 0
+            state.totalPrice = 0
         },
     }
 })

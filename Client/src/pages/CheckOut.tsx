@@ -3,8 +3,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useAppSelector } from "@/Redux/hooks";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const CheckOut = () => {
+    const navigate = useNavigate()
     const { selectedItems, totalPrice } = useAppSelector(state => state.product)
+    useEffect(() => {
+        if(selectedItems === 0){
+            navigate('/')
+        }
+    },[navigate, selectedItems])
     return (
         <div className="container mx-auto py-5 grid lg:grid-cols-12 gap-10">
             <div className="lg:col-span-7 flex flex-col gap-5 rounded border p-5">

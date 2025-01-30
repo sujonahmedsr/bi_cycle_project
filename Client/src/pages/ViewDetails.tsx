@@ -2,11 +2,19 @@ import cycle1 from "@/assets/cycle/bike.png"
 import { Tproduct } from "@/components/Shop/RightSide";
 import { Button } from "@/components/ui/button";
 import { useSingleProductQuery } from "@/Redux/Features/Product/ProductApi";
+import { addCard } from "@/Redux/Features/Product/ProductSlice";
+import { useAppDispatch } from "@/Redux/hooks";
 import { Link, useParams } from "react-router-dom";
 const ViewDetails = () => {
     const { id } = useParams()
+    const dispatch = useAppDispatch()
     const { data: singleProduct } = useSingleProductQuery(id)
     const cycle: Tproduct = singleProduct?.data
+
+    
+      const handleAddtoCart = () => {
+        dispatch(addCard(cycle))
+      }
 
     return (
         <div className="container mx-auto py-5 grid grid-cols-5 gap-10">
@@ -30,9 +38,9 @@ const ViewDetails = () => {
                 </div>
                 <div className="flex items-center gap-5">
                     <Link to={'/cart'}>
-                        <Button variant={"outline"} className=" rounded">Buy Now</Button>
+                        <Button onClick={handleAddtoCart} variant={"outline"} className=" rounded">Buy Now</Button>
                     </Link>
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded">Add To Cart</Button>
+                    <Button onClick={handleAddtoCart} className="bg-blue-600 hover:bg-blue-700 text-white rounded">Add To Cart</Button>
                 </div>
             </div>
         </div>

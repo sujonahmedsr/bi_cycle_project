@@ -46,6 +46,11 @@ const Cart = () => {
                         <div className='space-y-5 flex items-center flex-col'>
                             <img src={emptyCart} width={150} alt="empty" />
                             <h1 className='text-2xl font-semibold'>There is no item in your cart!</h1>
+                            <div className="mt-5 mx-auto text-center">
+                                <Link to={'/products'}>
+                                    <Button variant={"outline"}>View All</Button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
             }
