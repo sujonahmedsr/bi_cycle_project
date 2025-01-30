@@ -11,7 +11,7 @@ import {
 import Cycle from "./Cycle";
 import { useAllProductsQuery } from "@/Redux/Features/Product/ProductApi";
 import { Skeleton } from "@/components/ui/skeleton"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export type Tproduct = {
     brand: string
@@ -29,6 +29,10 @@ export type Tproduct = {
 const RightSide = () => {
     const [sortOption, setSortOption] = useState('');
     const [search, setSearch] = useState('')
+    const [minPrice, setMinPrice] = useState<number>(0);
+    const [maxPrice, setMaxPrice] = useState<number>(10000); // Default max price
+
+
     // const [selectedBrand, setSelectedBrand] = useState('');
     const [selectedType, setSelectedType] = useState('');
     const { data: allProducts, isLoading, isError } = useAllProductsQuery(undefined)
@@ -71,12 +75,26 @@ const RightSide = () => {
     }
     if (!isLoading && !isError && allProducts?.data?.length > 0) {
         content = allProducts?.data?.
-            filter(searchFunc).
-            sort(sortProducts)
+            filter(searchFunc)
+            ?.sort(sortProducts)
             // filter((item) => (selectedBrand ? item.brand === selectedBrand : true)) 
-            ?.filter((item: Tproduct) => (selectedType ? item.type === selectedType : true))?.
-            map((item: Tproduct, index: number) => <Cycle key={index} item={item} />)
+            ?.filter((item: Tproduct) => (selectedType ? item.type === selectedType : true))
+            ?.filter((item: Tproduct) => item.price >= minPrice && item.price <= maxPrice) // Price filter
+            ?.map((item: Tproduct, index: number) => <Cycle key={index} item={item} />)
     }
+
+    // Extract product prices
+    const prices = allProducts?.data?.map((item: Tproduct) => item?.price) || [];
+    const minProductPrice = Math.min(...prices);
+    const maxProductPrice = Math.max(...prices);
+
+    // Update state when data loads
+    useEffect(() => {
+        if (prices.length > 0) {
+            setMinPrice(minProductPrice);
+            setMaxPrice(maxProductPrice);
+        }
+    }, [allProducts, maxProductPrice, minProductPrice, prices.length]);
 
     // const brands = Array.from(new Set(allProducts?.data?.map((item: Tproduct) => item?.brand)));
 
@@ -123,6 +141,27 @@ const RightSide = () => {
                         </SelectGroup>
                     </SelectContent>
                 </Select>
+                {/* Price Range Filter */}
+
+                <div className="flex items-center space-x-4">
+                    <input
+                        type="number"
+                        value={minPrice}
+                        min={minProductPrice}
+                        max={maxProductPrice}
+                        onChange={(e) => setMinPrice(Number(e.target.value))}
+                        className="border p-2 rounded w-24"
+                    />
+                    <span>-</span>
+                    <input
+                        type="number"
+                        value={maxPrice}
+                        min={minProductPrice}
+                        max={maxProductPrice}
+                        onChange={(e) => setMaxPrice(Number(e.target.value))}
+                        className="border p-2 rounded w-24"
+                    />
+                </div>
             </div>
             <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 py-5">
                 {
