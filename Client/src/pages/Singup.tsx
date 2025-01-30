@@ -59,7 +59,7 @@ const Singup = () => {
 
       const res = await signUp(signUpData)
       if (res?.error) {
-        toast.error((res?.error as any)?.message || (res?.error?.data as any)?.message || "Something went wrong", { id: toastId })
+        toast.error((res?.error as any)?.message || (res?.error as any)?.data?.message || "Something went wrong", { id: toastId })
       } else {
         navigate('/login')
         toast.success("Registration Successfull..., Please login now", { id: toastId })

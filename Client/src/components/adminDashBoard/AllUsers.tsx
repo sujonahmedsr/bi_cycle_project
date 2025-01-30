@@ -30,7 +30,7 @@ const AllUsers = () => {
             console.log(res);
 
             if (res?.error) {
-                toast.error((res?.error as any)?.message || (res?.error?.data as any)?.message || "Something went wrong", { id: toastId })
+                toast.error((res?.error as any)?.message || (res?.error as any)?.data?.message || "Something went wrong", { id: toastId })
             } else {
                 toast.success("User deactivated by Admin...", { id: toastId })
             }

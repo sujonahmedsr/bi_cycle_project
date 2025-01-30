@@ -44,7 +44,7 @@ const AllProducts = () => {
                     {item.quantity}
                 </td>
                 <td className="p-3 flex items-center justify-center">
-                    {item.inStock ? <AiOutlineCheck /> : <IoClose />}
+                    {item?.quantity !== 0 ? <AiOutlineCheck /> : <IoClose />}
                 </td>
                 <td className="p-3 text-xl">
                     <UpdateProduct id={item?._id} />
@@ -62,7 +62,7 @@ const AllProducts = () => {
             </div>
             <div className=" min-h-screen">
 
-                <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className="bg-white shadow-lg rounded-lg">
                     <table className="w-full text-left border-collapse overflow-scroll">
                         <thead className="bg-gray-200">
                             <tr className="text-center">

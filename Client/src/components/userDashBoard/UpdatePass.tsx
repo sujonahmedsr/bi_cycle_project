@@ -48,7 +48,7 @@ const UpdatePass = () => {
             const res = await updatePassword(loginData)
             
             if (res?.error) {
-                toast.error((res?.error as any)?.error || (res?.error?.data as any)?.message, { id: toastId })
+                toast.error((res?.error as any)?.error || (res?.error as any)?.data?.message || 'Soemthing went wrong.', { id: toastId })
               } else {
                 reset()
                 toast.success("Updare Your Password...", { id: toastId })

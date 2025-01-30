@@ -33,7 +33,8 @@ const productSchema = new Schema<productInterface>({
     },
     inStock: {
         type: Boolean,
-        required: [true, 'InStock field is required']
+        required: [true, 'InStock field is required'],
+        default: true
     },
 
 }, { timestamps: true, versionKey: false })

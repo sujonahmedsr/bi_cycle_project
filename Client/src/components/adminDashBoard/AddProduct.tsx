@@ -39,7 +39,6 @@ const formSchema = z.object({
     price: z.string({ required_error: "price is required." }),
     quantity: z.string({ required_error: "quantity is required." }),
     type: z.string({ required_error: "type is required." }),
-    inStock: z.boolean({ required_error: "inStock is required." }),
 });
 const AddProduct = () => {
     const [addProducts] = useAddProductMutation()
@@ -135,35 +134,6 @@ const AddProduct = () => {
                                                     <SelectItem value="Hybrid">Hybrid</SelectItem>
                                                     <SelectItem value="BMX">BMX</SelectItem>
                                                     <SelectItem value="Electric">Electric</SelectItem>
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
-                                    </FormControl>
-                                    {
-                                        error && <p className="text-red-500">{error.message}</p>
-                                    }
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
-                            name="inStock"
-                            render={({ field, fieldState: { error } }) => (
-                                <FormItem>
-                                    <FormLabel>In Stock</FormLabel>
-                                    <FormControl className="w-full">
-                                        <Select
-                                            value={field.value !== null ? String(field.value) : undefined} // Use field.value for controlled behavior
-                                            onValueChange={(value) => field.onChange(value === "true")} // Update form state
-                                        >
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select a In Stock" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectGroup>
-                                                    <SelectItem value={"true"}>Yes</SelectItem>
-                                                    <SelectItem value={"false"}>No</SelectItem>
                                                 </SelectGroup>
                                             </SelectContent>
                                         </Select>
