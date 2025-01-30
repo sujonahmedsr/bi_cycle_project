@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { FaTrash } from "react-icons/fa";
 import AddProduct from "./AddProduct";
-import { useAllProductsQuery, useProductDeleteMutation } from "@/Redux/Features/Product/ProductApi";
+import { useAllProductsQuery } from "@/Redux/Features/Product/ProductApi";
 import { Skeleton } from "../ui/skeleton";
 import { Tproduct } from "../Shop/RightSide";
-import { toast } from "sonner";
 import UpdateProduct from "./UpdateProduct";
+import { IoClose } from "react-icons/io5";
+import { AiOutlineCheck } from "react-icons/ai";
 
 const AllProducts = () => {
-    const [productDelete] = useProductDeleteMutation()
+
     const { data: allProducts, isLoading, isError } = useAllProductsQuery(undefined)
     let content;
 
@@ -44,31 +43,17 @@ const AllProducts = () => {
                 <td className="p-3">
                     {item.quantity}
                 </td>
-                <td className="p-3">
-                    {item.quantity}
+                <td className="p-3 flex items-center justify-center">
+                    {item.inStock ? <AiOutlineCheck /> : <IoClose />}
                 </td>
-                <td className="p-3 flex items-center text-xl">
-                    <UpdateProduct id={item?._id}/>
-                    <FaTrash onClick={()=> handleDeleteProduct(item._id)} className="text-red-600 cursor-pointer mx-auto" />
+                <td className="p-3 text-xl">
+                    <UpdateProduct id={item?._id} />
                 </td>
             </tr>
         )
     }
 
-    const handleDeleteProduct = async (id: string) => {
-        const toastId = toast.loading("Loading...")
-        try {
-            const res = await productDelete(id)
-            if(res?.error){
-                toast.error("Something went wrong...", {id: toastId})
-            }else{
-                toast.success("Deleted Product...", {id: toastId})
-            }
 
-        } catch (error) {
-            toast.error("Delete Failed...", {id: toastId})
-        }
-    }
     return (
         <div className="space-y-5">
             <div className="flex items-center justify-between">
@@ -78,7 +63,7 @@ const AllProducts = () => {
             <div className=" min-h-screen">
 
                 <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <table className="w-full text-left border-collapse">
+                    <table className="w-full text-left border-collapse overflow-scroll">
                         <thead className="bg-gray-200">
                             <tr className="text-center">
                                 <th className="p-3">Product Name</th>
