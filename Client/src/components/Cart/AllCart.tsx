@@ -6,7 +6,6 @@ import { Tproduct } from "../Shop/RightSide";
 
 const AllCart = () => {
     const carts = useAppSelector(state => state.product.carts)
-    console.log(carts);
     
     return (
         <div className="grid lg:grid-cols-12 gap-10 py-5">

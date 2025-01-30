@@ -6,6 +6,8 @@ import { removeCart, updateCart } from "@/Redux/Features/Product/ProductSlice";
 import { Tproduct } from "../Shop/RightSide";
 
 const CartItem = ({cart}:{cart: Tproduct}) => {
+    console.log(cart);
+    
     const dispatch = useAppDispatch()
 
     const handleRemove = () => {
@@ -49,28 +51,6 @@ const CartItem = ({cart}:{cart: Tproduct}) => {
                     </Button>
                 </div>
             </div>
-
-
-            {/* <div className="flex items-center mt-2">
-                <img src="https://placehold.co/100x100" alt="Ciovita Apex Elite Ladies Bib Shorts" className="mr-4" />
-                <div>
-                    <h3 className="font-semibold">Ciovita Apex Elite Ladies Bib Shorts</h3>
-                    <p className="">Size: XL</p>
-                </div>
-            </div>
-            <div className="flex items-center">
-                <div className="flex items-center mx-2">
-                    <button className="bg-secondary text-secondary-foreground p-1 rounded-l">-</button>
-                    <input type="number" value="1" className="border border-border text-center w-12" />
-                    <button className="bg-secondary text-secondary-foreground p-1 rounded-r">+</button>
-                </div>
-            </div>
-            <div className="flex items-center">
-                <p className="ml-2">R 2,599.99</p>
-            </div>
-            <div className="flex items-center">
-                <button className="text-blue-500 ml-2">Remove</button>
-            </div> */}
         </div>
     );
 };

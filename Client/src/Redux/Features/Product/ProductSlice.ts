@@ -20,6 +20,7 @@ const productSlice = createSlice({
     reducers: {
         addCard: (state, action) => {
             const isExiting = state.carts.find(cart => cart._id === action.payload._id)
+
             if (!isExiting) {
                 state.carts.push({ ...action.payload, quantity: 1 })
                 toast.success("Add to cart")
@@ -32,12 +33,14 @@ const productSlice = createSlice({
         updateCart: (state, action) => {
             state.carts.map(cart => {
                 if (cart?._id === action.payload.id) {
-                    if (action.payload.type === 'increment') {
+                    if (action.payload.type === 'increment' && (cart?.totalQuantity as number) > cart.quantity) {
                         cart.quantity += 1
                     } else if (action.payload.type === 'decrement') {
                         if (cart.quantity > 1) {
                             cart.quantity -= 1
                         }
+                    } else {
+                        toast.success(`Stock Available ${(cart?.totalQuantity as number)}`)
                     }
                 }
                 return cart
@@ -67,5 +70,5 @@ export const setTotalPrice = (state: TinitialState) =>
 
 export const { addCard, updateCart,
     removeCart
- } = productSlice.actions;
+} = productSlice.actions;
 export default productSlice.reducer;

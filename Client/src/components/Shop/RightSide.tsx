@@ -24,6 +24,7 @@ export type Tproduct = {
     type: string
     updatedAt: string
     _id: string,
+    totalQuantity?:number
 }
 
 const RightSide = () => {
