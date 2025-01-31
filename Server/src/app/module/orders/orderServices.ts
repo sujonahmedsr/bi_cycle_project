@@ -72,7 +72,6 @@ const createOrder = async (user: Tuser, payload: { products: { _id: string; quan
 
 }
 
-
 // const createOrder = async (user: Tuser, payload: { products: { product: string; quantity: number }[] }, client_ip: string) => {
 //     const id = user?.id
 //     const userData = await userModel.findById(id)
@@ -136,7 +135,8 @@ const createOrder = async (user: Tuser, payload: { products: { _id: string; quan
 
 // for revenue 
 const getUserAllOrder = async (user: Tuser) => {
-    const result = await orderModel.find({user: user?.id})
+    const result = await orderModel.find({user: user?.id}).populate("user")
+    
     return result
 }
 const getAdminAllConOrder = async () => {
@@ -156,7 +156,7 @@ const getAdminAllConOrder = async () => {
         }
     ]);
     
-    const allOrders = await orderModel.find()
+    const allOrders = await orderModel.find().populate("user")
     return {allOrders, totalRevenue: totalRevenue[0] || { totalRevenue: 0, totalSell: 0 }}
 }
 
