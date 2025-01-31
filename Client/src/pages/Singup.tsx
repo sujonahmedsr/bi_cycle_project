@@ -82,7 +82,7 @@ const Singup = () => {
   }
 
   return (
-    <section className="py-14">
+    <section className="py-14 px-4">
       <div className="container mx-auto">
         <div className="flex flex-col gap-4">
           <div className="mx-auto max-w-sm w-full rounded-md shadow py-14 border p-5">

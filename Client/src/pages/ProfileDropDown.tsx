@@ -33,7 +33,7 @@ const ProfileDropDown = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <FaUser className="text-2xl hover:text-blue-600 duration-300 ring-transparent" />
+                <FaUser className="md:text-2xl text-lg hover:text-blue-600 duration-300 ring-transparent" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mt-5 w-60 mr-5">
                 <DropdownMenuItem className="flex flex-col items-center">

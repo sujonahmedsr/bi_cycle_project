@@ -15,7 +15,6 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
 import { LuSearch } from "react-icons/lu";
-import { FaUser } from "react-icons/fa";
 import { IoMdBicycle } from "react-icons/io";
 import { useCurrentToken } from "@/Redux/Features/Auth/AuthSlice";
 import { useAppSelector } from "@/Redux/hooks";
@@ -103,69 +102,77 @@ const Navbar = () => {
                                     </Button>
                                 </Link>
                         }
-
                     </div>
                 </nav>
                 <div className="block lg:hidden">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
-                                <IoMdBicycle className="text-3xl text-blue-600" />
+                            <Link to={'/'} className="text-lg font-bold flex items-center gap-2">
+                                <IoMdBicycle className="text-xl text-blue-600" />
                                 <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
                             </Link>
                         </div>
-                        <Sheet>
-                            <SheetTrigger asChild>
-                                <Button variant="outline" size="icon">
-                                    <Menu className="size-4" />
-                                </Button>
-                            </SheetTrigger>
-                            <SheetContent className="overflow-y-auto">
-                                <SheetHeader>
-                                    <SheetTitle>
-                                        <div className="flex items-center gap-2">
-                                            <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
-                                                <IoMdBicycle className="text-3xl text-blue-600" />
-                                                <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
-                                            </Link>
-                                        </div>
-                                    </SheetTitle>
-                                </SheetHeader>
-                                <div className="mb-6 mt-6 flex flex-col gap-4">
-                                    {
-                                        navItems.map((item, index) => <Link
-                                            key={index + 1}
-                                            className={cn(
-                                                "text-muted-foreground",
-                                                navigationMenuTriggerStyle,
-                                                buttonVariants({
-                                                    variant: "ghost",
-                                                }),
-                                                `hover:text-blue-600 ${locatoin.pathname === item?.link ? "text-blue-600" : ""}`
-                                            )}
-                                            to={item?.link}
-                                        >
-                                            {item?.title}
-                                        </Link>)
-                                    }
-                                </div>
-                                <div className="flex flex-col items-center gap-5">
-                                    <Link to={'/cart'}>
-                                        <LuShoppingCart className="text-xl" />
-                                    </Link>
-                                    {
-                                        user ? <FaUser className="text-xl hover:text-blue-600 duration-300" />
-                                            :
-                                            <Link to={'/login'} className="w-full">
-                                                <Button className="bg-blue-600 hover:bg-blue-700 rounded w-full">
-                                                    Log in
-                                                </Button>
-                                            </Link>
-                                    }
 
-                                </div>
-                            </SheetContent>
-                        </Sheet>
+                        <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2">
+                                <Link to={'/cart'}>
+                                    <div className="relative">
+                                        <LuShoppingCart className="text-lg" />
+                                        <div className="absolute -top-3 -right-2 text-blue-700">
+                                            <p className="font-semibold">{selectedItems > 0 ? selectedItems : null}</p>
+                                        </div>
+                                    </div>
+                                </Link>
+                                {
+                                    user ? <ProfileDropDown />
+                                        :
+                                        <Link to={'/login'}>
+                                            <Button variant={"outline"} className="text-blue-700 hover:text-white hover:bg-blue-600 rounded duration-300">
+                                                Log in
+                                            </Button>
+                                        </Link>
+                                }
+
+                            </div>
+
+                            <Sheet>
+                                <SheetTrigger asChild>
+                                    <Button variant="outline" size="icon">
+                                        <Menu className="size-4" />
+                                    </Button>
+                                </SheetTrigger>
+                                <SheetContent className="overflow-y-auto">
+                                    <SheetHeader>
+                                        <SheetTitle>
+                                            <div className="flex items-center gap-2">
+                                                <Link to={'/'} className="text-xl font-bold flex items-center gap-2">
+                                                    <IoMdBicycle className="text-xl text-blue-600" />
+                                                    <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
+                                                </Link>
+                                            </div>
+                                        </SheetTitle>
+                                    </SheetHeader>
+                                    <div className="mb-6 mt-6 flex flex-col gap-4">
+                                        {
+                                            navItems.map((item, index) => <Link
+                                                key={index + 1}
+                                                className={cn(
+                                                    "text-muted-foreground",
+                                                    navigationMenuTriggerStyle,
+                                                    buttonVariants({
+                                                        variant: "ghost",
+                                                    }),
+                                                    `hover:text-blue-600 ${locatoin.pathname === item?.link ? "text-blue-600" : ""}`
+                                                )}
+                                                to={item?.link}
+                                            >
+                                                {item?.title}
+                                            </Link>)
+                                        }
+                                    </div>
+                                </SheetContent>
+                            </Sheet>
+                        </div>
                     </div>
                 </div>
             </div>

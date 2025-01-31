@@ -37,7 +37,7 @@ const Cart = () => {
                                 <span>Price: ${totalPrice}</span>
                             </div>
                             <Link to={"/checkOut"} className="w-full">
-                                <Button className="w-full mt-4 p-2 rounded bg-blue-600 hover:bg-blue-700 text-white duration-200">Checkout Now</Button>
+                                <Button className="w-full mt-4 p-2 rounded bg-blue-600 hover:bg-blue-700 text-white duration-200">Order Now</Button>
                             </Link>
                         </div>
                     </div>

@@ -34,7 +34,7 @@ const AllProducts = () => {
         content = allProducts?.data?.map((item: Tproduct, index: number) =>
             <tr key={index} className="border-t hover:bg-gray-100 text-center">
                 <td className="p-3 flex items-center gap-2">
-                    <img src="" alt={item.name} className="w-8 h-8 rounded-full" />
+                    <img src={item?.image} alt={item.name} className="w-8 h-8 rounded-full" />
                     {item.name}
                 </td>
                 <td className="p-3">{item.brand}</td>

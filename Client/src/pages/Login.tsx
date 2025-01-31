@@ -65,7 +65,7 @@ const Login = () => {
         const user = await jwtDecode(res?.data?.data?.token);
         dispatch(setUser({ user, token: res?.data?.data?.token }))
         navigate(location.state || '/', { replace: true })
-        toast.success("Login Successfull...", { id: toastId })
+        toast.success("Login Successfull..., If you not update your profile please update now.", { id: toastId })
       }
     } catch (error) {
       toast.error('Failed to login. Please try again.')
@@ -73,7 +73,7 @@ const Login = () => {
   }
 
   if (token) {
-    return <div className="h-[60vh] grid place-items-center">
+    return <div className="h-[60vh] grid place-items-center p-4">
       <div className="mt-5 mx-auto text-center">
         <h1>You are already You are logged in..</h1>
         <Link to={'/products'} >
@@ -84,7 +84,7 @@ const Login = () => {
   }
 
   return (
-    <section className="py-14">
+    <section className="py-14 px-4">
       <div className="container mx-auto">
         <div className="flex flex-col gap-4">
           <div className="mx-auto max-w-sm w-full rounded-md shadow py-14 border p-5">

@@ -4,6 +4,7 @@ import since from '@/assets/whyIcons/since.png'
 import Assembly from '@/assets/whyIcons/Assembly.png'
 import Advice from '@/assets/whyIcons/Advice.png'
 import Shipping from '@/assets/whyIcons/Shipping.png'
+import cycle from '@/assets/cycle/bike.png'
 
 const WhyShop = () => {
     return (
@@ -45,6 +46,20 @@ const WhyShop = () => {
                     </Link>
                 </div>
             </div>
+            <section className="bg-white rounded-xl shadow-md mt-8 flex flex-col md:flex-row items-center">
+                <img
+                    src={cycle}
+                    alt="Bicycle Workshop"
+                    className="w-full md:w-1/2 rounded-lg"
+                />
+                <div className="md:ml-6 mt-4 md:mt-0">
+                    <h3 className="text-2xl font-semibold text-gray-800">Our Story</h3>
+                    <p className="text-gray-700 text-lg mt-2">
+                        Founded by passionate cyclists, Cycle_Labs started as a small shop with a big dream: to make cycling accessible for everyone.
+                        Today, we serve countless happy customers with our top-quality bicycles, expert repairs, and outstanding customer service.
+                    </p>
+                </div>
+            </section>
         </div>
     );
 };
