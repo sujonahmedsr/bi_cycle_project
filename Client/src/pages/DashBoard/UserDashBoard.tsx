@@ -55,10 +55,10 @@ export default function UserDashBoard() {
   const location = useLocation();
 
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       {/* Sidebar */}
       <div
-        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10`}
+        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10 h-screen`}
       >
         <div className="p-4 text-lg font-semibold border-gray-700">
           <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">

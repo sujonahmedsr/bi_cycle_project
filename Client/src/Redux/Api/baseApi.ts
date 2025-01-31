@@ -14,6 +14,6 @@ export const baseApi = createApi({
             return headers
         }
     }),
-    tagTypes: ["task", "product", "user"],
+    tagTypes: ["task", "product", "user", "authme"],
     endpoints: () => ({})
 })

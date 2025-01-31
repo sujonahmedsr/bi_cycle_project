@@ -21,32 +21,36 @@ const userSchema = new Schema<userInterface>({
     },
     role: {
         type: String,
-        enum: ["admin" , "customer"],
+        enum: ["admin", "customer"],
         default: "customer"
     },
     isBlocked: {
         type: Boolean,
         default: false
-    }
+    },
+    phone: { type: String, default: "N/A" },
+    address: { type: String, default: "N/A" },
+    city: { type: String, default: "N/A" },
+    image: { type: String, default: null }
 }, {
     timestamps: true
 })
 
-userSchema.pre('save', async function(next){
+userSchema.pre('save', async function (next) {
     const user = this;
     user.password = await bcrypt.hash(user.password, 10)
     next()
 })
 
-userSchema.pre("save", async function(next){
-    const {email} = this
-    const user = await userModel.findOne({email})
-    if(user){
-        throw new AppError(StatusCodes.BAD_REQUEST,'User already exists')
+userSchema.pre("save", async function (next) {
+    const { email } = this
+    const user = await userModel.findOne({ email })
+    if (user) {
+        throw new AppError(StatusCodes.BAD_REQUEST, 'User already exists')
     }
 })
 
-userSchema.post('save', async function(doc, next){
+userSchema.post('save', async function (doc, next) {
     doc.password = ''
     next()
 })

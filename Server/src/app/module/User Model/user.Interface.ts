@@ -3,7 +3,11 @@ export interface userInterface {
     email: string,
     password: string,
     role: "admin" | "customer",
-    isBlocked: boolean
+    isBlocked: boolean,
+    phone?: string;
+    address?: string;
+    city?: string;
+    image?: string
 }
 
 export interface loginInterface {

@@ -62,11 +62,20 @@ const singleUser = async (id: string) => {
     }
     return user
 }
+const updateUser = async (id: string, payload: any) => {
+    
+    const user = await userModel.findByIdAndUpdate(id, payload, {new: true})
+    if (!user) {
+        throw new AppError(StatusCodes.NOT_FOUND, 'This user is not found !')
+    }
+    return user
+}
 
 
 export const userServices = {
     resgisterUserIntoDb,
     loginUserDb,
     resetPassword,
+    updateUser,
     singleUser
 }

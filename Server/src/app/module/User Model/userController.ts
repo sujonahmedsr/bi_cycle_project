@@ -47,6 +47,16 @@ const getSingleUser = asyncFunc(async (req: Request, res: Response) => {
         data: result
     })
 })
+const updateUser = asyncFunc(async (req: Request, res: Response) => {
+    const {id} = req.user
+    
+    const result = await userServices.updateUser(id, req.body)
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        message: 'User updated Successfull.',
+        data: result
+    })
+})
 
 const logOut = asyncFunc(async (req: Request, res: Response) => {
     res.clearCookie("token");
@@ -61,5 +71,6 @@ export const userController = {
     loginUser,
     resetPassword,
     getSingleUser,
+    updateUser,
     logOut
 }

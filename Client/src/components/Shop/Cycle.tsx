@@ -40,7 +40,7 @@ const Cycle = ({ item }: { item: Tproduct }) => {
 
     <Card className="hover:border-blue-300">
       <CardHeader className="relative">
-        <Link to={`/viewDetails/${_id}`}>
+        <Link to={`/viewDetails/${_id}`} className="border">
           <img src={image || cycle1} alt="testing image" />
         </Link>
         <div className="absolute top-2 right-2 flex items-center justify-between gap-4">

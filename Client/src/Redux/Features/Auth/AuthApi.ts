@@ -6,7 +6,8 @@ const authApi = baseApi.injectEndpoints({
             query: (id) => ({
                 url: `/auth/user/${id}`,
                 method: "GET",
-            })
+            }),
+            providesTags: ["authme"]
         }),
         registration: builder.mutation({
             query: (info) => ({
