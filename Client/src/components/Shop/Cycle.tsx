@@ -24,7 +24,7 @@ import { addCard } from "@/Redux/Features/Product/ProductSlice"
 import { toast } from "sonner"
 
 const Cycle = ({ item }: { item: Tproduct }) => {
-  const { _id, brand, name, price, quantity } = item
+  const { _id, brand, name, price, quantity, image } = item
 
   const dispatch = useAppDispatch()
 
@@ -41,7 +41,7 @@ const Cycle = ({ item }: { item: Tproduct }) => {
     <Card className="hover:border-blue-300">
       <CardHeader className="relative">
         <Link to={`/viewDetails/${_id}`}>
-          <img src={cycle1} alt="testing image" />
+          <img src={image || cycle1} alt="testing image" />
         </Link>
         <div className="absolute top-2 right-2 flex items-center justify-between gap-4">
           <TooltipProvider>

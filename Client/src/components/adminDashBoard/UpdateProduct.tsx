@@ -45,6 +45,7 @@ const UpdateProduct = ({ id }: { id: string }) => {
     const form = useForm({
         defaultValues: {
             name: singleProduct?.data?.name,
+            image: singleProduct?.data?.image,
             description: singleProduct?.data?.description,
             brand: singleProduct?.data?.brand,
             price: singleProduct?.data?.price,
@@ -60,6 +61,7 @@ const UpdateProduct = ({ id }: { id: string }) => {
         if (singleProduct?.data) {
             reset({
                 name: singleProduct.data.name || "",
+                image: singleProduct.data.image || "",
                 description: singleProduct.data.description || "",
                 brand: singleProduct.data.brand || "",
                 price: singleProduct.data.price || 0,
@@ -126,6 +128,21 @@ const UpdateProduct = ({ id }: { id: string }) => {
                                         <FormLabel>Product Name</FormLabel>
                                         <FormControl>
                                             <Input placeholder="Product name" {...field} value={field.value || ''} />
+                                        </FormControl>
+                                        {
+                                            error && <p className="text-red-500">{error.message}</p>
+                                        }
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="image"
+                                render={({ field, fieldState: { error } }) => (
+                                    <FormItem>
+                                        <FormLabel>Product Image</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="Product image" {...field} value={field.value || ''} />
                                         </FormControl>
                                         {
                                             error && <p className="text-red-500">{error.message}</p>

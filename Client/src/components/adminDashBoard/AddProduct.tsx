@@ -34,6 +34,7 @@ import { useAddProductMutation } from "@/Redux/Features/Product/ProductApi"
 import { toast } from "sonner"
 const formSchema = z.object({
     name: z.string({ required_error: "name is required." }),
+    image: z.string({ required_error: "image is required." }),
     description: z.string({ required_error: "description is required." }),
     brand: z.string({ required_error: "brand is required." }),
     price: z.string({ required_error: "price is required." }),
@@ -84,6 +85,21 @@ const AddProduct = () => {
                                     <FormLabel>Product Name</FormLabel>
                                     <FormControl>
                                         <Input placeholder="Product name" {...field} value={field.value || ''} />
+                                    </FormControl>
+                                    {
+                                        error && <p className="text-red-500">{error.message}</p>
+                                    }
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="image"
+                            render={({ field, fieldState: { error } }) => (
+                                <FormItem>
+                                    <FormLabel>Product Image</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Product image" {...field} value={field.value || ''} />
                                     </FormControl>
                                     {
                                         error && <p className="text-red-500">{error.message}</p>

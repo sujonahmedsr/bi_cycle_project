@@ -19,6 +19,7 @@ export type Tproduct = {
     description: string
     inStock: boolean
     name: string
+    image: string
     price: number
     quantity: number
     type: string
