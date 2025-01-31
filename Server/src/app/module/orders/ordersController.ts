@@ -7,6 +7,9 @@ import { Tuser } from "../../interfaces/errors";
 const createConOrder = asyncFunc(async (req, res) => {
     const body = req.body;
     const user = req.user as Tuser
+
+    console.log(body);
+    
     
     const result = await orderServices.createOrder(user, body, req.ip!);
     sendResponse(res, {

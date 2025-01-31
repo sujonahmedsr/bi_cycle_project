@@ -6,8 +6,6 @@ import { removeCart, updateCart } from "@/Redux/Features/Product/ProductSlice";
 import { Tproduct } from "../Shop/RightSide";
 
 const CartItem = ({cart}:{cart: Tproduct}) => {
-    console.log(cart);
-    
     const dispatch = useAppDispatch()
 
     const handleRemove = () => {

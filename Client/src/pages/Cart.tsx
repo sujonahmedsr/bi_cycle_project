@@ -2,11 +2,40 @@ import emptyCart from '@/assets/icons/emptycart.png'
 import CartItem from '@/components/Cart/CartItem';
 import { Tproduct } from '@/components/Shop/RightSide';
 import { Button } from '@/components/ui/button';
+import { useCreateOrderMutation } from '@/Redux/Features/Order/OrderApi';
 import { useAppSelector } from '@/Redux/hooks';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 const Cart = () => {
     const { carts, selectedItems, totalPrice } = useAppSelector(state => state.product)
 
+    console.log("all carts", carts);
+    
+    const [createOrder, { isLoading, isSuccess, data, isError, error }] =
+        useCreateOrderMutation();
+
+    const handlePlaceOrder = async () => {
+        await createOrder({ products: carts });
+        console.log("okay");
+        
+    };
+
+    const toastId = "cart";
+    useEffect(() => {
+        if (isLoading) toast.loading("Processing ...", { id: toastId });
+
+        if (isSuccess) {
+            toast.success(data?.message, { id: toastId });
+            if (data?.data) {
+                setTimeout(() => {
+                    window.location.href = data.data;
+                }, 1000);
+            }
+        }
+
+        if (isError) toast.error(JSON.stringify(error), { id: toastId });
+    }, [data?.data, data?.message, error, isError, isLoading, isSuccess]);
     return (
         <div className='container mx-auto p-4'>
             <h1 className='text-2xl font-semibold'>My Cart</h1>
@@ -36,9 +65,8 @@ const Cart = () => {
                                 <span>Total</span>
                                 <span>Price: ${totalPrice}</span>
                             </div>
-                            <Link to={"/checkOut"} className="w-full">
-                                <Button className="w-full mt-4 p-2 rounded bg-blue-600 hover:bg-blue-700 text-white duration-200">Order Now</Button>
-                            </Link>
+                            <Button onClick={handlePlaceOrder} className="w-full mt-4 p-2 rounded bg-blue-600 hover:bg-blue-700 text-white duration-200">Order Now</Button>
+
                         </div>
                     </div>
                 </div> :

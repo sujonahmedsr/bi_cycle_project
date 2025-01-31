@@ -37,7 +37,7 @@ const productApi = baseApi.injectEndpoints({
                 method: "DELETE",
             }),
             invalidatesTags: ["product"]
-        })
+        }),
     })
 })
 
