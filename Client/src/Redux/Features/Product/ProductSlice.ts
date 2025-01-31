@@ -54,6 +54,11 @@ const productSlice = createSlice({
             state.selectedItems = 0
             state.totalPrice = 0
         },
+        afterOrder: (state) => {
+            state.carts = [];
+            state.selectedItems = 0;
+            state.totalPrice = 0;
+        }
     }
 })
 
@@ -69,6 +74,6 @@ export const setTotalPrice = (state: TinitialState) =>
     }, 0)
 
 export const { addCard, updateCart,
-    removeCart
+    removeCart, afterOrder
 } = productSlice.actions;
 export default productSlice.reducer;

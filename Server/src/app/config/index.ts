@@ -20,7 +20,7 @@ export default {
     sp_username: 'sp_sandbox',
     sp_password: 'pyyk97hu&6u6',
     sp_prefix: 'SP',
-    sp_return_url: 'https://sandbox.shurjopayment.com/response',
+    sp_return_url: 'http://localhost:5173/response',
   },
 };
 

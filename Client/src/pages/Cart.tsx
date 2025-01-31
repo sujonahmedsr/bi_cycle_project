@@ -3,22 +3,20 @@ import CartItem from '@/components/Cart/CartItem';
 import { Tproduct } from '@/components/Shop/RightSide';
 import { Button } from '@/components/ui/button';
 import { useCreateOrderMutation } from '@/Redux/Features/Order/OrderApi';
+// import { afterOrder } from '@/Redux/Features/Product/ProductSlice';
 import { useAppSelector } from '@/Redux/hooks';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 const Cart = () => {
+    // const dispatch = useAppDispatch()
     const { carts, selectedItems, totalPrice } = useAppSelector(state => state.product)
 
-    console.log("all carts", carts);
-    
     const [createOrder, { isLoading, isSuccess, data, isError, error }] =
         useCreateOrderMutation();
 
     const handlePlaceOrder = async () => {
         await createOrder({ products: carts });
-        console.log("okay");
-        
     };
 
     const toastId = "cart";
@@ -28,6 +26,7 @@ const Cart = () => {
         if (isSuccess) {
             toast.success(data?.message, { id: toastId });
             if (data?.data) {
+                // dispatch(afterOrder())
                 setTimeout(() => {
                     window.location.href = data.data;
                 }, 1000);

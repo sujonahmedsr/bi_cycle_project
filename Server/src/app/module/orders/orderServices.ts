@@ -135,17 +135,29 @@ const createOrder = async (user: Tuser, payload: { products: { _id: string; quan
 // }
 
 // for revenue 
-const getAllOrder = async () => {
-    // const result = await orderModel.aggregate([
-    //     {
-    //         $group: { _id: null, totalRevenue: { $sum: "$totalPrice" } },
-    //     },
-    //     {
-    //         $project: { _id: 0, totalRevenue: 1 }
-    //     }
-    // ])
-    const result = await orderModel.find()
+const getUserAllOrder = async (user: Tuser) => {
+    const result = await orderModel.find({user: user?.id})
     return result
+}
+const getAdminAllConOrder = async () => {
+    const totalRevenue = await orderModel.aggregate([
+        {
+            $unwind: "$products" // Flatten products array to access each product's quantity
+        },
+        {
+            $group: { 
+                _id: null, 
+                totalRevenue: { $sum: "$totalPrice" }, 
+                totalSell: { $sum: "$products.quantity" } // Sum all product quantities
+            }
+        },
+        {
+            $project: { _id: 0, totalRevenue: 1, totalSell: 1 }
+        }
+    ]);
+    
+    const allOrders = await orderModel.find()
+    return {allOrders, totalRevenue: totalRevenue[0] || { totalRevenue: 0, totalSell: 0 }}
 }
 
 const verifyPayment = async (order_id: string) => {
@@ -179,6 +191,7 @@ const verifyPayment = async (order_id: string) => {
 };
 export const orderServices = {
     createOrder,
-    getAllOrder,
+    getUserAllOrder,
+    getAdminAllConOrder,
     verifyPayment
 }

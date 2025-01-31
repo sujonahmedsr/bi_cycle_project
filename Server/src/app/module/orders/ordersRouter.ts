@@ -7,6 +7,7 @@ const orderRouter = Router()
 orderRouter.get("/verify", authMid("customer", "admin"), orderController.verifyPayment);
 
 orderRouter.post('/create-order', authMid("customer", "admin"), orderController.createConOrder)
-orderRouter.get('/allOrders', orderController.getAllConOrder)
+orderRouter.get('/userAllOrders', authMid("customer", "admin"), orderController.getUserAllConOrder)
+orderRouter.get('/adminAllOrders', authMid("admin"), orderController.getAdminAllConOrder)
 
 export default orderRouter;
