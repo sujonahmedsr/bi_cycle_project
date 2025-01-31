@@ -70,7 +70,7 @@ export default function AdminDashBoard() {
     <div className="flex">
       {/* Sidebar */}
       <div
-        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10 h-screen`}
+        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10`}
       >
         <div className="p-4 text-lg font-semibold border-gray-700 flex items-center justify-between gap-5">
           <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">

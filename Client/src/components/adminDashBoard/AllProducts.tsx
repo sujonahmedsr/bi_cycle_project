@@ -31,7 +31,7 @@ const AllProducts = () => {
         </div>
     }
     if (!isLoading && !isError && allProducts?.data?.length > 0) {
-        content = allProducts?.data?.slice(0, 8).map((item: Tproduct, index: number) =>
+        content = allProducts?.data?.map((item: Tproduct, index: number) =>
             <tr key={index} className="border-t hover:bg-gray-100 text-center">
                 <td className="p-3 flex items-center gap-2">
                     <img src="" alt={item.name} className="w-8 h-8 rounded-full" />
@@ -63,7 +63,7 @@ const AllProducts = () => {
             <div className=" min-h-screen">
 
                 <div className="bg-white shadow-lg rounded-lg">
-                    <table className="w-full text-left border-collapse overflow-scroll">
+                    <table className="w-full text-left border-collapse overflow-x-scroll">
                         <thead className="bg-gray-200">
                             <tr className="text-center">
                                 <th className="p-3">Product Name</th>
