@@ -4,7 +4,7 @@ import { loginInterface, userInterface } from "./user.Interface"
 import { userModel } from "./userSchema.model"
 import bcrypt from "bcrypt"
 import jwt, { JwtPayload } from "jsonwebtoken"
-import config from "../../../config"
+import configOut from "../../../configOut"
 
 const resgisterUserIntoDb = async (paylod: userInterface) => {
     const result = await userModel.create(paylod)
@@ -33,7 +33,7 @@ const loginUserDb = async (paylod: loginInterface) => {
         role: user?.role,
         id: user?._id
     }
-    const token = jwt.sign(jwtPayload, config.SECRET_JWT as string, { expiresIn: '1d' })
+    const token = jwt.sign(jwtPayload, configOut.SECRET_JWT as string, { expiresIn: '1d' })
 
     return { token };
 }

@@ -2,15 +2,15 @@ import mongoose from "mongoose"
 import app from "./app"
 import dotenv from 'dotenv'
 import { Server } from "http"
-import config from "./config";
+import configOut from "./configOut";
 
 let server : Server;
 
 async function main() {
     try {
-        await mongoose.connect(config.DBURL as string);
-        server = app.listen(config.PORT, () => {
-            console.log(`Server running on port ${config.PORT} 🏃🏽‍♂️‍➡️`)
+        await mongoose.connect(configOut.DBURL as string);
+        server = app.listen(configOut.PORT, () => {
+            console.log(`Server running on port ${configOut.PORT} 🏃🏽‍♂️‍➡️`)
         })
     } catch (error) {
         console.log(error);

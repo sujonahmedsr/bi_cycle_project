@@ -1,18 +1,51 @@
-import mongoose, { model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { orderInterface } from "./ordersInterface";
-import validator from "validator";
 
 // create scheme for orders 
-const orderShchema = new Schema<orderInterface>({
-    email: {type: String, required: [true, 'email field is required'], validate: {
-        validator: (value: string) => validator.isEmail(value),
-        message: '{VALUE} is no valid email '
-    }},
-    product: {type: mongoose.Types.ObjectId, required: [true, 'product field is required']},
-    quantity: {type: Number, required: [true, 'quantity field is required'], min: [1, 'minimum 1 product select']},
-    totalPrice: {type: Number, required: [true, 'totalPrice field is required']}
-}, {timestamps: true, versionKey: false})
+const orderShchema = new Schema(
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "users",
+        required: true,
+      },
+      products: [
+        {
+          product: {
+            type: Schema.Types.ObjectId,
+            ref: "products",
+            required: true,
+          },
+          quantity: {
+            type: Number,
+            required: true,
+          },
+        },
+      ],
+      totalPrice: {
+        type: Number,
+        required: true,
+      },
+      status: {
+        type: String,
+        enum: ["Pending", "Paid", "Shipped", "Completed", "Cancelled"],
+        default: "Pending",
+      },
+      transaction: {
+        id: String,
+        transactionStatus: String,
+        bank_status: String,
+        sp_code: String,
+        sp_message: String,
+        method: String,
+        date_time: String,
+      },
+    },
+    {
+      timestamps: true,
+    }
+  );
 
 // create model for order 
-export const orderModel = model<orderInterface>('orders', orderShchema)
+export const orderModel = model('orders', orderShchema)
 

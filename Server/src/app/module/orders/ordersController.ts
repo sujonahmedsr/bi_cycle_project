@@ -1,39 +1,14 @@
-import { Request, Response } from "express";
 import { orderServices } from "./orderServices";
-import { productModel } from "../products/productsSchmeModel";
 import asyncFunc from "../../utils/asyncFunc";
 import sendResponse from "../../utils/sendRespose";
 import { StatusCodes } from "http-status-codes";
+import { Tuser } from "../../interfaces/errors";
 
 const createConOrder = asyncFunc(async (req, res) => {
     const body = req.body;
-
-        // find product from productsModel Db 
-        const products = await productModel.findById(body.product)
-        if (!products) {
-            throw new Error('Product not found')
-        }
-
-        // quantity check 
-        if (products.quantity < body.quantity) {
-            throw new Error(
-                `Insufficient stock. Only ${products.quantity} items available.`
-            );
-        }
-        // reduce the quantity in the product model
-        products.quantity -= body.quantity;
-
-        // If the inventory quantity goes to zero, set inStock to false.
-        if (products.quantity === 0) {
-            products.inStock = false
-        }
-        // then save this 
-        await products.save()
-
-        // total price 
-        body.totalPrice = body.quantity * products.price
-
-        const result = await orderServices.createOrder(body);
+    const user = req.user as Tuser
+    
+    const result = await orderServices.createOrder(user, body, req.ip!);
     sendResponse(res, {
         statusCode: StatusCodes.CREATED,
         message: 'Order created successfully',
@@ -88,7 +63,7 @@ const getAllConOrder = asyncFunc(async (req, res) => {
     const result = await orderServices.getAllOrder();
     sendResponse(res, {
         statusCode: StatusCodes.OK,
-        message: 'Revenue calculated successfully',
+        message: 'All orders retrives successfully',
         data: result
     })
 })
@@ -110,7 +85,18 @@ const getAllConOrder = asyncFunc(async (req, res) => {
 //     }
 // }
 
+const verifyPayment = asyncFunc(async (req, res) => {
+    const order = await orderServices.verifyPayment(req.query.order_id as string);
+  
+    sendResponse(res, {
+      statusCode: StatusCodes.CREATED,
+      message: "Order verified successfully",
+      data: order,
+    });
+  });
+
 export const orderController = {
     createConOrder,
-    getAllConOrder
+    getAllConOrder,
+    verifyPayment
 }
