@@ -27,6 +27,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Input } from "../ui/input";
 import { useUpdateUserProfileMutation } from "@/Redux/Features/User/UserApi";
+import axios from "axios";
 
 export type Tuser = {
     email: string | undefined,
@@ -98,10 +99,31 @@ const ProfileSetting = () => {
         }
     }, [profile, reset]);
 
+    // image upload to coudinary start 
+    const [image, setImage] = useState<File | null>(null);
+
+    const handleImageChange = (file: File) => {
+        setImage(file);
+    };
+    // image upload to coudinary  end 
+
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const toastId = toast.loading("Loading...")
         try {
-            const res = await updateProfile({ ...data })
+            let imageUrl = profile?.image;
+            if (image) {
+                const formData = new FormData();
+                formData.append("file", image);
+                formData.append("upload_preset", "cycle_labs"); // Replace with your Cloudinary preset
+
+                const response = await axios.post(
+                    "https://api.cloudinary.com/v1_1/dvjeaplel/image/upload", // Replace with your Cloudinary cloud name
+                    formData
+                );
+                // cloudirnay img url 
+                imageUrl = response.data.secure_url
+            }
+            const res = await updateProfile({ ...data, image: imageUrl })
             if (res?.error) {
                 toast.error((res?.error as any)?.error || (res?.error as any)?.data?.message, { id: toastId })
             } else {
@@ -150,13 +172,30 @@ const ProfileSetting = () => {
                                         name="image"
                                         render={({ field, fieldState: { error } }) => (
                                             <FormItem>
-                                                <FormLabel>Image url</FormLabel>
+                                                <FormLabel>Product Image</FormLabel>
                                                 <FormControl>
-                                                    <Input placeholder="Image url" {...field} value={field.value || ''} />
+                                                    <div className="flex flex-col gap-2">
+                                                        {/* Show Image Preview if Available */}
+                                                        {field.value && typeof field.value === "string" && (
+                                                            <img src={field.value} alt="Product" className="w-32 h-32 object-cover rounded-lg border" />
+                                                        )}
+
+                                                        {/* File Input for Image Upload */}
+                                                        <Input
+                                                            type="file"
+                                                            accept="image/*"
+                                                            onChange={async (e) => {
+                                                                const file = e.target.files?.[0];
+                                                                if (file) {
+                                                                    handleImageChange(file); // Upload & update form state
+                                                                }
+                                                            }}
+                                                        />
+                                                    </div>
                                                 </FormControl>
-                                                {
-                                                    error && <p className="text-red-500">{error.message}</p>
-                                                }
+
+                                                {/* Error Message */}
+                                                {error && <p className="text-red-500">{error.message}</p>}
                                             </FormItem>
                                         )}
                                     />

@@ -17,13 +17,13 @@ const AllOrders = () => {
 
         try {
             const res = await paymentCheck(id);
-            if(res?.error){
-                toast.error((res?.error as any)?.message || (res?.error as any)?.data?.message || 'something went wrong...', {id: toastId})
-            }else{
-                toast.success(res?.data?.data?.message || "Verify Success", {id: toastId})
+            if (res?.error) {
+                toast.error((res?.error as any)?.message || (res?.error as any)?.data?.message || 'something went wrong...', { id: toastId })
+            } else {
+                toast.success(res?.data?.data?.message || "Verify Success", { id: toastId })
             }
         } catch (error) {
-            toast.error("Faild to verify, Please try again.", {id: toastId})
+            toast.error("Faild to verify, Please try again.", { id: toastId })
         }
     }
 
@@ -64,10 +64,23 @@ const AllOrders = () => {
                 {item?.totalPrice}
             </td>
             <td className="p-3  gap-2">
-                <Button variant={"outline"} className={`${item?.status === "Pending" && "bg-gray-600 text-white"} ${item?.status === "Paid" && "bg-blue-600 text-white"} ${item?.status === "Cancelled" && "bg-red-600 text-white"}`}>{item?.status}</Button>
+                <Button
+                    variant={"outline"}
+                    className={`w-full 
+    ${item?.status === "Pending" && "bg-gray-400 text-white"} 
+    ${item?.status === "Paid" && "bg-blue-400 text-white"} 
+    ${item?.status === "Cancelled" && "bg-red-400 text-white"} pointer-events-none`
+                    }>
+                    {item?.status}
+                </Button>
             </td>
             <td className="p-3  gap-2">
-                <Button  onClick={() => handlePaymentCheck(item?.transaction?.id)} variant={"outline"}>Check</Button>
+                {
+                    item?.status === "Paid" ? <Button disabled={item?.status === "Paid"} className="bg-blue-400 text-white w-full" variant={"outline"}>Success</Button>
+                        :
+                        <Button className="w-full" onClick={() => handlePaymentCheck(item?.transaction?.id)} variant={"outline"}>Check</Button>
+                }
+
             </td>
         </tr>)
     }

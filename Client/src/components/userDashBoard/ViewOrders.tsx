@@ -46,7 +46,7 @@ const ViewOrders = () => {
                 {item?.totalPrice}
             </td>
             <td className="p-3  gap-2">
-                <Button variant={"outline"} className={`${item?.status === "Pending" && "bg-gray-600 text-white"} ${item?.status === "Paid" && "bg-blue-600 text-white"} ${item?.status === "Cancelled" && "bg-red-600 text-white"}`}>{item?.status}</Button>
+                <Button variant={"outline"} className={`${item?.status === "Pending" && "bg-gray-600 text-white"} ${item?.status === "Paid" && "bg-blue-600 text-white"} ${item?.status === "Cancelled" && "bg-red-600 text-white"} pointer-events-none`}>{item?.status}</Button>
             </td>
         </tr>)
     }

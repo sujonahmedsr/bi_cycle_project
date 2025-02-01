@@ -29,6 +29,7 @@ import { useEffect, useState } from "react"
 import { useProductDeleteMutation, useSingleProductQuery, useUpdateProductMutation } from "@/Redux/Features/Product/ProductApi"
 import { toast } from "sonner"
 import { FaEdit, FaTrash } from "react-icons/fa"
+import axios from "axios";
 
 const UpdateProduct = ({ id }: { id: string }) => {
     const [productDelete] = useProductDeleteMutation()
@@ -71,13 +72,39 @@ const UpdateProduct = ({ id }: { id: string }) => {
         }
     }, [singleProduct, reset]);
 
+    // image upload to coudinary start 
+    const [image, setImage] = useState<File | null>(null);
+
+    const handleImageChange = (file: File) => {
+        setImage(file);
+    };
+    // image upload to coudinary  end 
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const toastId = toast.loading("Loading...")
         try {
+            let imageUrl = singleProduct.data.image;
+            if (image) {
+                const formData = new FormData();
+                formData.append("file", image);
+                formData.append("upload_preset", "cycle_labs"); // Replace with your Cloudinary preset
+
+                const response = await axios.post(
+                    "https://api.cloudinary.com/v1_1/dvjeaplel/image/upload", // Replace with your Cloudinary cloud name
+                    formData
+                );
+                // cloudirnay img url 
+                imageUrl = response.data.secure_url
+            }
+
+            const updateData = {
+                ...data,
+                image: imageUrl
+            }
+
             const res = await updateProduct({
                 id,
-                data: { ...data }
+                data: updateData
             })
 
             if (res?.error) {
@@ -98,14 +125,14 @@ const UpdateProduct = ({ id }: { id: string }) => {
         const toastId = toast.loading("Loading...")
         try {
             const res = await productDelete(id)
-            if(res?.error){
-                toast.error("Something went wrong...", {id: toastId})
-            }else{
-                toast.success("Deleted Product...", {id: toastId})
+            if (res?.error) {
+                toast.error("Something went wrong...", { id: toastId })
+            } else {
+                toast.success("Deleted Product...", { id: toastId })
             }
 
         } catch (error) {
-            toast.error("Delete Failed...", {id: toastId})
+            toast.error("Delete Failed...", { id: toastId })
         }
     }
     return (
@@ -142,11 +169,28 @@ const UpdateProduct = ({ id }: { id: string }) => {
                                     <FormItem>
                                         <FormLabel>Product Image</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Product image" {...field} value={field.value || ''} />
+                                            <div className="flex flex-col gap-2">
+                                                {/* Show Image Preview if Available */}
+                                                {field.value && typeof field.value === "string" && (
+                                                    <img src={field.value} alt="Product" className="w-32 h-32 object-cover rounded-lg border" />
+                                                )}
+
+                                                {/* File Input for Image Upload */}
+                                                <Input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={async (e) => {
+                                                        const file = e.target.files?.[0];
+                                                        if (file) {
+                                                            handleImageChange(file); // Upload & update form state
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
                                         </FormControl>
-                                        {
-                                            error && <p className="text-red-500">{error.message}</p>
-                                        }
+
+                                        {/* Error Message */}
+                                        {error && <p className="text-red-500">{error.message}</p>}
                                     </FormItem>
                                 )}
                             />
@@ -258,7 +302,7 @@ const UpdateProduct = ({ id }: { id: string }) => {
                     </Form>
                 </DialogContent>
             </Dialog>
-            <FaTrash onClick={() =>handleDeleteProduct(id)} className="text-red-600 cursor-pointer  mx-auto" />
+            <FaTrash onClick={() => handleDeleteProduct(id)} className="text-red-600 cursor-pointer  mx-auto" />
         </div>
     );
 };
