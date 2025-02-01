@@ -30,7 +30,7 @@ const Cycle = ({ item }: { item: Tproduct }) => {
 
   const handleAddtoCart = () => {
     if (quantity > 0) {
-      dispatch(addCard({...item, totalQuantity: quantity}))
+      dispatch(addCard({ ...item, totalQuantity: quantity }))
     } else {
       toast.error("Out Of Stock")
     }
@@ -41,9 +41,9 @@ const Cycle = ({ item }: { item: Tproduct }) => {
     <Card className="hover:border-blue-300">
       <CardHeader className="relative">
         <Link to={`/viewDetails/${_id}`} className="border">
-          <img src={image || cycle1} alt="testing image" />
+          <img src={image || cycle1} alt="testing image" className="h-52" />
         </Link>
-        <div className="absolute top-2 right-2 flex items-center justify-between gap-4">
+        <div className="absolute top-1 left-0 right-0 flex items-center justify-evenly gap-4 w-full ">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -55,9 +55,11 @@ const Cycle = ({ item }: { item: Tproduct }) => {
             </Tooltip>
           </TooltipProvider>
 
-          {
-            quantity > 0 ? <Button className="bg-blue-200" variant={"outline"}>In Stock</Button> : <Button className="bg-red-200" variant={"outline"}>Out Of Stock</Button>
-          }
+          <div>
+            {
+              quantity > 0 ? <Button className="bg-blue-200" variant={"outline"}>In Stock</Button> : <Button className="bg-red-200" variant={"outline"}>Out Of Stock</Button>
+            }
+          </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-1">

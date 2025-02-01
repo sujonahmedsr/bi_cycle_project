@@ -105,7 +105,6 @@ const CheckOut = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         const toastId = toast.loading("Loading...")
-        console.log(values);
 
         try {
             const res = await updateProfile({ ...values })

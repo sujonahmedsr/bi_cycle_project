@@ -27,7 +27,6 @@ const AllUsers = () => {
         const toastId = toast.loading("Loading...")
         try {
             const res = await deactiveUser(id)
-            console.log(res);
 
             if (res?.error) {
                 toast.error((res?.error as any)?.message || (res?.error as any)?.data?.message || "Something went wrong", { id: toastId })

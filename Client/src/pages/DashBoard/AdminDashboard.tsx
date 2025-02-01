@@ -67,10 +67,10 @@ export default function AdminDashBoard() {
   const location = useLocation();
 
   return (
-    <div className="flex">
+    <div className="flex h-[100vh] overflow-scroll">
       {/* Sidebar */}
       <div
-        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10`}
+        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10 sticky top-0`}
       >
         <div className="p-4 text-lg font-semibold border-gray-700 flex items-center justify-between gap-5">
           <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">

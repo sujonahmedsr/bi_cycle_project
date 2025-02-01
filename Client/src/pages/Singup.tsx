@@ -157,7 +157,7 @@ const Singup = () => {
                       )}
                     />
                     <Button type="submit" className="mt-2 w-full bg-blue-600 hover:bg-blue-700 rounded">
-                      Login
+                      Sign Up
                     </Button>
                   </div>
                 </form>

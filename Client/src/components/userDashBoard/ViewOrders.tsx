@@ -6,7 +6,6 @@ import { Button } from "../ui/button";
 const ViewOrders = () => {
     const { data: allOrders, isLoading, isError } = useUserAllOrdersQuery(undefined)
     const orders = allOrders?.data
-    console.log(orders);
 
     let content;
 

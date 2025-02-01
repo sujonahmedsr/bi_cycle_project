@@ -73,7 +73,7 @@ const router = createBrowserRouter([
       {
         path: '/singup',
         element: <Singup />
-      },
+      }
     ]
   },
   {

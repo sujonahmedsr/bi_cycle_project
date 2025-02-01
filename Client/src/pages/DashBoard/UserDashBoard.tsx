@@ -55,10 +55,10 @@ export default function UserDashBoard() {
   const location = useLocation();
 
   return (
-    <div className="flex">
+    <div className="flex  h-[100vh] overflow-scroll">
       {/* Sidebar */}
       <div
-        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10 h-screen`}
+        className={`bg-gray-200 md:block ${isSidebarOpen ? "block" : " hidden"} z-10 sticky top-0`}
       >
         <div className="p-4 text-lg font-semibold border-gray-700">
           <Link to={'/'} className="text-2xl font-bold flex items-center gap-2">
@@ -119,7 +119,7 @@ export default function UserDashBoard() {
           </button>
         </div>
         {/* Content */}
-        <div className="flex-1 bg-gray-50 overflow-y-auto p-4">
+        <div className="flex-1 bg-gray-50 h-screen overflow-y-auto p-4">
           <Outlet />
         </div>
       </div>

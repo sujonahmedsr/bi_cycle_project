@@ -32,9 +32,10 @@ import { Button } from "../ui/button";
 import { useState } from "react"
 import { useAddProductMutation } from "@/Redux/Features/Product/ProductApi"
 import { toast } from "sonner"
+import axios from "axios"
 const formSchema = z.object({
     name: z.string({ required_error: "name is required." }),
-    image: z.string({ required_error: "image is required." }),
+    image: z.string().optional(),
     description: z.string({ required_error: "description is required." }),
     brand: z.string({ required_error: "brand is required." }),
     price: z.string({ required_error: "price is required." }),
@@ -48,12 +49,38 @@ const AddProduct = () => {
         resolver: zodResolver(formSchema),
     })
 
+    // image upload to coudinary start 
+    const [image, setImage] = useState<File | null>(null);
+
+    const handleImageChange = (file: File) => {
+        setImage(file);
+    };
+    // image upload to coudinary  end 
+
     const { reset } = form
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const toastId = toast.loading("Loading...")
         try {
-            const res = await addProducts(data)
+            if (!image) return toast.error("Please select an image first!");
+
+            const formData = new FormData();
+            formData.append("file", image);
+            formData.append("upload_preset", "cycle_labs"); // Replace with your Cloudinary preset
+
+            const response = await axios.post(
+                "https://api.cloudinary.com/v1_1/dvjeaplel/image/upload", // Replace with your Cloudinary cloud name
+                formData
+            );
+
+            // cloudirnay img url 
+            const imageUrl = response.data.secure_url
+
+            const productData = {
+                ...data,
+                image: imageUrl
+            }
+            const res = await addProducts(productData)
             if (res?.error) {
                 toast.error((res?.error as any)?.error || "Something went wrong", { id: toastId })
             } else {
@@ -61,7 +88,6 @@ const AddProduct = () => {
                 reset()
                 setOpen(!open)
             }
-
         } catch (error) {
             toast.error('Failed to Add Product. Please try again.')
         }
@@ -95,15 +121,22 @@ const AddProduct = () => {
                         <FormField
                             control={form.control}
                             name="image"
-                            render={({ field, fieldState: { error } }) => (
+                            render={({ fieldState: { error } }) => (
                                 <FormItem>
                                     <FormLabel>Product Image</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Product image" {...field} value={field.value || ''} />
+                                        <Input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                const file = e.target.files?.[0];
+                                                if (file) {
+                                                    handleImageChange(file); // Store the selected file in state
+                                                }
+                                            }}
+                                        />
                                     </FormControl>
-                                    {
-                                        error && <p className="text-red-500">{error.message}</p>
-                                    }
+                                    {error && <p className="text-red-500">{error.message}</p>}
                                 </FormItem>
                             )}
                         />
@@ -127,7 +160,6 @@ const AddProduct = () => {
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="type"
@@ -160,7 +192,6 @@ const AddProduct = () => {
                                 </FormItem>
                             )}
                         />
-
                         <FormField
                             control={form.control}
                             name="brand"
@@ -192,7 +223,6 @@ const AddProduct = () => {
                                     </FormItem>
                                 )}
                             />
-
                             <FormField
                                 control={form.control}
                                 name="quantity"
@@ -209,7 +239,6 @@ const AddProduct = () => {
                                 )}
                             />
                         </div>
-
                         <Button className="w-full bg-blue-600 hover:bg-blue-700 rounded">Add Product</Button>
                     </form>
                 </Form>
