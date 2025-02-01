@@ -4,7 +4,7 @@ import authMid from "../Authentication/authMid";
 
 const orderRouter = Router()
 
-orderRouter.get("/verify", authMid("customer", "admin"), orderController.verifyPayment);
+orderRouter.patch("/verify", authMid("admin"), orderController.verifyPayment);
 
 orderRouter.post('/create-order', authMid("customer", "admin"), orderController.createConOrder)
 orderRouter.get('/userAllOrders', authMid("customer", "admin"), orderController.getUserAllConOrder)

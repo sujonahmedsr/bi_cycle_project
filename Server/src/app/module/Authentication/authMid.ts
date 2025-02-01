@@ -10,7 +10,7 @@ const authMid = (...requiredRole: string[]) => {
 
         const authToken = req.headers.authorization as string
     
-        const token = authToken.split(" ")[1] || authToken
+        const token =  authToken.split(" ")[1] ||  authToken 
 
         if (token == 'undefined' || !token) {
             throw new AppError(StatusCodes.UNAUTHORIZED,"You are not authorized")

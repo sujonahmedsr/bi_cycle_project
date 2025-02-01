@@ -1,12 +1,31 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useAdminAllOrdersQuery } from "@/Redux/Features/Order/OrderApi";
+import { useAdminAllOrdersQuery, useGetOrderMutation } from "@/Redux/Features/Order/OrderApi";
 import { Skeleton } from "../ui/skeleton";
+import { Button } from "../ui/button";
+import { toast } from "sonner";
 
 const AllOrders = () => {
+    const [paymentCheck] = useGetOrderMutation()
     const { data: allOrders, isLoading, isError } = useAdminAllOrdersQuery(undefined)
     const orders = allOrders?.data?.allOrders
 
     let content;
+
+    const handlePaymentCheck = async (id: string) => {
+        const toastId = toast.loading("Loading...")
+
+        try {
+            const res = await paymentCheck(id);
+            if(res?.error){
+                toast.error((res?.error as any)?.message || (res?.error as any)?.data?.message || 'something went wrong...', {id: toastId})
+            }else{
+                toast.success(res?.data?.data?.message || "Verify Success", {id: toastId})
+            }
+        } catch (error) {
+            toast.error("Faild to verify, Please try again.", {id: toastId})
+        }
+    }
 
     if (isLoading && !isError) {
         content = <div className="flex items-center space-x-4 p-5">
@@ -45,7 +64,10 @@ const AllOrders = () => {
                 {item?.totalPrice}
             </td>
             <td className="p-3  gap-2">
-                {item?.status}
+                <Button variant={"outline"} className={`${item?.status === "Pending" && "bg-gray-600 text-white"} ${item?.status === "Paid" && "bg-blue-600 text-white"} ${item?.status === "Cancelled" && "bg-red-600 text-white"}`}>{item?.status}</Button>
+            </td>
+            <td className="p-3  gap-2">
+                <Button  onClick={() => handlePaymentCheck(item?.transaction?.id)} variant={"outline"}>Check</Button>
             </td>
         </tr>)
     }
@@ -66,6 +88,7 @@ const AllOrders = () => {
                                 <th className="p-3">Date</th>
                                 <th className="p-3">Total</th>
                                 <th className="p-3">Status</th>
+                                <th className="p-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>

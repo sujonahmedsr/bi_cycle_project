@@ -44,6 +44,16 @@ const ProfileDropDown = () => {
                         {user?.email}
                     </h1>
                 </DropdownMenuItem>
+
+                <DropdownMenuItem>
+                    {
+                        user?.role === "admin" || <Link to={'/userDashboard/viewOrders'} className="w-full">
+                        <Button variant={"outline"} className="w-full hover:text-blue-600">
+                            My Orders
+                        </Button>
+                    </Link>
+                    }
+                </DropdownMenuItem>
                 <DropdownMenuItem>
                     {
                         user?.role === "admin" ?

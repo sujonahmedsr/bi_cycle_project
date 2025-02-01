@@ -33,7 +33,7 @@ const loginUserDb = async (paylod: loginInterface) => {
         role: user?.role,
         id: user?._id
     }
-    const token = jwt.sign(jwtPayload, configOut.SECRET_JWT as string, { expiresIn: '1d' })
+    const token = jwt.sign(jwtPayload, configOut.SECRET_JWT as string, { expiresIn: '30d' })
 
     return { token };
 }

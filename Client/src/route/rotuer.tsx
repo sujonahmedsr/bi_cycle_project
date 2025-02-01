@@ -22,6 +22,7 @@ import Overview from "@/components/adminDashBoard/Overview";
 import AllProducts from "@/components/adminDashBoard/AllProducts";
 import AllOrders from "@/components/adminDashBoard/AllOrders";
 import AllUsers from "@/components/adminDashBoard/AllUsers";
+import OrderResponse from "@/pages/OrderResponse";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,12 @@ const router = createBrowserRouter([
         path: '/checkOut',
         element: <ProtectedRoutes>
           <CheckOut />
+        </ProtectedRoutes>
+      },
+      {
+        path: '/order-response',
+        element: <ProtectedRoutes>
+          <OrderResponse />
         </ProtectedRoutes>
       },
       {
