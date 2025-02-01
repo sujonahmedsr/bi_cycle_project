@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useUserAllOrdersQuery } from "@/Redux/Features/Order/OrderApi";
 import { Skeleton } from "../ui/skeleton";
+import { Button } from "../ui/button";
 
 const ViewOrders = () => {
     const { data: allOrders, isLoading, isError } = useUserAllOrdersQuery(undefined)
@@ -46,14 +47,14 @@ const ViewOrders = () => {
                 {item?.totalPrice}
             </td>
             <td className="p-3  gap-2">
-                {item?.status}
+                <Button variant={"outline"}>{item?.status}</Button>
             </td>
         </tr>)
     }
     return (
         <div className="space-y-5 container mx-auto">
             <div className="flex items-center justify-between">
-                <h1 className="text-xl font-bold">All Customers</h1>
+                <h1 className="text-xl font-bold">My Orders</h1>
             </div>
             <div className=" bg-gray-100 min-h-screen">
 
@@ -62,7 +63,7 @@ const ViewOrders = () => {
                         <thead className="bg-gray-200">
                             <tr>
                                 <th className="p-3">Transaction Id</th>
-                                <th className="p-3">Customer Name</th>
+                                <th className="p-3">Name</th>
                                 <th className="p-3">Email</th>
                                 <th className="p-3">Date</th>
                                 <th className="p-3">Total</th>

@@ -2,53 +2,13 @@ import emptyCart from '@/assets/icons/emptycart.png'
 import CartItem from '@/components/Cart/CartItem';
 import { Tproduct } from '@/components/Shop/RightSide';
 import { Button } from '@/components/ui/button';
-import { useCurrentToken } from '@/Redux/Features/Auth/AuthSlice';
-import { useCreateOrderMutation } from '@/Redux/Features/Order/OrderApi';
-// import { afterOrder } from '@/Redux/Features/Product/ProductSlice';
 import { useAppSelector } from '@/Redux/hooks';
-import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
 const Cart = () => {
-    // const dispatch = useAppDispatch()
-    const token = useAppSelector(useCurrentToken)
 
     const { carts, selectedItems, totalPrice } = useAppSelector(state => state.product)
 
-    const [createOrder, { isLoading, isSuccess, data, isError, error }] =
-        useCreateOrderMutation();
 
-
-
-    const handlePlaceOrder = async () => {
-        await createOrder({ products: carts });
-
-    };
-
-    const navigate = useNavigate();
-
-    const handleLoginRedirect = () => {
-        navigate('/login', { state: '/cart', replace: true });
-    };
-
-    const toastId = "cart";
-    useEffect(() => {
-        if (isLoading) toast.loading("Processing ...", { id: toastId });
-
-        if (isSuccess) {
-            toast.success(data?.message, { id: toastId });
-            if (data?.data) {
-                // dispatch(afterOrder())
-                setTimeout(() => {
-                    window.location.href = data.data;
-                }, 1000);
-            }
-        }
-
-        if (isError) toast.error(JSON.stringify(error), { id: toastId });
-
-
-    }, [data?.data, data?.message, error, isError, isLoading, isSuccess]);
     return (
         <div className='container mx-auto p-4'>
             <h1 className='text-2xl font-semibold'>My Cart</h1>
@@ -78,21 +38,14 @@ const Cart = () => {
                                 <span>Total</span>
                                 <span>Price: ${totalPrice}</span>
                             </div>
-                            {
-                                token ? (
-                                    <Button
-                                        onClick={handlePlaceOrder}
-                                        className="w-full mt-4 p-2 rounded bg-blue-600 hover:bg-blue-700 text-white duration-200"
-                                    >
-                                        Order Now
-                                    </Button>
-                                ) : (
-                                    <Button className="w-full mt-4 p-2 rounded bg-blue-600 hover:bg-blue-700 text-white duration-200" onClick={handleLoginRedirect}>
-                                        Order Now
-                                    </Button>
-                                )
-                            }
 
+                            <Link to={'/checkOut'}>
+                                <Button
+                                    className="w-full mt-4 p-2 rounded bg-blue-600 hover:bg-blue-700 text-white duration-200"
+                                >
+                                    ChecOut Now
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </div> :

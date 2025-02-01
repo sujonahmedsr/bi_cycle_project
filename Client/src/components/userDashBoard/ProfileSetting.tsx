@@ -65,9 +65,9 @@ const ProfileSetting = () => {
             <img className="w-28 h-28 rounded-full border mx-auto border-blue-600 shadow" src={profile?.image || userprofile} alt="user profile" />
             <p><strong>Name:</strong> {profile?.name}</p>
             <p><strong>Email:</strong> {profile?.email}</p>
-            <p><strong>Address:</strong> {profile?.address}</p>
-            <p><strong>City:</strong> {profile?.city}</p>
-            <p><strong>Phone:</strong> {profile?.phone}</p>
+            <p><strong>Address:</strong> {profile?.address || "N/A"}</p>
+            <p><strong>City:</strong> {profile?.city || "N/A"}</p>
+            <p><strong>Phone:</strong> {profile?.phone || "N/A"}</p>
         </div>
     }
 
