@@ -51,7 +51,7 @@ const ViewDetails = () => {
                 </div>
                 <div className="flex items-center gap-5">
                     {
-                        cycle?.quantity > 0 ? <Link to={'/cart'}>
+                        cycle?.quantity > 0 ? <Link to={'/checkOut'}>
                             <Button onClick={handleAddtoCart} variant={"outline"} className=" rounded">Order Now</Button>
                         </Link> :
                             <Button onClick={handleAddtoCart} variant={"outline"} className=" rounded">Order Now</Button>
