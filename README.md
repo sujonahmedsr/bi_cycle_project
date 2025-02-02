@@ -56,8 +56,7 @@ A bicycle store application that allows users to register, browse bicycles, mana
 - **Order Management**: CRUD operations for orders, ensuring stock levels.
 - **Payment Integration**: Support for SurjoPay.
 - **Error Handling**: Consistent error messages across the application.
-- **Pagination**: For bicycle listings and order retrieval.
 - **Authentication Middleware**: Protect private routes like the checkout and dashboard.
 
 
-### Project Overview Short video : - ** nai **
+### Project Overview Short video : - ** coming soon **
