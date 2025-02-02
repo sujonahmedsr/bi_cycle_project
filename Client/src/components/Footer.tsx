@@ -45,8 +45,10 @@ const Footer = () => {
                                     <h1>Cycle<span className="text-blue-600">_Labs</span></h1>
                                 </Link>
                                 <p className="mt-6 text-sm text-muted-foreground text-start">
-                                    A collection of 100+ responsive HTML templates for your
-                                    startup business or side project.
+
+                                    Cycle_Labs – Your trusted bicycle shop! We offer high-quality bicycles, accessories, and repair services for everyone. 🚴‍♂️💨
+
+                                    📍 Premium Quality | 🔧 Reliable Service | 🎯 Your Needs, Our Priority
                                 </p>
                             </div>
                             <ul className="flex items-center space-x-6 text-muted-foreground">
