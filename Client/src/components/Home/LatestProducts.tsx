@@ -6,7 +6,9 @@ import { Skeleton } from "../ui/skeleton";
 import { Tproduct } from "../Shop/RightSide";
 
 const LatestProducts = () => {
-    const { data: allProducts, isLoading, isError } = useAllProductsQuery(undefined)
+    const limit = 8
+    const { data: allProducts, isLoading, isError } = useAllProductsQuery({limit})
+    
     let content;
 
     if (isLoading && !isError) {
@@ -28,7 +30,7 @@ const LatestProducts = () => {
             <h1 className="text-red-600 font-semibold">No product found...</h1>
         </div>
     }
-    if (!isLoading && !isError && allProducts?.data?.length > 0) {
+    if (!isLoading && !isError && allProducts?.data) {
         content = allProducts?.data?.slice(0,8).map((item: Tproduct, index: number) => <Cycle key={index} item={item} />)
     }
     return (

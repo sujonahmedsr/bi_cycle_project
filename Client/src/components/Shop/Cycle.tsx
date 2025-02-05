@@ -57,7 +57,7 @@ const Cycle = ({ item }: { item: Tproduct }) => {
 
           <div>
             {
-              quantity > 0 ? <Button className="bg-blue-200" variant={"outline"}>In Stock</Button> : <Button className="bg-red-200" variant={"outline"}>Out Of Stock</Button>
+              quantity > 0 ? <Button className="bg-blue-200 pointer-events-none" variant={"outline"}>In Stock</Button> : <Button className="bg-red-200 pointer-events-none" variant={"outline"}>Out Of Stock</Button>
             }
           </div>
         </div>

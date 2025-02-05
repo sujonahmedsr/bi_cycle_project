@@ -1,10 +1,9 @@
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
 export const baseApi = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://cycle-labs-backend.vercel.app/api',
+        baseUrl: `${import.meta.env.VITE_REACT_APP_SERVER_URI}/api`,
         credentials: "include",
         prepareHeaders: (headers, { getState }) => {
             const token = (getState() as RootState).auth.token
