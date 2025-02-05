@@ -9,7 +9,7 @@ class QuiryBuilder<T> {
     }
 
     // for search 
-    serach(searchableFields: string[]) {
+    search(searchableFields: string[]) {
         const searchTerm = this.query.searchTerm as string
 
         if (searchTerm) {
@@ -71,6 +71,19 @@ class QuiryBuilder<T> {
 
         return this;
     }
+
+    // for pagination 
+    paginate() {
+        // console.log(this.query?.page,this.query?.limit)
+        const page = Number(this.query?.page) || 1;
+        const limit = Number(this.query?.limit) || 10;
+        const skip = (page - 1) * limit;
+    
+        this.modelQuery = this.modelQuery.skip(skip).limit(limit);
+    
+        return this;
+      }
+    
 
     // for fields 
     fields() {

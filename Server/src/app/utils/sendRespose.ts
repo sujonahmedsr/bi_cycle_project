@@ -4,7 +4,7 @@ type sendResponseInterface <T> =  {
     success?: boolean,
     statusCode: number,
     message: string,
-    data?: T | T[] | null
+    data?: T | T[] | null,
 }
 
 const sendResponse = <T>(res: Response, data: sendResponseInterface<T>) => {
