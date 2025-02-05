@@ -74,10 +74,10 @@ const AllUsers = () => {
                         user?.isBlocked ? <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button onClick={() => handleDeactive(user?._id, false)} variant="destructive">Deactive</Button>
+                                    <Button onClick={() => handleDeactive(user?._id, false)} variant="destructive" className="w-full">Deactive</Button>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>This user already Deactivated</p>
+                                    <p>Click to active this user</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
@@ -85,7 +85,7 @@ const AllUsers = () => {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <Button onClick={() => handleDeactive(user?._id, true)} variant="outline">Active</Button>
+                                        <Button onClick={() => handleDeactive(user?._id, true)} variant="outline" className="w-full">Active</Button>
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p>Click to deactive this user</p>
