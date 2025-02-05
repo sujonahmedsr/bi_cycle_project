@@ -10,11 +10,12 @@ const userApi = baseApi.injectEndpoints({
             providesTags: ["user"]
         }),
         updateUser: builder.mutation({
-            query: (id) => ({
+            query: ({id, booleans}) => ({
                 url: `/admin/users/${id}/block`,
                 method: "PATCH",
+                body: {isBlocked: booleans}
             }),
-            invalidatesTags: ["user"]
+            invalidatesTags: ["user", "authme"]
         }),
         updateUserProfile: builder.mutation({
             query: (data) => ({

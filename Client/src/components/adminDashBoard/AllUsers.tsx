@@ -23,10 +23,11 @@ const AllUsers = () => {
     const { data: allUsers, isLoading, isError } = useAllUsersQuery(undefined)
     const [deactiveUser] = useUpdateUserMutation()
 
-    const handleDeactive = async (id: string) => {
+    const handleDeactive = async (id: string, booleans: boolean) => {
         const toastId = toast.loading("Loading...")
         try {
-            const res = await deactiveUser(id)
+            const res = await deactiveUser({ id, booleans })
+            console.log(res);
 
             if (res?.error) {
                 toast.error((res?.error as any)?.message || (res?.error as any)?.data?.message || "Something went wrong", { id: toastId })
@@ -73,7 +74,7 @@ const AllUsers = () => {
                         user?.isBlocked ? <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button onClick={() => handleDeactive(user?._id)} variant="destructive">Deactive</Button>
+                                    <Button onClick={() => handleDeactive(user?._id, false)} variant="destructive">Deactive</Button>
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>This user already Deactivated</p>
@@ -84,7 +85,7 @@ const AllUsers = () => {
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <Button onClick={() => handleDeactive(user?._id)} variant="outline">Active</Button>
+                                        <Button onClick={() => handleDeactive(user?._id, true)} variant="outline">Active</Button>
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p>Click to deactive this user</p>

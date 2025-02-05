@@ -9,6 +9,8 @@ const getAllUser = async () => {
 }
 
 const blockUserDb = async (id: string, payload: userInterface) => {
+    console.log(payload);
+    
     const user = await userModel.findOne({ _id: id })
 
     // check if user still alive 😁
@@ -16,17 +18,11 @@ const blockUserDb = async (id: string, payload: userInterface) => {
         throw new AppError(StatusCodes.NOT_FOUND,'User not found!')
     }
 
-    // check if user already block 
-    let isBlocked = user?.isBlocked
-    if (isBlocked) {
-        throw new AppError(StatusCodes.FORBIDDEN,'This user already Blocked')
-    }
-
     if(user.role === "admin"){
         throw new AppError(StatusCodes.FORBIDDEN,'You can not block this admin.')
     }
     
-    const result = await userModel.findOneAndUpdate({ _id: id }, { ...payload, isBlocked: true }, { new: true })
+    const result = await userModel.findOneAndUpdate({ _id: id }, payload, { new: true })
 
     return result
 }
