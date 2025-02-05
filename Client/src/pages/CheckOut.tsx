@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAppSelector } from "@/Redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/Redux/hooks";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from 'zod'
 import { useCreateOrderMutation } from "@/Redux/Features/Order/OrderApi";
+import { afterOrder } from "@/Redux/Features/Product/ProductSlice";
 
 
 const formSchema = z.object({
@@ -34,6 +35,7 @@ const formSchema = z.object({
 
 
 const CheckOut = () => {
+    const dispatch = useAppDispatch()
     const [updateProfile] = useUpdateUserProfileMutation()
     const token = useAppSelector(useCurrentToken)
     let user;
@@ -90,7 +92,7 @@ const CheckOut = () => {
         if (isSuccess) {
             toast.success(data?.message, { id: toastId });
             if (data?.data) {
-                // dispatch(afterOrder())
+                dispatch(afterOrder())
                 setTimeout(() => {
                     window.location.href = data.data;
                 }, 1000);
@@ -100,7 +102,7 @@ const CheckOut = () => {
         if (isError) toast.error(JSON.stringify(error), { id: toastId });
 
 
-    }, [data?.data, data?.message, error, isError, isLoading, isSuccess]);
+    }, [data?.data, data?.message, error, isError, isLoading, isSuccess, dispatch]);
 
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
