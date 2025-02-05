@@ -5,13 +5,14 @@ import { PirChart } from "./PirChart";
 import { useAllUsersQuery } from "@/Redux/Features/User/UserApi";
 import { useAllProductsQuery } from "@/Redux/Features/Product/ProductApi";
 import { ShoppingCart, DollarSign, Bike, Users, Box } from "lucide-react";
+import { Skeleton } from "../ui/skeleton";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Overview = () => {
-    const { data: allProducts } = useAllProductsQuery(undefined)
-    const { data: allUsers } = useAllUsersQuery(undefined)
-    const { data: allOrders } = useAdminAllOrdersQuery(undefined)
+    const { data: allProducts, isLoading: productLoading } = useAllProductsQuery(undefined)
+    const { data: allUsers, isLoading: userLoading } = useAllUsersQuery(undefined)
+    const { data: allOrders, isLoading: orderLoading } = useAdminAllOrdersQuery(undefined)
     const orders = allOrders?.data?.totalRevenue
     const allOrder = allOrders?.data?.allOrders
     const allUser = allUsers?.data
@@ -54,13 +55,18 @@ const Overview = () => {
 
             {/* Key Metrics */}
             <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7 py-5">
-                {stats.map((stat, index) => (
-                    <div key={index} className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center gap-4 hover:shadow-lg transition-all duration-300">
-                        <div className="p-3 bg-gray-100 rounded-full">{stat.icon}</div>
-                        <h3 className="text-lg font-semibold text-gray-600">{stat.title}</h3>
-                        <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
-                    </div>
-                ))}
+                {
+                    productLoading || userLoading || orderLoading ?  Array.from({ length: 4 }).map((_, index) => (
+                        <Skeleton key={index} className="h-24 w-full rounded-lg" />
+                    )) : stats.map((stat, index) => (
+                        <div key={index} className="bg-white p-6 rounded-xl shadow-md flex flex-col items-center gap-4 hover:shadow-lg transition-all duration-300">
+                            <div className="p-3 bg-gray-100 rounded-full">{stat.icon}</div>
+                            <h3 className="text-lg font-semibold text-gray-600">{stat.title}</h3>
+                            <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
+                        </div>
+                    ))
+                }
+                
             </div>
 
             {/* Bar Chart Section */}

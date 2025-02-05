@@ -56,7 +56,7 @@ const ViewDetails = () => {
                 <p className="text-2xl font-semibold">Price: ${cycle?.price}</p>
                 <div className="border">
                 </div>
-                
+
                 {
                     cycle?.quantity > 0 && <div className="flex items-center gap-5">
                         <Link to={'/checkOut'}>

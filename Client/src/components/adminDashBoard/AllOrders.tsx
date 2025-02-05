@@ -67,9 +67,9 @@ const AllOrders = () => {
                 <Button
                     variant={"outline"}
                     className={`w-full 
-    ${item?.status === "Pending" && "bg-gray-400 text-white"} 
-    ${item?.status === "Paid" && "bg-blue-400 text-white"} 
-    ${item?.status === "Cancelled" && "bg-red-400 text-white"} pointer-events-none`
+    ${item?.status === "Pending" && "text-gray-600"} 
+    ${item?.status === "Paid" && "text-blue-600"} 
+    ${item?.status === "Cancelled" && "text-red-600"} pointer-events-none`
                     }>
                     {item?.status}
                 </Button>
@@ -91,7 +91,7 @@ const AllOrders = () => {
             </div>
             <div className=" bg-gray-100 min-h-screen">
 
-                <div className="bg-white shadow-lg rounded-lg overflow-x-scroll">
+                <div className="bg-white shadow-lg rounded-lg">
                     <table className="w-full text-left border-collapse">
                         <thead className="bg-gray-200">
                             <tr>

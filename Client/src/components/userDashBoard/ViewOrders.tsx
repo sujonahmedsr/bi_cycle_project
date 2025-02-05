@@ -46,7 +46,7 @@ const ViewOrders = () => {
                 {item?.totalPrice}
             </td>
             <td className="p-3  gap-2">
-                <Button variant={"outline"} className={`${item?.status === "Pending" && "bg-gray-600 text-white"} ${item?.status === "Paid" && "bg-blue-600 text-white"} ${item?.status === "Cancelled" && "bg-red-600 text-white"} pointer-events-none`}>{item?.status}</Button>
+                <Button variant={"outline"} className={`${item?.status === "Pending" && "text-gray-600 "} ${item?.status === "Paid" && "text-blue-600 "} ${item?.status === "Cancelled" && "text-red-600 "} pointer-events-none w-full`}>{item?.status}</Button>
             </td>
         </tr>)
     }
@@ -55,9 +55,9 @@ const ViewOrders = () => {
             <div className="flex items-center justify-between">
                 <h1 className="text-xl font-bold">My Orders</h1>
             </div>
-            <div className=" bg-gray-100 min-h-screen">
+            <div className=" bg-gray-100">
 
-                <div className="bg-white shadow-lg rounded-lg overflow-x-scroll">
+                <div className="bg-white shadow-lg rounded-lg">
                     <table className="w-full text-left border-collapse">
                         <thead className="bg-gray-200">
                             <tr>

@@ -30,7 +30,7 @@ const AllProducts = () => {
             <h1 className="text-red-600 font-semibold">No product found...</h1>
         </div>
     }
-    if (!isLoading && !isError && allProducts?.data?.length > 0) {
+    if (!isLoading && !isError && allProducts?.data) {
         content = allProducts?.data?.map((item: Tproduct, index: number) =>
             <tr key={index} className="border-t hover:bg-gray-100 text-center">
                 <td className="p-3 flex items-center gap-2">
@@ -44,7 +44,7 @@ const AllProducts = () => {
                     {item.quantity}
                 </td>
                 <td className="p-3 flex items-center justify-center">
-                    {item?.quantity !== 0 ? <AiOutlineCheck /> : <IoClose />}
+                    {item?.quantity !== 0 ? <AiOutlineCheck className="text-blue-700"/> : <IoClose className="text-red-700"/>}
                 </td>
                 <td className="p-3 text-xl">
                     <UpdateProduct id={item?._id} />

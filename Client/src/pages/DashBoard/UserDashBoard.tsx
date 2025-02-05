@@ -76,7 +76,7 @@ export default function UserDashBoard() {
         </div>
 
         {/* Content */}
-        <div className="p-6 flex-1">
+        <div className="p-6 flex-1 overflow-auto">
           <Outlet />
         </div>
       </div>
