@@ -25,6 +25,44 @@ class QuiryBuilder<T> {
         return this
     }
 
+    // for filter 
+    filter() {
+        const queryObj = { ...this.query } // Copy query object
+
+        // Fields to exclude from direct filtering
+        const excludeFields = [
+            "searchTerm",
+            "sort",
+            "limit",
+            "page",
+            "fields",
+            "minPrice",
+            "maxPrice",
+        ];
+
+        excludeFields.forEach((el) => delete queryObj[el]);
+
+        // Numeric filtering (minPrice & maxPrice)
+        const priceFilter: Record<string, any> = {}; // Explicitly define as a generic object
+
+        if (this.query.minPrice) {
+            priceFilter["price"] = { $gte: Number(this.query.minPrice) };
+        }
+        if (this.query.maxPrice) {
+            priceFilter["price"] = {
+                ...priceFilter["price"],
+                $lte: Number(this.query.maxPrice),
+            };
+        }
+
+        this.modelQuery = this.modelQuery.find({
+            ...queryObj,
+            ...priceFilter,
+        } as FilterQuery<T>);
+
+        return this;
+    }
+
     // for sort 
     sort() {
         const sort =
@@ -41,6 +79,22 @@ class QuiryBuilder<T> {
 
         this.modelQuery = this.modelQuery.select(fields);
         return this;
+    }
+
+    // for pagination response page, limit, total, total page 
+    async countTotal() {
+        const totalQueries = this.modelQuery.getFilter();
+        const total = await this.modelQuery.model.countDocuments(totalQueries);
+        const page = Number(this.query?.page) || 1;
+        const limit = Number(this.query?.limit) || 10;
+        const totalPage = Math.ceil(total / limit);
+
+        return {
+            page,
+            limit,
+            total,
+            totalPage,
+        };
     }
 }
 
