@@ -55,16 +55,16 @@ const AllProducts = () => {
 
 
     return (
-        <div className="space-y-5">
+        <div className="space-y-5 w-full">
             <div className="flex items-center justify-between">
                 <h1 className="text-xl font-bold">Products</h1>
                 <AddProduct />
             </div>
-            <div className=" min-h-screen">
+            <div className="w-full min-h-screen">
 
-                <div className="bg-white shadow-lg rounded-lg">
-                    <table className="w-full text-left border-collapse overflow-x-scroll">
-                        <thead className="bg-gray-200">
+                <div className="rounded-lg">
+                    <table className="w-full text-left border-collapse">
+                        <thead>
                             <tr className="text-center">
                                 <th className="p-3">Product Name</th>
                                 <th className="p-3">brand</th>

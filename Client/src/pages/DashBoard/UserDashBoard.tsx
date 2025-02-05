@@ -33,9 +33,9 @@ export default function UserDashBoard() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="md:flex">
       {/* Sidebar */}
-      <div className={`fixed md:relative bg-white md:w-64 w-72 h-full shadow-md transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform duration-300 z-50`}>
+      <div className={`fixed md:relative bg-white md:w-64 w-72 h-full shadow-md transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform duration-300 z-50 md:sticky md:top-0 md:h-screen`}>
         <div className="flex justify-between items-center p-4 border-b">
           <Link to="/" className="text-xl font-bold flex items-center gap-2 text-blue-600">
             <IoMdBicycle className="text-3xl" />
@@ -76,7 +76,7 @@ export default function UserDashBoard() {
         </div>
 
         {/* Content */}
-        <div className="p-6 flex-1 overflow-auto">
+        <div className="p-6 flex-1 w-full h-full overflow-auto">
           <Outlet />
         </div>
       </div>

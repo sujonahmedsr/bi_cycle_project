@@ -35,7 +35,7 @@ export default function AdminDashBoard() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="md:flex">
       {/* Sidebar */}
       <div className={`fixed md:relative bg-white md:w-64 w-72 h-full shadow-md transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform duration-300 z-50 md:sticky md:top-0 md:h-screen`}>
         <div className="flex justify-between items-center p-4 border-b">
@@ -70,7 +70,7 @@ export default function AdminDashBoard() {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col">
         {/* Top Navbar */}
-        <div className="bg-white shadow-md p-4 flex items-center justify-between md:hidden">
+        <div className="shadow-md p-4 flex items-center justify-between md:hidden">
           <button className="p-2" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
             <HiOutlineBars3BottomRight className="text-2xl text-gray-700" />
           </button>
@@ -78,7 +78,7 @@ export default function AdminDashBoard() {
         </div>
 
         {/* Content */}
-        <div className="p-6 flex-1 overflow-auto">
+        <div className="p-6 flex-1 w-full h-full overflow-auto">
           <Outlet />
         </div>
       </div>

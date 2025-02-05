@@ -99,7 +99,7 @@ const AddProduct = () => {
                     <Button className="bg-blue-600 hover:bg-blue-700 rounded">Add Product</Button>
                 </div>
             </DialogTrigger>
-            <DialogContent aria-describedby={undefined} className="sm:max-w-[425px]">
+            <DialogContent aria-describedby={undefined}>
                 <DialogTitle className="sr-only">Add Products</DialogTitle>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-md mx-auto w-full">

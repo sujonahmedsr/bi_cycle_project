@@ -91,7 +91,7 @@ const AllOrders = () => {
             </div>
             <div className=" bg-gray-100 min-h-screen">
 
-                <div className="bg-white shadow-lg rounded-lg">
+                <div className="bg-white rounded-lg">
                     <table className="w-full text-left border-collapse">
                         <thead className="bg-gray-200">
                             <tr>
