@@ -64,14 +64,6 @@ const RightSide = () => {
         return params;
     }, [filters, currentPage]);
 
-    // const [sortOption, setSortOption] = useState('');
-    // const [search, setSearch] = useState('')
-    // const [minPrice, setMinPrice] = useState<number>(0);
-    // const [maxPrice, setMaxPrice] = useState<number>(10000); // Default max price
-
-
-    // // const [selectedBrand, setSelectedBrand] = useState('');
-    // const [selectedType, setSelectedType] = useState('');
     const { data: allProducts, isLoading, isError } = useAllProductsQuery(query)
 
     const totalPages = allProducts?.meta?.totalPage || 1;
@@ -81,22 +73,6 @@ const RightSide = () => {
             setCurrentPage(page);
         }
     };
-
-    // const searchFunc = (item: any) => {
-    //     return search.toLowerCase() === '' ? item : item?.name?.toLowerCase()?.includes(search) || item?.brand?.toLowerCase()?.includes(search) || item?.description?.toLowerCase()?.includes(search) || item?.type?.toLowerCase()?.includes(search)
-    // }
-
-    // const sortProducts = (a: Tproduct, b: Tproduct) => {
-    //     if (sortOption === "low_to_high") {
-    //         return a.price - b.price; // Sort by price (ascending)
-    //     } else if (sortOption === "high_to_low") {
-    //         return b.price - a.price; // Sort by price (descending)
-    //     } else if (sortOption === "old_product") {
-    //         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(); // Sort by oldest product
-    //     } else if (sortOption === "latest_product") {
-    //         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); // Sort by newest product
-    //     }
-    // }
 
     let content;
     if (isLoading && !isError) {
@@ -120,33 +96,8 @@ const RightSide = () => {
     }
     if (!isLoading && !isError && allProducts?.data) {
         content = allProducts?.data
-            // filter(searchFunc)
-            // ?.sort(sortProducts)
-            // // filter((item) => (selectedBrand ? item.brand === selectedBrand : true)) 
-            // ?.filter((item: Tproduct) => (selectedType ? item.type === selectedType : true))
-            // ?.filter((item: Tproduct) => item.price >= minPrice && item.price <= maxPrice) // Price filter
             ?.map((item: Tproduct, index: number) => <Cycle key={index} item={item} />)
     }
-
-    console.log(allProducts?.data);
-
-
-    // Extract product prices
-    // const prices = allProducts?.data?.map((item: Tproduct) => item?.price) || [];
-    // const minProductPrice = Math.min(...prices);
-    // const maxProductPrice = Math.max(...prices);
-
-    // Update state when data loads
-    // useEffect(() => {
-    //     if (prices.length > 0) {
-    //         setMinPrice(minProductPrice);
-    //         setMaxPrice(maxProductPrice);
-    //     }
-    // }, [allProducts, maxProductPrice, minProductPrice, prices.length]);
-
-    // const brands = Array.from(new Set(allProducts?.data?.map((item: Tproduct) => item?.brand)));
-
-    // const types: string[] = Array.from(new Set(allProducts?.data?.map((item: Tproduct) => item?.type)));
 
     return (
         <div>
