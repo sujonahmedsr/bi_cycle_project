@@ -1,9 +1,11 @@
+import { Types } from "mongoose";
 import AppError from "../../errors/AppError";
 import { Tuser } from "../../interfaces/errors";
 import { productModel } from "../products/productsSchmeModel"
 import { userModel } from "../User Model/userSchema.model";
 import { orderUtils } from "./order.utils";
 import { orderModel } from "./ordersSchemaModel"
+import { StatusCodes } from "http-status-codes";
 
 
 // create order 
@@ -135,8 +137,8 @@ const createOrder = async (user: Tuser, payload: { products: { _id: string; quan
 
 // for revenue 
 const getUserAllOrder = async (user: Tuser) => {
-    const result = await orderModel.find({user: user?.id}).populate("user")
-    
+    const result = await orderModel.find({ user: user?.id }).populate("user")
+
     return result
 }
 const getAdminAllConOrder = async () => {
@@ -145,9 +147,9 @@ const getAdminAllConOrder = async () => {
             $unwind: "$products" // Flatten products array to access each product's quantity
         },
         {
-            $group: { 
-                _id: null, 
-                totalRevenue: { $sum: "$totalPrice" }, 
+            $group: {
+                _id: null,
+                totalRevenue: { $sum: "$totalPrice" },
                 totalSell: { $sum: "$products.quantity" } // Sum all product quantities
             }
         },
@@ -155,13 +157,34 @@ const getAdminAllConOrder = async () => {
             $project: { _id: 0, totalRevenue: 1, totalSell: 1 }
         }
     ]);
-    
+
     const allOrders = await orderModel.find().populate("user")
-    return {allOrders, totalRevenue: totalRevenue[0] || { totalRevenue: 0, totalSell: 0 }}
+    return { allOrders, totalRevenue: totalRevenue[0] || { totalRevenue: 0, totalSell: 0 } }
 }
 
 const verifyPayment = async (order_id: string) => {
     const verifiedPayment = await orderUtils.verifyPaymentAsync(order_id);
+    if (verifiedPayment[0]?.customer_order_id) {
+        const findOrder = await orderModel.findById(
+            verifiedPayment[0]?.customer_order_id,
+        );
+        for (const item of findOrder?.products as {
+            product: Types.ObjectId;
+            quantity: number;
+        }[]) {
+            const bike = await productModel.findById(item.product);
+            if (!bike || bike.quantity < item.quantity) {
+                throw new AppError(StatusCodes.CONFLICT, `Not enough stock for ${bike?.name}`);
+            }
+
+            bike.quantity -= item.quantity;
+            if (bike.quantity === 0) {
+                bike.inStock = false;
+            }
+
+            await bike.save();
+        }
+    }
 
     if (verifiedPayment.length) {
         await orderModel.findOneAndUpdate(
