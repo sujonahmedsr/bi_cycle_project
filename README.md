@@ -11,6 +11,28 @@ A bicycle store application that allows users to register, browse bicycles, mana
 - **Email** : sujon@gmail.com
 - **Password** : 1234567
 
+## Technologies Used
+
+### **Frontend:**
+
+- React.js
+- Redux Toolkit
+- Tailwind CSS
+- ShadCN UI
+
+### **Backend:**
+
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- JSON Web Token (JWT)
+
+### **Other Tools:**
+
+- SurjoPay (Payment Gateway)
+- Cloudinary (for image uploads, if needed)
+
+
 ## Project Features
 
 ### 1. User Registration & Authentication
